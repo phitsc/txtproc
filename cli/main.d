@@ -16,7 +16,8 @@ int main(string[] args)
         auto options = getopt(args,
             "function|f", "Function to process the supplied text with.", &functionName,
             "ignore-case|c", "Ignore case.", &ignoreCase,
-            "list-functions|l", "List available text processing functions.", &listFunctionsFilter
+            "list-functions|l", "List available text processing functions.", &listFunctionsFilter,
+            "reverse-output|r", "Reverse the order of the output.", &reverseOutput
         );
 
         if (options.helpWanted)

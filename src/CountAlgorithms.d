@@ -40,7 +40,7 @@ class CountAlgorithms : Algorithms
 
                 string result;
 
-                foreach (character; dict.keys.sort)
+                foreach (character; sort!((a, b) => reverseOutput ? b < a : a < b)(dict.keys.sort))
                 {
                     result ~= format("%s: %s\n", character, dict[character]);
                 }
