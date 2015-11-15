@@ -23,6 +23,20 @@ class CapitalisationAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
+            "Toggle", "Capitalisation",
+            (string text, string[], bool, bool) {
+                string result;
+
+                foreach (character; stride(text, 1))
+                {
+                    result ~= character.isLower ? character.toUpper : character.toLower;
+                }
+
+                return result;
+             }
+        ));
+
+        add(new Algorithm(
             "Title", "Capitalisation",
             (string text, string[], bool, bool) {
                 string result;
@@ -47,20 +61,6 @@ class CapitalisationAlgorithms : Algorithms
                     {
                         result ~= character;
                     }
-                }
-
-                return result;
-             }
-        ));
-
-        add(new Algorithm(
-            "Toggle", "Capitalisation",
-            (string text, string[], bool, bool) {
-                string result;
-
-                foreach (character; stride(text, 1))
-                {
-                    result ~= character.isLower ? character.toUpper : character.toLower;
                 }
 
                 return result;
