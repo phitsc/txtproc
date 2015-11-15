@@ -2,5 +2,6 @@
 ../../src/Algorithm.d
 ../../src/Algorithms.d
 ../../src/CountAlgorithms.d
+../../src/CapitalisationAlgorithms.d
 
 -oftxtproc
