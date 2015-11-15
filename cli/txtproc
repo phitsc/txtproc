@@ -3,5 +3,6 @@
 ../../src/Algorithms.d
 ../../src/CountAlgorithms.d
 ../../src/CapitalisationAlgorithms.d
+../../src/OrderAlgorithms.d
 
 -oftxtproc

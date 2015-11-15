@@ -4,6 +4,7 @@ import std.string;
 
 import CountAlgorithms;
 import CapitalisationAlgorithms;
+import OrderAlgorithms;
 
 int main(string[] args)
 {
@@ -31,6 +32,7 @@ int main(string[] args)
         auto algorithms = new Algorithms;
         algorithms.add(new CountAlgorithms);
         algorithms.add(new CapitalisationAlgorithms);
+        algorithms.add(new OrderAlgorithms);
 
         if (listFunctionsFilter)
         {
