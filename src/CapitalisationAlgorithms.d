@@ -52,6 +52,20 @@ class CapitalisationAlgorithms : Algorithms
                 return result;
              }
         ));
+
+        add(new Algorithm(
+            "Toggle", "Capitalisation",
+            (string text, string[], bool, bool) {
+                string result;
+
+                foreach (character; stride(text, 1))
+                {
+                    result ~= character.isLower ? character.toUpper : character.toLower;
+                }
+
+                return result;
+             }
+        ));
    }
 
 }
