@@ -1,8 +1,12 @@
+import std.algorithm;
+import std.range;
 import std.string;
 import std.uni;
-import std.range;
 
 import Algorithms;
+
+enum string sentenceSeparatorChars = ".!?";
+enum string whitespaceChars        = " \t";
 
 class CapitalisationAlgorithms : Algorithms
 {
@@ -54,6 +58,37 @@ class CapitalisationAlgorithms : Algorithms
                     else if (newWord)
                     {
                         newWord = false;
+
+                        result ~= character.toUpper;
+                    }
+                    else
+                    {
+                        result ~= character;
+                    }
+                }
+
+                return result;
+             }
+        ));
+
+        add(new Algorithm(
+            "Sentence", "Capitalisation",
+            (string text, string[], bool, bool) {
+                string result;
+
+                bool newSentence = true;
+
+                foreach (character; stride(text, 1))
+                {
+                    if (sentenceSeparatorChars.canFind(character))
+                    {
+                        newSentence = true;
+
+                        result ~= character;
+                    }
+                    else if (newSentence && !whitespaceChars.canFind(character))
+                    {
+                        newSentence = false;
 
                         result ~= character.toUpper;
                     }
