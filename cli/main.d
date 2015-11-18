@@ -5,6 +5,7 @@ import std.string;
 import CountAlgorithms;
 import CapitalisationAlgorithms;
 import OrderAlgorithms;
+import SearchReplaceAlgorithms;
 
 int main(string[] args)
 {
@@ -14,11 +15,13 @@ int main(string[] args)
         bool ignoreCase;
         string listFunctionsFilter;
         bool reverseOutput;
+        string[] params;
 
         auto options = getopt(args,
             "function|f", "Function to process the supplied text with.", &functionName,
             "ignore-case|c", "Ignore case.", &ignoreCase,
             "list-functions|l", "List available text processing functions.", &listFunctionsFilter,
+            "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
             "reverse-output|r", "Reverse the order of the output.", &reverseOutput
         );
 
@@ -33,6 +36,7 @@ int main(string[] args)
         algorithms.add(new CountAlgorithms);
         algorithms.add(new CapitalisationAlgorithms);
         algorithms.add(new OrderAlgorithms);
+        algorithms.add(new SearchReplaceAlgorithms);
 
         if (listFunctionsFilter)
         {
@@ -44,7 +48,7 @@ int main(string[] args)
         auto text = args[1..$].join(" ");
 
         auto func = algorithms.find(functionName);
-        writeln(func.process(text, null, ignoreCase, reverseOutput));
+        writeln(func.process(text, params, ignoreCase, reverseOutput));
 
         return 0;
     }
