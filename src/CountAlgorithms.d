@@ -21,11 +21,11 @@ class CountAlgorithms : Algorithms
             (string text, string[], bool ignoreCase, bool reverseOutput) {
                 int[dchar] dict;
 
-                foreach (character; stride(text, 1))
+                foreach (character; text.stride(1))
                 {
-                    if (isAlpha(character))
+                    if (character.isAlpha)
                     {
-                        immutable alpha = ignoreCase ? toLower(character) : character;
+                        immutable alpha = ignoreCase ? character.toLower : character;
 
                         if (alpha in dict)
                         {

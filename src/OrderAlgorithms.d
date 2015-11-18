@@ -10,9 +10,7 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "Reverse", "Order",
             (string text, string[], bool, bool) {
-                auto temp = text.dup;
-                temp.reverse;
-                return temp.idup;
+                return text.dup.reverse.idup;
             }
         ));
     }

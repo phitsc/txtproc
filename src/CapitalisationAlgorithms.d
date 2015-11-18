@@ -31,7 +31,7 @@ class CapitalisationAlgorithms : Algorithms
             (string text, string[], bool, bool) {
                 string result;
 
-                foreach (character; stride(text, 1))
+                foreach (character; text.stride(1))
                 {
                     result ~= character.isLower ? character.toUpper : character.toLower;
                 }
@@ -47,7 +47,7 @@ class CapitalisationAlgorithms : Algorithms
 
                 bool newWord = true;
 
-                foreach (character; stride(text, 1))
+                foreach (character; text.stride(1))
                 {
                     if (character.isWhite)
                     {
@@ -78,7 +78,7 @@ class CapitalisationAlgorithms : Algorithms
 
                 bool newSentence = true;
 
-                foreach (character; stride(text, 1))
+                foreach (character; text.stride(1))
                 {
                     if (sentenceSeparatorChars.canFind(character))
                     {
