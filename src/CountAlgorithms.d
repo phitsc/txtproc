@@ -51,3 +51,15 @@ class CountAlgorithms : Algorithms
     }
 
 }
+
+version(unittest)
+{
+    import TestText;
+}
+
+unittest
+{
+    auto a = new CountAlgorithms;
+    assert(a.find("Count Chars, Words, Lines").process(testText, [], false, false)
+        == "90 characters (incl. whitespace), 18 words, 1 lines.");
+}
