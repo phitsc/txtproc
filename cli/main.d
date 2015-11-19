@@ -1,11 +1,15 @@
+import std.array;
 import std.getopt;
 import std.stdio;
 import std.string;
 
+import Algorithm;
 import CountAlgorithms;
 import CapitalisationAlgorithms;
 import OrderAlgorithms;
 import SearchReplaceAlgorithms;
+
+extern(C) int isatty(int);
 
 int main(string[] args)
 {
@@ -45,9 +49,9 @@ int main(string[] args)
             return 0;
         }
 
-        auto text = args[1..$].join(" ");
+        immutable text = isatty(0) ? args[1..$].join(" ") : stdin.byLineCopy.array.join("\n");
 
-        auto func = algorithms.find(functionName);
+        auto func = !functionName.empty ? algorithms.find(functionName) : new Algorithm("", "", (string text, string[], bool, bool) => text);
         writeln(func.process(text, params, ignoreCase, reverseOutput));
 
         return 0;
