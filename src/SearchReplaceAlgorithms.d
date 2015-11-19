@@ -1,4 +1,5 @@
 import std.algorithm;
+import std.array;
 import std.conv;
 import std.range;
 import std.regex;
@@ -97,7 +98,7 @@ private:
         ptrdiff_t[] finds;
 
         auto pos = input.indexOf(searchTerm, ignoreCase ? CaseSensitive.no : CaseSensitive.yes);
-        while ((pos != -1) && (pos < input.length) && !(searchTerm.length == 0))
+        while ((pos != -1) && (pos < input.length) && !searchTerm.empty)
         {
             finds ~= pos;
 
