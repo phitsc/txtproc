@@ -1,5 +1,6 @@
 import std.array;
 import std.getopt;
+import std.file;
 import std.stdio;
 import std.string;
 
@@ -17,6 +18,7 @@ int main(string[] args)
     {
         string functionName;
         bool ignoreCase;
+        string inputFile;
         string listFunctionsFilter;
         bool reverseOutput;
         string[] params;
@@ -24,6 +26,7 @@ int main(string[] args)
         auto options = getopt(args,
             "function|f", "Function to process the supplied text with.", &functionName,
             "ignore-case|c", "Ignore case.", &ignoreCase,
+            "input-file|i", "Input file containing text to process.", &inputFile,
             "list-functions|l", "List available text processing functions.", &listFunctionsFilter,
             "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
             "reverse-output|r", "Reverse the order of the output.", &reverseOutput
@@ -49,10 +52,24 @@ int main(string[] args)
             return 0;
         }
 
-        immutable text = isatty(0) ? args[1..$].join(" ") : stdin.byLineCopy.array.join("\n");
+        string getInputText(string inputFile, string[] args)
+        {
+            if (!isatty(0))
+            {
+                return stdin.byLineCopy.array.join("\n");
+            }
+            else if (!inputFile.empty)
+            {
+                return readText(inputFile);
+            }
+            else
+            {
+                return args[1..$].join(" ");
+            }
+        }
 
         auto func = !functionName.empty ? algorithms.find(functionName) : new Algorithm("", "", (string text, string[], bool, bool) => text);
-        writeln(func.process(text, params, ignoreCase, reverseOutput));
+        writeln(func.process(getInputText(inputFile, args), params, ignoreCase, reverseOutput));
 
         return 0;
     }
