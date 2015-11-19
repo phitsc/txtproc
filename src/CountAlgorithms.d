@@ -1,7 +1,8 @@
+import std.algorithm;
+import std.array;
+import std.range;
 import std.string;
 import std.uni;
-import std.range;
-import std.algorithm;
 
 import Algorithms;
 
@@ -42,7 +43,9 @@ class CountAlgorithms : Algorithms
 
                 foreach (character; sort!((a, b) => reverseOutput ? b.toLower < a.toLower : a.toLower < b.toLower)(dict.keys))
                 {
-                    result ~= format("%s: %s\n", character, dict[character]);
+                    if (!result.empty) result ~= "\n";
+
+                    result ~= format("%s: %s", character, dict[character]);
                 }
 
                 return result;
