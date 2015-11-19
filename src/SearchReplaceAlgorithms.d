@@ -1,5 +1,7 @@
 import std.algorithm;
+import std.conv;
 import std.range;
+import std.regex;
 import std.string;
 import std.uni;
 
@@ -34,6 +36,34 @@ class SearchReplaceAlgorithms : Algorithms
                 }
 
                 return searchAndReplace(text, replaceSpecialChars(params[0]), stag(params, 2), etag(params, 3), replaceSpecialChars(params[1]), ignoreCase);
+            }
+        ));
+
+        add(new Algorithm(
+            "RegexSearch", "Search & Replace",
+            (string text, string[] params, bool ignoreCase, bool) {
+                if (params.length < 1)
+                {
+                    throw new Exception("Missing parameter (search text)");
+                }
+
+                return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), stag(params, 1), etag(params, 2), null, ignoreCase);
+            }
+        ));
+
+        add(new Algorithm(
+            "RegexReplace", "Search & Replace",
+            (string text, string[] params, bool ignoreCase, bool) {
+                if (params.length < 1)
+                {
+                    throw new Exception("Missing parameter (search text)");
+                }
+                else if (params.length < 2)
+                {
+                    throw new Exception("Missing parameter (replacement text)");
+                }
+
+                return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), stag(params, 2), etag(params, 3), replaceSpecialChars(params[1]), ignoreCase);
             }
         ));
     }
@@ -93,7 +123,48 @@ private:
             from = finds[index] + searchTerm.length;
         }
 
-        result ~= input[from..$];
+        result ~= input[from .. $];
+
+        return result;
+    }
+
+    static string searchAndReplaceRegex(
+        string input,
+        string searchTerm,
+        string searchStartTag,
+        string searchEndTag,
+        string replacementText,
+        bool ignoreCase)
+    {
+        string result;
+
+        size_t from = 0;
+        foreach (match; input.matchAll(regex(searchTerm, "m" ~ (ignoreCase ? "i" : ""))))
+        {
+            immutable index = match.pre.length;
+
+            result ~= input[from .. index];
+
+            if (replacementText)
+            {
+                auto substReplacementText = replacementText.dup;
+
+                for (size_t captureIndex = 1; captureIndex < match.captures.length; ++captureIndex)
+                {
+                    substReplacementText = substReplacementText.replace("\\" ~ captureIndex.text, match.captures[captureIndex]);
+                }
+
+                result ~= searchStartTag ~ substReplacementText ~ searchEndTag;
+            }
+            else
+            {
+                result ~= searchStartTag ~ match.front ~ searchEndTag;
+            }
+
+            from = index + match.front.length;
+        }
+
+        result ~= input[from .. $];
 
         return result;
     }
