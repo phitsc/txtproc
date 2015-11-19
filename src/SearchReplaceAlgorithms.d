@@ -67,6 +67,14 @@ class SearchReplaceAlgorithms : Algorithms
                 return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), stag(params, 2), etag(params, 3), replaceSpecialChars(params[1]), ignoreCase);
             }
         ));
+
+        add(new Algorithm(
+            "SearchNonAscii", "Search & Replace",
+            (string text, string[] params, bool ignoreCase, bool) {
+
+                return text.replaceAll(regex(r"([^\u0000-\u007F])"), stag(params, 0) ~ "$1" ~ etag(params, 1));
+            }
+        ));
     }
 
 private:
