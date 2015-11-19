@@ -10,14 +10,14 @@ class CountAlgorithms : Algorithms
     this()
     {
         add(new Algorithm(
-            "Count Chars, Words, Lines", "Count",
+            "Count", "Count",
             (string text, string[], bool, bool) {
                 return format("%s characters (incl. whitespace), %s words, %s lines.", text.walkLength, text.split().length, text.splitLines().length);
             }
         ));
 
         add(new Algorithm(
-            "Count Alphabet", "Count",
+            "CountAlphabet", "Count",
             (string text, string[], bool ignoreCase, bool reverseOutput) {
                 int[dchar] dict;
 
