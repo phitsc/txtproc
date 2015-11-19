@@ -70,15 +70,18 @@ class SearchReplaceAlgorithms : Algorithms
     }
 
 private:
+    enum auto defaultStag = ">>>";
+    enum auto defaultEtag = "<<<";
+
     static string stag(string[] params, size_t paramIndex)
     {
-        immutable param = params.length > paramIndex ? params[paramIndex] : ">>>";
+        immutable param = params.length > paramIndex ? params[paramIndex] : defaultStag;
         return param == r"\0" ? "" : param;
     }
 
     static string etag(string[] params, size_t paramIndex)
     {
-        immutable param = params.length > (paramIndex - 1) ? (params.length > paramIndex ? params[paramIndex] : params[paramIndex - 1]) : "<<<";
+        immutable param = params.length > (paramIndex - 1) ? (params.length > paramIndex ? params[paramIndex] : params[paramIndex - 1]) : defaultEtag;
         return param == r"\0" ? "" : param;
     }
 
