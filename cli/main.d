@@ -20,6 +20,7 @@ int main(string[] args)
         bool ignoreCase;
         string inputFile;
         string listFunctionsFilter;
+        bool modifyInputFile;
         bool reverseOutput;
         string[] params;
 
@@ -28,6 +29,7 @@ int main(string[] args)
             "ignore-case|c", "Ignore case.", &ignoreCase,
             "input-file|i", "Input file containing text to process.", &inputFile,
             "list-functions|l", "List available text processing functions.", &listFunctionsFilter,
+            "modify-input-file|m", "Modify the input file in-place.", &modifyInputFile,
             "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
             "reverse-output|r", "Reverse the order of the output.", &reverseOutput
         );
@@ -68,8 +70,17 @@ int main(string[] args)
             }
         }
 
-        auto func = !functionName.empty ? algorithms.find(functionName) : new Algorithm("", "", (string text, string[], bool, bool) => text);
-        writeln(func.process(getInputText(inputFile, args), params, ignoreCase, reverseOutput));
+        const func = !functionName.empty ? algorithms.find(functionName) : new Algorithm("", "", (string text, string[], bool, bool) => text);
+        const outputText = func.process(getInputText(inputFile, args), params, ignoreCase, reverseOutput);
+
+        if (modifyInputFile)
+        {
+            File(inputFile, "w").rawWrite(outputText);
+        }
+        else
+        {
+            writeln(outputText);
+        }
 
         return 0;
     }
