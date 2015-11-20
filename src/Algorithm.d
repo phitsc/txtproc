@@ -10,18 +10,18 @@ class Algorithm
         m_process = process;
     }
 
-    string name() @property const
+    string name() const
     {
         return m_name;
     }
 
-    string process(string text, string[] params, bool ignoreCase, bool reverseOutput)
+    string process(string text, string[] params, bool ignoreCase, bool reverseOutput) const
     {
         return m_process(text, params, ignoreCase, reverseOutput);
     }
 
 private:
-    string  m_name;
-    string  m_group;
-    Process m_process;
+    immutable string  m_name;
+    immutable string  m_group;
+    immutable Process m_process;
 }

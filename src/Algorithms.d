@@ -12,7 +12,7 @@ class Algorithms
         }
     }
 
-    Algorithm find(string nameish)
+    const(Algorithm) find(string nameish) const
     {
         foreach (algorithm; m_algorithms)
         {
@@ -25,7 +25,7 @@ class Algorithms
         throw new Exception(format("%s does not match a valid function name.", nameish));
     }
 
-    string toString(string filter)
+    string toString(string filter) const
     {
         string result;
 
