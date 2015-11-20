@@ -13,7 +13,7 @@ class SearchReplaceAlgorithms : Algorithms
     this()
     {
         add(new Algorithm(
-            "Search", "Search & Replace",
+            "Search", "Search & Replace", "Search sub-text in input text.",
             (string text, string[] params, bool ignoreCase, bool) {
                 if (params.length < 1)
                 {
@@ -25,7 +25,7 @@ class SearchReplaceAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "Replace", "Search & Replace",
+            "Replace", "Search & Replace", "Replace sub-text in input text by a replacement text.",
             (string text, string[] params, bool ignoreCase, bool) {
                 if (params.length < 1)
                 {
@@ -41,7 +41,7 @@ class SearchReplaceAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "RegexSearch", "Search & Replace",
+            "RegexSearch", "Search & Replace", "Search sub-text in input text using a regular expression.",
             (string text, string[] params, bool ignoreCase, bool) {
                 if (params.length < 1)
                 {
@@ -53,7 +53,7 @@ class SearchReplaceAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "RegexReplace", "Search & Replace",
+            "RegexReplace", "Search & Replace", "Replace sub-text in input text by a replacement text using a regular expression.",
             (string text, string[] params, bool ignoreCase, bool) {
                 if (params.length < 1)
                 {
@@ -69,7 +69,7 @@ class SearchReplaceAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "SearchNonAscii", "Search & Replace",
+            "SearchNonAscii", "Search & Replace", "Search for non ASCII characters in input text.",
             (string text, string[] params, bool ignoreCase, bool) {
 
                 return text.replaceAll(regex(r"([^\u0000-\u007F])"), stag(params, 0) ~ "$1" ~ etag(params, 1));

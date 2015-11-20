@@ -17,21 +17,21 @@ class CapitalisationAlgorithms : Algorithms
     this()
     {
         add(new Algorithm(
-            "Upper", "Capitalisation",
+            "Upper", "Capitalisation", "Change input text to UPPER case.",
             (string text, string[], bool, bool) {
                 return text.toUpper;
             }
         ));
 
         add(new Algorithm(
-            "Lower", "Capitalisation",
+            "Lower", "Capitalisation", "Change input text to lower case.",
             (string text, string[], bool, bool) {
                 return text.toLower;
             }
         ));
 
         add(new Algorithm(
-            "Toggle", "Capitalisation",
+            "Toggle", "Capitalisation", "Toggle case of input text.",
             (string text, string[], bool, bool) {
                 string result;
 
@@ -45,14 +45,14 @@ class CapitalisationAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "Capital", "Capitalisation",
+            "Capital", "Capitalisation", "Change Input Text To Capital Case.",
             (string text, string[], bool, bool) {
                 return eachWord(text, (word) => word.capitalize);
             }
         ));
 
         add(new Algorithm(
-            "Sentence", "Capitalisation",
+            "Sentence", "Capitalisation", "Change input text to sentence case.",
             (string text, string[], bool, bool) {
                 string result;
 
@@ -83,7 +83,7 @@ class CapitalisationAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "Snake", "Capitalisation",
+            "Snake", "Capitalisation", "Change input text to snake_case.",
             (string text, string[], bool, bool) {
                 return eachWord(text, (word) {
                     string result;
@@ -117,7 +117,7 @@ class CapitalisationAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "Camel", "Capitalisation",
+            "Camel", "Capitalisation", "Change input text to CamelCase.",
             (string text, string[], bool, bool) {
                 return eachWord(text, (word) {
                     bool isFirst = true;

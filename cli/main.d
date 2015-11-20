@@ -1,3 +1,4 @@
+import std.algorithm;
 import std.array;
 import std.getopt;
 import std.file;
@@ -36,7 +37,7 @@ int main(string[] args)
 
         if (options.helpWanted)
         {
-            defaultGetoptPrinter("Usage: txtproc [options] [text to process]", options.options);
+            defaultGetoptPrinter("Usage: txtproc [options] [input text]", options.options);
 
             return 0;
         }
@@ -70,7 +71,7 @@ int main(string[] args)
             }
         }
 
-        const func = !functionName.empty ? algorithms.find(functionName) : new Algorithm("", "", (string text, string[], bool, bool) => text);
+        const func = !functionName.empty ? algorithms.find(functionName) : new Algorithm("", "", "", (string text, string[], bool, bool) => text);
         const outputText = func.process(getInputText(inputFile, args), params, ignoreCase, reverseOutput);
 
         if (modifyInputFile)
@@ -96,6 +97,13 @@ void printFunctionList(const Algorithms algorithms, string filter)
 {
     string result;
 
+    size_t maxAlgorithmWidth;
+
+    foreach(algorithm; algorithms)
+    {
+        maxAlgorithmWidth = max(maxAlgorithmWidth, algorithm.name.length);
+    }
+
     foreach(algorithm; algorithms)
     {
         if (filter.empty || algorithm.name.indexOf(filter, CaseSensitive.no) != -1)
@@ -105,7 +113,7 @@ void printFunctionList(const Algorithms algorithms, string filter)
                 result ~= std.ascii.newline;
             }
 
-            result ~= algorithm.name;
+            result ~= leftJustify(algorithm.name, maxAlgorithmWidth, ' ') ~ " - " ~ algorithm.description;
         }
 
     }
