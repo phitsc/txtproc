@@ -1,7 +1,17 @@
+import std.algorithm;
 import std.array;
+import std.range;
 import std.string;
 
 import Algorithm;
+
+
+enum string sentenceSeparatorChars = ".!?";
+enum string bracketChars           = "[](){}<>";
+enum string quoteChars             = "\"'";
+enum string otherPunctuationChars  = ":+-/,;=%&*@#";
+enum string wordSeparatorChars     = " \t\n\r" ~ sentenceSeparatorChars ~ bracketChars ~ quoteChars ~ otherPunctuationChars;
+enum string whitespaceChars        = " \t";
 
 class Algorithms
 {
@@ -43,6 +53,30 @@ protected:
     void add(Algorithm algorithm)
     {
         m_algorithms ~= algorithm;
+    }
+
+    static string eachWord(string input, string function(string) fun)
+    {
+        string result;
+        string word;
+
+        foreach (character; input.stride(1))
+        {
+            if (wordSeparatorChars.canFind(character))
+            {
+                result ~= fun(word);
+                result ~= character;
+                word = "";
+            }
+            else
+            {
+                word ~= character;
+            }
+        }
+
+        result ~= fun(word);
+
+        return result;
     }
 
 private:

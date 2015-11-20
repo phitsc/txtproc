@@ -5,13 +5,6 @@ import std.uni;
 
 import Algorithms;
 
-enum string sentenceSeparatorChars = ".!?";
-enum string bracketChars           = "[](){}<>";
-enum string quoteChars             = "\"'";
-enum string otherPunctuationChars  = ":+-/,;=%&*@#";
-enum string wordSeparatorChars     = " \t\n\r" ~ sentenceSeparatorChars ~ bracketChars ~ quoteChars ~ otherPunctuationChars;
-enum string whitespaceChars        = " \t";
-
 class CapitalisationAlgorithms : Algorithms
 {
     this()
@@ -136,31 +129,6 @@ class CapitalisationAlgorithms : Algorithms
             }
         ));
    }
-
-private:
-    static string eachWord(string input, string function(string) fun)
-    {
-        string result;
-        string word;
-
-        foreach (character; input.stride(1))
-        {
-            if (wordSeparatorChars.canFind(character))
-            {
-                result ~= fun(word);
-                result ~= character;
-                word = "";
-            }
-            else
-            {
-                word ~= character;
-            }
-        }
-
-        result ~= fun(word);
-
-        return result;
-    }
 }
 
 version(unittest)
