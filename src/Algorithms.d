@@ -1,3 +1,4 @@
+import std.array;
 import std.string;
 
 import Algorithm;
@@ -25,19 +26,17 @@ class Algorithms
         throw new Exception(format("%s does not match a valid function name.", nameish));
     }
 
-    string toString(string filter) const
+    int opApply(int delegate(const ref Algorithm) func) const
     {
-        string result;
-
         foreach (algorithm; m_algorithms)
         {
-            if (filter == "*" || algorithm.name.indexOf(filter, CaseSensitive.no) != -1)
+            if (auto result = func(algorithm))
             {
-                result ~= algorithm.name ~ std.ascii.newline;
+                return result;
             }
         }
 
-        return result;
+        return 0;
     }
 
 protected:

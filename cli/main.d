@@ -19,7 +19,7 @@ int main(string[] args)
         string functionName;
         bool ignoreCase;
         string inputFile;
-        string listFunctionsFilter;
+        bool listFunctions;
         bool modifyInputFile;
         bool reverseOutput;
         string[] params;
@@ -28,7 +28,7 @@ int main(string[] args)
             "function|f", "Function to process the supplied text with.", &functionName,
             "ignore-case|c", "Ignore case.", &ignoreCase,
             "input-file|i", "Input file containing text to process.", &inputFile,
-            "list-functions|l", "List available text processing functions.", &listFunctionsFilter,
+            "list-functions|l", "List available text processing functions.", &listFunctions,
             "modify-input-file|m", "Modify the input file in-place.", &modifyInputFile,
             "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
             "reverse-output|r", "Reverse the order of the output.", &reverseOutput
@@ -36,7 +36,7 @@ int main(string[] args)
 
         if (options.helpWanted)
         {
-            defaultGetoptPrinter("Txtproc", options.options);
+            defaultGetoptPrinter("Usage: txtproc [options] [text to process]", options.options);
 
             return 0;
         }
@@ -47,9 +47,9 @@ int main(string[] args)
         algorithms.add(new OrderAlgorithms);
         algorithms.add(new SearchReplaceAlgorithms);
 
-        if (listFunctionsFilter)
+        if (listFunctions)
         {
-            writeln(algorithms.toString(listFunctionsFilter));
+            printFunctionList(algorithms, functionName);
 
             return 0;
         }
@@ -90,4 +90,25 @@ int main(string[] args)
 
         return 1;
     }
+}
+
+void printFunctionList(const Algorithms algorithms, string filter)
+{
+    string result;
+
+    foreach(algorithm; algorithms)
+    {
+        if (filter.empty || algorithm.name.indexOf(filter, CaseSensitive.no) != -1)
+        {
+            if (!result.empty)
+            {
+                result ~= std.ascii.newline;
+            }
+
+            result ~= algorithm.name;
+        }
+
+    }
+
+    writeln(result);
 }
