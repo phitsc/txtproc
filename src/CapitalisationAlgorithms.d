@@ -6,6 +6,7 @@ import std.uni;
 import Algorithms;
 
 enum string sentenceSeparatorChars = ".!?";
+enum string wordSeparatorChars     = " \t\n\r";
 enum string whitespaceChars        = " \t";
 
 class CapitalisationAlgorithms : Algorithms
@@ -41,34 +42,10 @@ class CapitalisationAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "Title", "Capitalisation",
+            "Capital", "Capitalisation",
             (string text, string[], bool, bool) {
-                string result;
-
-                bool newWord = true;
-
-                foreach (character; text.stride(1))
-                {
-                    if (character.isWhite)
-                    {
-                        newWord = true;
-
-                        result ~= character;
-                    }
-                    else if (newWord)
-                    {
-                        newWord = false;
-
-                        result ~= character.toUpper;
-                    }
-                    else
-                    {
-                        result ~= character;
-                    }
-                }
-
-                return result;
-             }
+                return eachWord(text, (word) => word.capitalize);
+            }
         ));
 
         add(new Algorithm(
@@ -101,8 +78,86 @@ class CapitalisationAlgorithms : Algorithms
                 return result;
              }
         ));
+
+        add(new Algorithm(
+            "Snake", "Capitalisation",
+            (string text, string[], bool, bool) {
+                return eachWord(text, (word) {
+                    string result;
+                    bool wasLower = false;
+
+                    foreach (character; word.stride(1))
+                    {
+                        if (character.isUpper)
+                        {
+                            if (wasLower)
+                            {
+                                result ~= format("_%s", character.toLower);
+                            }
+                            else
+                            {
+                                result ~= character;
+                            }
+
+                            wasLower = false;
+                        }
+                        else
+                        {
+                            result ~= character;
+                            wasLower = true;
+                        }
+                    }
+
+                    return result;
+                });
+            }
+        ));
+
+        add(new Algorithm(
+            "Camel", "Capitalisation",
+            (string text, string[], bool, bool) {
+                return eachWord(text, (word) {
+                    bool isFirst = true;
+                    return word.canFind("_") ? word.split("_").map!((w) {
+                        if (isFirst)
+                        {
+                            isFirst = false;
+                            return w; // leave first word as it is
+                        }
+                        else
+                        {
+                            return w.capitalize;
+                        }
+                    }).join : word;
+                });
+            }
+        ));
    }
 
+private:
+    static string eachWord(string input, string function(string) fun)
+    {
+        string result;
+        string word;
+
+        foreach (character; input.stride(1))
+        {
+            if (wordSeparatorChars.canFind(character))
+            {
+                result ~= fun(word);
+                result ~= character;
+                word = "";
+            }
+            else
+            {
+                word ~= character;
+            }
+        }
+
+        result ~= fun(word);
+
+        return result;
+    }
 }
 
 version(unittest)
