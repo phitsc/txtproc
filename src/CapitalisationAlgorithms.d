@@ -6,7 +6,10 @@ import std.uni;
 import Algorithms;
 
 enum string sentenceSeparatorChars = ".!?";
-enum string wordSeparatorChars     = " \t\n\r";
+enum string bracketChars           = "[](){}<>";
+enum string quoteChars             = "\"'";
+enum string otherPunctuationChars  = ":+-/,;=%&*@#";
+enum string wordSeparatorChars     = " \t\n\r" ~ sentenceSeparatorChars ~ bracketChars ~ quoteChars ~ otherPunctuationChars;
 enum string whitespaceChars        = " \t";
 
 class CapitalisationAlgorithms : Algorithms
