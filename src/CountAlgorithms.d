@@ -12,14 +12,14 @@ class CountAlgorithms : Algorithms
     {
         add(new Algorithm(
             "Count", "Count", "Count number of characters, words and lines of input text.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 return format("%s characters (incl. whitespace), %s words, %s lines.", text.walkLength, text.split.length, text.splitLines.length);
             }
         ));
 
         add(new Algorithm(
             "CountAlphabet", "Count", "Per-character count of input text.",
-            (string text, string[], bool ignoreCase, bool reverseOutput) {
+            (string text, string[], bool ignoreCase) {
                 int[dchar] dict;
 
                 foreach (character; text.stride(1))
@@ -41,7 +41,7 @@ class CountAlgorithms : Algorithms
 
                 string result;
 
-                foreach (character; sort!((a, b) => reverseOutput ? b.toLower < a.toLower : a.toLower < b.toLower)(dict.keys))
+                foreach (character; dict.keys.sort)
                 {
                     if (!result.empty) result ~= "\n";
 

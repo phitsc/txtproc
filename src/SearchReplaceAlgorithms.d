@@ -14,7 +14,7 @@ class SearchReplaceAlgorithms : Algorithms
     {
         add(new Algorithm(
             "Search", "Search & Replace", "Search sub-text in input text.",
-            (string text, string[] params, bool ignoreCase, bool) {
+            (string text, string[] params, bool ignoreCase) {
                 if (params.length < 1)
                 {
                     throw new Exception("Missing parameter (search text)");
@@ -26,7 +26,7 @@ class SearchReplaceAlgorithms : Algorithms
 
         add(new Algorithm(
             "Replace", "Search & Replace", "Replace sub-text in input text by a replacement text.",
-            (string text, string[] params, bool ignoreCase, bool) {
+            (string text, string[] params, bool ignoreCase) {
                 if (params.length < 1)
                 {
                     throw new Exception("Missing parameter (search text)");
@@ -42,7 +42,7 @@ class SearchReplaceAlgorithms : Algorithms
 
         add(new Algorithm(
             "RegexSearch", "Search & Replace", "Search sub-text in input text using a regular expression.",
-            (string text, string[] params, bool ignoreCase, bool) {
+            (string text, string[] params, bool ignoreCase) {
                 if (params.length < 1)
                 {
                     throw new Exception("Missing parameter (search text)");
@@ -54,7 +54,7 @@ class SearchReplaceAlgorithms : Algorithms
 
         add(new Algorithm(
             "RegexReplace", "Search & Replace", "Replace sub-text in input text by a replacement text using a regular expression.",
-            (string text, string[] params, bool ignoreCase, bool) {
+            (string text, string[] params, bool ignoreCase) {
                 if (params.length < 1)
                 {
                     throw new Exception("Missing parameter (search text)");
@@ -70,7 +70,7 @@ class SearchReplaceAlgorithms : Algorithms
 
         add(new Algorithm(
             "SearchNonAscii", "Search & Replace", "Search for non ASCII characters in input text.",
-            (string text, string[] params, bool ignoreCase, bool) {
+            (string text, string[] params, bool ignoreCase) {
 
                 return text.replaceAll(regex(r"([^\u0000-\u007F])"), stag(params, 0) ~ "$1" ~ etag(params, 1));
             }

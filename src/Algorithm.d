@@ -1,7 +1,7 @@
 
 class Algorithm
 {
-    alias Process = string function(string, string[], bool, bool);
+    alias Process = string function(string, string[], bool);
 
     this(string name, string group, string description, Process process)
     {
@@ -26,9 +26,9 @@ class Algorithm
         return m_description;
     }
 
-    string process(string text, string[] params, bool ignoreCase, bool reverseOutput) const
+    string process(string text, string[] params, bool ignoreCase) const
     {
-        return m_process(text, params, ignoreCase, reverseOutput);
+        return m_process(text, params, ignoreCase);
     }
 
 private:

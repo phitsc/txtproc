@@ -9,14 +9,14 @@ class OrderAlgorithms : Algorithms
     {
         add(new Algorithm(
             "Reverse", "Order", "Reverse order of input text.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 return text.dup.reverse.idup;
             }
         ));
 
         add(new Algorithm(
             "ReverseWords", "Order", "Reverse order within words of input text.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 return eachWord(text, (word) => word.dup.reverse.idup);
             }
         ));

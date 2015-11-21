@@ -11,21 +11,21 @@ class CapitalisationAlgorithms : Algorithms
     {
         add(new Algorithm(
             "Upper", "Capitalisation", "Change input text to UPPER case.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 return text.toUpper;
             }
         ));
 
         add(new Algorithm(
             "Lower", "Capitalisation", "Change input text to lower case.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 return text.toLower;
             }
         ));
 
         add(new Algorithm(
             "Toggle", "Capitalisation", "Toggle case of input text.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 string result;
 
                 foreach (character; text.stride(1))
@@ -39,14 +39,14 @@ class CapitalisationAlgorithms : Algorithms
 
         add(new Algorithm(
             "Capital", "Capitalisation", "Change Input Text To Capital Case.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 return eachWord(text, (word) => word.capitalize);
             }
         ));
 
         add(new Algorithm(
             "Sentence", "Capitalisation", "Change input text to sentence case.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 string result;
 
                 bool newSentence = true;
@@ -77,7 +77,7 @@ class CapitalisationAlgorithms : Algorithms
 
         add(new Algorithm(
             "Snake", "Capitalisation", "Change input text to snake_case.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 return eachWord(text, (word) {
                     string result;
                     bool wasLower = false;
@@ -111,7 +111,7 @@ class CapitalisationAlgorithms : Algorithms
 
         add(new Algorithm(
             "Camel", "Capitalisation", "Change input text to CamelCase.",
-            (string text, string[], bool, bool) {
+            (string text, string[], bool) {
                 return eachWord(text, (word) {
                     bool isFirst = true;
                     return word.canFind("_") ? word.split("_").map!((w) {

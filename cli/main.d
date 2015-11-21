@@ -31,8 +31,7 @@ int main(string[] args)
             "input-file|i", "Input file containing text to process.", &inputFile,
             "list-functions|l", "List available text processing functions.", &listFunctions,
             "modify-input-file|m", "Modify the input file in-place.", &modifyInputFile,
-            "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
-            "reverse-output|r", "Reverse the order of the output.", &reverseOutput
+            "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params
         );
 
         if (options.helpWanted)
@@ -71,8 +70,8 @@ int main(string[] args)
             }
         }
 
-        const func = !functionName.empty ? algorithms.find(functionName) : new Algorithm("", "", "", (string text, string[], bool, bool) => text);
-        const outputText = func.process(getInputText(inputFile, args), params, ignoreCase, reverseOutput);
+        const func = !functionName.empty ? algorithms.find(functionName) : new Algorithm("", "", "", (string text, string[], bool) => text);
+        const outputText = func.process(getInputText(inputFile, args), params, ignoreCase);
 
         if (modifyInputFile)
         {
