@@ -85,7 +85,7 @@ protected:
         m_algorithms ~= algorithm;
     }
 
-    static string eachWord(string input, string function(string) fun)
+    static string eachWord(string input, string function(string) func)
     {
         string result;
         string word;
@@ -94,7 +94,7 @@ protected:
         {
             if (wordSeparatorChars.canFind(character))
             {
-                result ~= fun(word);
+                result ~= func(word);
                 result ~= character;
                 word = "";
             }
@@ -104,7 +104,7 @@ protected:
             }
         }
 
-        result ~= fun(word);
+        result ~= func(word);
 
         return result;
     }
