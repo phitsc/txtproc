@@ -18,21 +18,24 @@ int main(string[] args)
 {
     try
     {
-        string functionName;
         bool ignoreCase;
+        string functionName;
         string inputFile;
         bool listFunctions;
         bool modifyInputFile;
-        bool reverseOutput;
         string[] params;
+        bool fromClipboard;
+        bool toClipboard;
 
         auto options = getopt(args,
-            "function|f", "Function to process the supplied text with.", &functionName,
             "ignore-case|c", "Ignore case.", &ignoreCase,
+            "function|f", "Function to process the supplied text with.", &functionName,
             "input-file|i", "Input file containing text to process.", &inputFile,
             "list-functions|l", "List available text processing functions.", &listFunctions,
             "modify-input-file|m", "Modify the input file in-place.", &modifyInputFile,
-            "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params
+            "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
+            "from-clipboard|v", "Read text to process from clipboard", &fromClipboard,
+            "to-clipboard|x", "Write processed text to clipboard", &toClipboard
         );
 
         if (options.helpWanted && functionName.empty)
@@ -61,28 +64,16 @@ int main(string[] args)
             return 0;
         }
 
-        string getInputText(string inputFile, string[] args)
-        {
-            if (!isatty(0))
-            {
-                return stdin.byLineCopy.array.join("\n");
-            }
-            else if (!inputFile.empty)
-            {
-                return readText(inputFile);
-            }
-            else
-            {
-                return args[1..$].join(" ");
-            }
-        }
-
         const func = !functionName.empty ? algorithms.closest(functionName)[0] : new Algorithm("", "", "", (string text, string[], bool) => text);
-        const outputText = func.process(getInputText(inputFile, args), params, ignoreCase);
+        const outputText = func.process(getInputText(inputFile, fromClipboard, args), params, ignoreCase);
 
         if (modifyInputFile)
         {
             File(inputFile, "w").rawWrite(outputText);
+        }
+        else if (toClipboard)
+        {
+            writeToClipboard(outputText);
         }
         else
         {
@@ -96,6 +87,78 @@ int main(string[] args)
         writeln("Error: ", e.msg);
 
         return 1;
+    }
+}
+
+version(Windows)
+{
+    extern(Windows)
+    {
+        bool OpenClipboard(void*);
+        bool CloseClipboard();
+        bool EmptyClipboard();
+
+        void* GetClipboardData(uint);
+        void* SetClipboardData(uint, void*);
+        void* GlobalAlloc(uint, size_t);
+        void* GlobalLock(void*);
+        bool  GlobalUnlock(void*);
+    }
+
+    extern(C) size_t strlen(const char*);
+    extern(C) void* memcpy(void*, const void*, size_t);
+
+    string readFromClipboard()
+    {
+        if (OpenClipboard(null))
+        {
+            scope (exit) CloseClipboard();
+
+            if (auto cstr = cast(char*)GetClipboardData(1))
+            {
+                return cstr[0..strlen(cstr)].idup;
+            }
+        }
+
+        return "";
+    }
+
+    void writeToClipboard(string text)
+    {
+        if (OpenClipboard(null))
+        {
+            scope (exit) CloseClipboard();
+
+            EmptyClipboard();
+
+            void* handle = GlobalAlloc(2, text.length + 1);
+            void* ptr    = GlobalLock(handle);
+            memcpy(ptr, toStringz(text), text.length + 1);
+            GlobalUnlock(handle);
+
+            SetClipboardData(1, handle);
+        }
+    }
+}
+
+string getInputText(string inputFile, bool fromClipboard, string[] args)
+{
+    if (!isatty(0))
+    {
+        return stdin.byLineCopy.array.join("\n");
+    }
+    else if (fromClipboard)
+    {
+       return readFromClipboard();
+
+    }
+    else if (!inputFile.empty)
+    {
+        return readText(inputFile);
+    }
+    else
+    {
+        return args[1..$].join(" ");
     }
 }
 
