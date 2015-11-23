@@ -35,7 +35,7 @@ int main(string[] args)
             "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params
         );
 
-        if (options.helpWanted)
+        if (options.helpWanted && functionName.empty)
         {
             defaultGetoptPrinter("Usage: txtproc [options] [input text]", options.options);
 
@@ -48,7 +48,13 @@ int main(string[] args)
         algorithms.add(new OrderAlgorithms);
         algorithms.add(new SearchReplaceAlgorithms);
 
-        if (listFunctions)
+        if (options.helpWanted)
+        {
+            printHelpOnFunction(algorithms, functionName);
+
+            return 0;
+        }
+        else if (listFunctions)
         {
             printFunctionList(algorithms, functionName);
 
@@ -118,3 +124,13 @@ void printFunctionList(const Algorithms algorithms, string filter)
 
     writeln(result);
 }
+
+void printHelpOnFunction(const Algorithms algorithms, string filter)
+{
+    string result;
+
+    auto algorithm = algorithms.closest(filter)[0];
+
+    writeln(algorithm.help);
+}
+

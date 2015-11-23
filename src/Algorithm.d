@@ -26,6 +26,11 @@ class Algorithm
         return m_description;
     }
 
+    string help() const
+    {
+        return m_name ~ " - " ~ m_description;
+    }
+
     string process(string text, string[] params, bool ignoreCase) const
     {
         return m_process(text, params, ignoreCase);
