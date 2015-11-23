@@ -25,19 +25,6 @@ class Algorithms
         }
     }
 
-    const(Algorithm) find(string nameish) const
-    {
-        foreach (algorithm; m_algorithms)
-        {
-            if (algorithm.name.indexOf(nameish, CaseSensitive.no) != -1)
-            {
-                return algorithm;
-            }
-        }
-
-        throw new Exception(format("%s does not match a valid function name.", nameish));
-    }
-
     int opApply(int delegate(const ref Algorithm) func) const
     {
         foreach (algorithm; m_algorithms)

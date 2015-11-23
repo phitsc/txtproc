@@ -71,7 +71,7 @@ int main(string[] args)
             }
         }
 
-        const func = !functionName.empty ? algorithms.find(functionName) : new Algorithm("", "", "", (string text, string[], bool) => text);
+        const func = !functionName.empty ? algorithms.closest(functionName)[0] : new Algorithm("", "", "", (string text, string[], bool) => text);
         const outputText = func.process(getInputText(inputFile, args), params, ignoreCase);
 
         if (modifyInputFile)
