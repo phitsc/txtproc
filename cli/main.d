@@ -1,7 +1,8 @@
 import std.algorithm;
 import std.array;
-import std.getopt;
 import std.file;
+import std.getopt;
+import std.range;
 import std.stdio;
 import std.string;
 
@@ -103,18 +104,16 @@ void printFunctionList(const Algorithms algorithms, string filter)
         maxAlgorithmWidth = max(maxAlgorithmWidth, algorithm.name.length);
     }
 
-    foreach(algorithm; algorithms)
-    {
-        if (filter.empty || algorithm.name.indexOf(filter, CaseSensitive.no) != -1)
-        {
-            if (!result.empty)
-            {
-                result ~= std.ascii.newline;
-            }
+    auto algos = filter.empty ? algorithms.all() : algorithms.closest(filter);
 
-            result ~= leftJustify(algorithm.name, maxAlgorithmWidth, ' ') ~ " - " ~ algorithm.description;
+    foreach (algorithm; algos)
+    {
+        if (!result.empty)
+        {
+            result ~= std.ascii.newline;
         }
 
+        result ~= leftJustify(algorithm.name, maxAlgorithmWidth, ' ') ~ " - " ~ algorithm.description;
     }
 
     writeln(result);

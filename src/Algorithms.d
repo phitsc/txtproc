@@ -1,7 +1,9 @@
 import std.algorithm;
 import std.array;
+import std.conv;
 import std.range;
 import std.string;
+import std.typecons;
 
 import Algorithm;
 
@@ -49,6 +51,34 @@ class Algorithms
         return 0;
     }
 
+    const(Algorithm)[] closest(string nameish) const
+    {
+        Tuple!(size_t, const Algorithm)[] algorithmsByDistance;
+
+        foreach (algorithm; m_algorithms)
+        {
+            algorithmsByDistance ~= tuple(lcs(algorithm.name.toLower, nameish.toLower).length, algorithm);
+        }
+
+        auto indices = new size_t[algorithmsByDistance.length];
+
+        algorithmsByDistance.makeIndex!((a, b) => a[0] > b[0])(indices);
+
+        const(Algorithm)[] result;
+
+        foreach (index; indices)
+        {
+            result ~= algorithmsByDistance[index][1];
+        }
+
+        return result;
+    }
+
+    const(Algorithm)[] all() const
+    {
+        return m_algorithms;
+    }
+
 protected:
     void add(Algorithm algorithm)
     {
@@ -81,4 +111,35 @@ protected:
 
 private:
     Algorithm[] m_algorithms;
+
+private:
+    // longest common subsequence. from rosetta code.
+    string lcs(in string a, in string b) const pure
+    {
+        auto L = new uint[][](a.length + 1, b.length + 1);
+
+        foreach (immutable i; 0 .. a.length)
+            foreach (immutable j; 0 .. b.length)
+                L[i + 1][j + 1] = (a[i] == b[j]) ? (1 + L[i][j]) : max(L[i + 1][j], L[i][j + 1]);
+
+        Unqual!char[] result;
+
+        for (auto i = a.length, j = b.length; i > 0 && j > 0; )
+        {
+            if (a[i - 1] == b[j - 1])
+            {
+                result ~= a[i - 1];
+                i--;
+                j--;
+            }
+            else if (L[i][j - 1] < L[i - 1][j])
+                    i--;
+                else
+                    j--;
+        }
+
+        result.reverse();
+
+        return result;
+    }
 }
