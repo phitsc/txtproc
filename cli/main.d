@@ -105,7 +105,7 @@ int main(string[] args)
     }
     catch (Exception e)
     {
-        writeln("Error: ", e.msg);
+        stderr.writeln("Error: ", e.msg);
 
         return 1;
     }
