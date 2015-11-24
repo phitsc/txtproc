@@ -27,15 +27,36 @@ int main(string[] args)
         bool fromClipboard;
         bool toClipboard;
 
-        auto options = getopt(args,
-            "ignore-case|c", "Ignore case.", &ignoreCase,
-            "function|f", "Function to process the supplied text with.", &functionName,
-            "input-file|i", "Input file containing text to process.", &inputFile,
-            "list-functions|l", "List available text processing functions.", &listFunctions,
-            "modify-input-file|m", "Modify the input file in-place.", &modifyInputFile,
-            "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
-            "from-clipboard|v", "Read text to process from clipboard", &fromClipboard,
-            "to-clipboard|x", "Write processed text to clipboard", &toClipboard
+        immutable opts =
+        [
+            [ "ignore-case|c", "Ignore case."],
+            [ "function|f", "Function to process the supplied text with." ],
+            [ "input-file|i", "Input file containing text to process." ],
+            [ "list-functions|l", "List available text processing functions." ],
+            [ "modify-input-file|m", "Modify the input file in-place." ],
+            [ "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary." ],
+            [ "from-clipboard|v", "Read text to process from clipboard" ],
+            [ "to-clipboard|x", "Write processed text to clipboard" ]
+        ];
+
+        version(Windows) auto options = getopt(args,
+            opts[0][0], opts[0][1], &ignoreCase,
+            opts[1][0], opts[1][1], &functionName,
+            opts[2][0], opts[2][1], &inputFile,
+            opts[3][0], opts[3][1], &listFunctions,
+            opts[4][0], opts[4][1], &modifyInputFile,
+            opts[5][0], opts[5][1], &params,
+            opts[6][0], opts[6][1], &fromClipboard,
+            opts[7][0], opts[7][1], &toClipboard
+        );
+
+        version(Linux) auto options = getopt(args,
+            opts[0][0], opts[0][1], &ignoreCase,
+            opts[1][0], opts[1][1], &functionName,
+            opts[2][0], opts[2][1], &inputFile,
+            opts[3][0], opts[3][1], &listFunctions,
+            opts[4][0], opts[4][1], &modifyInputFile,
+            opts[5][0], opts[5][1], &params
         );
 
         if (options.helpWanted && functionName.empty)
@@ -141,6 +162,18 @@ version(Windows)
     }
 }
 
+version(Linux)
+{
+    string readFromClipboard()
+    {
+        return "";
+    }
+
+    void writeToClipboard(string text)
+    {
+    }
+}
+
 string getInputText(string inputFile, bool fromClipboard, string[] args)
 {
     if (!isatty(0))
@@ -150,7 +183,6 @@ string getInputText(string inputFile, bool fromClipboard, string[] args)
     else if (fromClipboard)
     {
        return readFromClipboard();
-
     }
     else if (!inputFile.empty)
     {
