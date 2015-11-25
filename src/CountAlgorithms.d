@@ -1,10 +1,13 @@
 import std.algorithm;
 import std.array;
+import std.conv;
 import std.range;
+import std.regex;
 import std.string;
 import std.uni;
 
 import Algorithms;
+import TextAlgo;
 
 class CountAlgorithms : Algorithms
 {
@@ -13,7 +16,24 @@ class CountAlgorithms : Algorithms
         add(new Algorithm(
             "Count", "Count", "Count number of characters, words and lines of input text.",
             (string text, string[], bool) {
-                return format("%s characters (incl. whitespace), %s words, %s lines.", text.walkLength, text.split.length, text.splitLines.length);
+                immutable c = text.counts;
+
+                return format("%s characters (incl. whitespace), %s words, %s lines.", c.character, c.word, c.line);
+            }
+        ));
+
+        add(new Algorithm(
+            "CountMore", "Count", "Count number of characters, words, sentences and lines of input text.",
+            (string text, string[], bool) {
+                immutable c = text.counts;
+
+                return
+                    format("%s characters (any)\n", c.character) ~
+                    format("%s alpha-numeric chars\n", c.alphaNumeric) ~
+                    format("%s whitespace chars\n", c.white) ~
+                    format("%s words\n", c.word) ~
+                    format("%s sentences\n", c.sentence) ~
+                    format("%s lines", c.line);
             }
         ));
 
@@ -49,6 +69,18 @@ class CountAlgorithms : Algorithms
                 }
 
                 return result;
+            }
+        ));
+
+        add(new Algorithm(
+            "CountRegex", "Count", "Count how many times the specified regular expression matches.",
+            (string text, string[] params, bool ignoreCase) {
+                if (params.length < 1)
+                {
+                    throw new Exception("Missing parameter (search text)");
+                }
+
+                return to!string(text.matchAll(regex(params[0], "m" ~ (ignoreCase ? "i" : ""))).array.length);
             }
         ));
     }

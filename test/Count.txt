@@ -8,3 +8,14 @@ füg auch keinem anderen zu.Ohne Fleiß kein Preis.
 %
 89 characters (incl. whitespace), 18 words, 2 lines.
 %%%
+-fCountMore
+%
+%1
+%
+89 characters (any)
+71 alpha-numeric chars
+14 whitespace chars
+18 words
+2 sentences
+2 lines
+%%%

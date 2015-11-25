@@ -7,14 +7,6 @@ import std.typecons;
 
 import Algorithm;
 
-
-enum string sentenceSeparatorChars = ".!?";
-enum string bracketChars           = "[](){}<>";
-enum string quoteChars             = "\"'";
-enum string otherPunctuationChars  = ":+-/,;=%&*@#";
-enum string wordSeparatorChars     = " \t\n\r" ~ sentenceSeparatorChars ~ bracketChars ~ quoteChars ~ otherPunctuationChars;
-enum string whitespaceChars        = " \t";
-
 class Algorithms
 {
     void add(Algorithms algorithms)
@@ -70,30 +62,6 @@ protected:
     void add(Algorithm algorithm)
     {
         m_algorithms ~= algorithm;
-    }
-
-    static string eachWord(string input, string function(string) func)
-    {
-        string result;
-        string word;
-
-        foreach (character; input.stride(1))
-        {
-            if (wordSeparatorChars.canFind(character))
-            {
-                result ~= func(word);
-                result ~= character;
-                word = "";
-            }
-            else
-            {
-                word ~= character;
-            }
-        }
-
-        result ~= func(word);
-
-        return result;
     }
 
 private:

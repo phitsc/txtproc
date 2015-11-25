@@ -4,6 +4,7 @@ import std.string;
 import std.uni;
 
 import Algorithms;
+import TextAlgo;
 
 class CapitalisationAlgorithms : Algorithms
 {
@@ -40,7 +41,7 @@ class CapitalisationAlgorithms : Algorithms
         add(new Algorithm(
             "Capital", "Capitalisation", "Change Input Text To Capital Case.",
             (string text, string[], bool) {
-                return eachWord(text, (word) => word.capitalize);
+                return text.eachWord(word => word.capitalize);
             }
         ));
 
@@ -78,7 +79,7 @@ class CapitalisationAlgorithms : Algorithms
         add(new Algorithm(
             "Snake", "Capitalisation", "Change input text to snake_case.",
             (string text, string[], bool) {
-                return eachWord(text, (word) {
+                return text.eachWord((word) {
                     string result;
                     bool wasLower = false;
 
@@ -112,7 +113,7 @@ class CapitalisationAlgorithms : Algorithms
         add(new Algorithm(
             "Camel", "Capitalisation", "Change input text to CamelCase.",
             (string text, string[], bool) {
-                return eachWord(text, (word) {
+                return text.eachWord((word) {
                     bool isFirst = true;
                     return word.canFind("_") ? word.split("_").map!((w) {
                         if (isFirst)

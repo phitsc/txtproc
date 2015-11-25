@@ -1,8 +1,18 @@
 import std.algorithm;
 import std.ascii;
+import std.array;
+import std.conv;
+import std.range;
 import std.string;
+import std.uni;
 
 import Algorithms;
+import TextAlgo;
+
+string reverseUni(string text)
+{
+    return text.byGrapheme.array.retro.byCodePoint.text;
+}
 
 class OrderAlgorithms : Algorithms
 {
@@ -18,14 +28,14 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseCharacters", "Order", "Reverse order of characters within input text.",
             (string text, string[], bool) {
-                return text.dup.reverse.idup;
+                return text.reverseUni;
             }
         ));
 
         add(new Algorithm(
             "ReverseCharactersWithinWords", "Order", "Reverse order of characters within words of input text.",
             (string text, string[], bool) {
-                return eachWord(text, (word) => word.dup.reverse.idup);
+                return text.eachWord(word => word.reverseUni);
             }
         ));
     }

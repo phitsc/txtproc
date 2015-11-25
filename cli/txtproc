@@ -5,6 +5,7 @@
 ../../src/CapitalisationAlgorithms.d
 ../../src/OrderAlgorithms.d
 ../../src/SearchReplaceAlgorithms.d
+../../src/TextAlgo.d
 
 ../../src/TestText.d
 
