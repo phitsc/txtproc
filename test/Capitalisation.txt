@@ -1,0 +1,27 @@
+%1
+was du nicht willst das man dir tu, das füg auch keinem anderen zu. ohne Fleiß kein Preis!
+%%%
+
+%
+Hello world
+%
+Hello world
+%%%
+-fToggle
+%
+Hellö wÖrld!
+%
+hELLÖ WöRLD!
+%%%
+-fUpper
+%
+%1
+%
+WAS DU NICHT WILLST DAS MAN DIR TU, DAS FÜG AUCH KEINEM ANDEREN ZU. OHNE FLEISS KEIN PREIS!
+%%%
+-fLower
+%
+%1
+%
+was du nicht willst das man dir tu, das füg auch keinem anderen zu. ohne fleiß kein preis!
+%%%
