@@ -1,5 +1,6 @@
 import std.algorithm;
 import std.array;
+import std.conv;
 import std.file;
 import std.getopt;
 import std.range;
@@ -130,22 +131,31 @@ version(Windows)
         bool  GlobalUnlock(void*);
     }
 
-    extern(C) size_t strlen(const char*);
+    extern(C) size_t wcslen(const wchar*);
     extern(C) void* memcpy(void*, const void*, size_t);
+
+    enum CF_UNICODETEXT = 13;
 
     string readFromClipboard()
     {
+        string result;
+
         if (OpenClipboard(null))
         {
             scope (exit) CloseClipboard();
 
-            if (auto cstr = cast(char*)GetClipboardData(1))
+            if (void* handle = GetClipboardData(CF_UNICODETEXT))
             {
-                return cstr[0..strlen(cstr)].idup;
+                if (wchar* wstr = cast(wchar*)GlobalLock(handle))
+                {
+                    result = to!string(wstr[0..wcslen(wstr)]);
+
+                    GlobalUnlock(wstr);
+                }
             }
         }
 
-        return "";
+        return result;
     }
 
     void writeToClipboard(string text)
@@ -154,14 +164,19 @@ version(Windows)
         {
             scope (exit) CloseClipboard();
 
-            EmptyClipboard();
+            immutable length = (text.length + 1) * wchar.sizeof;
+            if (void* handle = GlobalAlloc(2, length))
+            {
+                if (void* ptr = GlobalLock(handle))
+                {
+                    EmptyClipboard();
 
-            void* handle = GlobalAlloc(2, text.length + 1);
-            void* ptr    = GlobalLock(handle);
-            memcpy(ptr, toStringz(text), text.length + 1);
-            GlobalUnlock(handle);
+                    memcpy(ptr, cast(wchar*)to!wstring(text), length);
+                    GlobalUnlock(handle);
 
-            SetClipboardData(1, handle);
+                    SetClipboardData(CF_UNICODETEXT, handle);
+                }
+            }
         }
     }
 }
