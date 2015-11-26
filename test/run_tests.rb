@@ -4,7 +4,7 @@ require 'ostruct'
 require 'pathname'
 require 'tempfile'
 
-Txtproc = Pathname.new("#{Dir.pwd}/../cli/bin/txtproc").cleanpath.to_s
+Txtproc = Pathname.new("#{Dir.pwd}/../bin/txtproc").cleanpath.to_s
 TestFile = 'test_input.tmp'
 
 CommentChar   = '#'
@@ -67,7 +67,6 @@ Dir.glob("#{Dir.pwd}/*.txt") do |test_file|
       current_test_line_no = line_no + 1
       state = :read_param_or_ref_text
       section = ''
-      ref_text = ''
     end
   end
 
