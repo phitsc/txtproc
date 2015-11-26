@@ -1,7 +1,10 @@
 import std.algorithm;
 import std.range;
+import std.string;
 import std.typecons;
 import std.uni;
+
+import std.stdio;
 
 enum string sentenceSeparatorChars = ".!?";
 enum string bracketChars           = "[](){}<>";
@@ -45,6 +48,11 @@ auto counts(string input)
 
     foreach (character; input.stride(1))
     {
+        if (character == 0xFEFF ||character.isNonCharacter || character.isMark)
+        {
+            continue;
+        }
+
         if (character.isAlpha || character.isNumber)
         {
             c.alphaNumeric++;
@@ -96,6 +104,8 @@ auto counts(string input)
         }
 
         c.character++;
+
+        //writeln(format("%s (%d): %s", character, character, c.character));
     }
 
     return c;
