@@ -1,5 +1,6 @@
 import std.algorithm;
 import std.array;
+import std.ascii : newline;
 import std.conv;
 import std.range;
 import std.regex;
@@ -28,11 +29,11 @@ class CountAlgorithms : Algorithms
                 immutable c = text.counts;
 
                 return
-                    format("%s characters (any)\n", c.character) ~
-                    format("%s alpha-numeric chars\n", c.alphaNumeric) ~
-                    format("%s whitespace chars\n", c.white) ~
-                    format("%s words\n", c.word) ~
-                    format("%s sentences\n", c.sentence) ~
+                    format("%s characters (any)", c.character) ~ newline ~
+                    format("%s alpha-numeric chars", c.alphaNumeric) ~ newline ~
+                    format("%s whitespace chars", c.white) ~ newline ~
+                    format("%s words", c.word) ~ newline ~
+                    format("%s sentences", c.sentence) ~ newline ~
                     format("%s lines", c.line);
             }
         ));
