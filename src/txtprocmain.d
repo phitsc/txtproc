@@ -51,7 +51,7 @@ int txtproc_main(string[] args, string* result = null)
             opts[7][0], opts[7][1], &toClipboard
         );
 
-        version(Linux) auto options = getopt(args,
+        version(linux) auto options = getopt(args,
             opts[0][0], opts[0][1], &ignoreCase,
             opts[1][0], opts[1][1], &functionName,
             opts[2][0], opts[2][1], &inputFile,
@@ -181,7 +181,7 @@ version(Windows)
     }
 }
 
-version(Linux)
+version(linux)
 {
     string readFromClipboard()
     {
