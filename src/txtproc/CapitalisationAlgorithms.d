@@ -140,12 +140,12 @@ version(unittest)
 unittest
 {
     auto a = new CapitalisationAlgorithms;
-    assert(a.find("Upper").process(testText, [], false, false)
+    assert(a.closest("Upper")[0].process(testText, [], false)
         == "WAS DU NICHT WILLST DAS MAN DIR TU, DAS FÜG AUCH KEINEM ANDEREN ZU. OHNE FLEISS KEIN PREIS!");
-    assert(a.find("Lower").process(testText, [], false, false)
+    assert(a.closest("Lower")[0].process(testText, [], false)
         == "was du nicht willst das man dir tu, das füg auch keinem anderen zu. ohne fleiß kein preis!");
-    assert(a.find("Title").process(testText, [], false, false)
+    assert(a.closest("Capital")[0].process(testText, [], false)
         == "Was Du Nicht Willst Das Man Dir Tu, Das Füg Auch Keinem Anderen Zu. Ohne Fleiß Kein Preis!");
-    assert(a.find("Sentence").process(testText, [], false, false)
+    assert(a.closest("Sentence")[0].process(testText, [], false)
         == "Was du nicht willst das man dir tu, das füg auch keinem anderen zu. Ohne Fleiß kein Preis!");
 }

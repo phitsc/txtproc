@@ -95,8 +95,8 @@ version(unittest)
 unittest
 {
     auto a = new CountAlgorithms;
-    assert(a.find("Count Chars, Words, Lines").process(testText, [], false, false)
+    assert(a.closest("Count")[0].process(testText, [], false)
         == "90 characters (incl. whitespace), 18 words, 1 lines.");
-    assert(a.find("Count Chars, Words, Lines").process(multilineTestText, [], false, false)
+    assert(a.closest("Count")[0].process(multilineTestText, [], false)
         == "169 characters (incl. whitespace), 32 words, 4 lines.");
 }
