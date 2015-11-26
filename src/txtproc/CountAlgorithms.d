@@ -7,6 +7,8 @@ import std.regex;
 import std.string;
 import std.uni;
 
+  import std.stdio;
+
 import Algorithms;
 import TextAlgo;
 
@@ -62,9 +64,9 @@ class CountAlgorithms : Algorithms
 
                 string result;
 
-                foreach (character; sort(dict.keys))
+                foreach (character; sort!((a, b) => a.toLower < b.toLower)(dict.keys))
                 {
-                    if (!result.empty) result ~= "\n";
+                    if (!result.empty) result ~= newline;
 
                     result ~= format("%s: %s", character, dict[character]);
                 }
