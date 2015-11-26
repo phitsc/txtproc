@@ -61,7 +61,7 @@ class CountAlgorithms : Algorithms
 
                 string result;
 
-                foreach (character; dict.keys.sort)
+                foreach (character; sort(dict.keys))
                 {
                     if (!result.empty) result ~= "\n";
 

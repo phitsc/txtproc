@@ -64,7 +64,7 @@ auto counts(string input)
         }
         else if (wordSeparatorChars.canFind(character))
         {
-            inWord = false;;
+            inWord = false;
 
             if (whitespaceChars.canFind(character))
             {

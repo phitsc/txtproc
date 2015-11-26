@@ -21,7 +21,9 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseLines", "Order", "Reverse order of lines within input text.",
             (string text, string[], bool) {
-                return text.splitLines.reverse.join(std.ascii.newline);
+                auto lines = text.splitLines;
+                reverse(lines);
+                return lines.join(std.ascii.newline);
             }
         ));
 
