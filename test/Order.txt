@@ -1,8 +1,11 @@
 %1
 was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
-ohne Fleiß kein Preis!
+ohne Fleiß kein Preis!!  Besser spät als nie.
 an apple a day keeps the doctor away.
 c'est à l'œuvre qu'on connaît l’œuvrier.
+%%%
+%2
+was du nicht willst das man dir tu,   das füg auch keinem anderen zu. ohne Fleiß kein Preis!!  Besser spät als nie. an apple a day keeps the doctor away!?! c'est à l'œuvre qu'on connaît l’œuvrier.
 %%%
 -fReverseLines
 %
@@ -10,7 +13,7 @@ c'est à l'œuvre qu'on connaît l’œuvrier.
 %
 c'est à l'œuvre qu'on connaît l’œuvrier.
 an apple a day keeps the doctor away.
-ohne Fleiß kein Preis!
+ohne Fleiß kein Preis!!  Besser spät als nie.
 was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
 %%%
 -fReverseCharacters
@@ -19,7 +22,7 @@ was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
 %
 .reirvuœ’l tîannoc no'uq ervuœ'l à tse'c
 .yawa rotcod eht speek yad a elppa na
-!sierP niek ßielF enho
+.ein sla täps resseB  !!sierP niek ßielF enho
 .uz neredna meniek hcua güf sad   ,ut rid nam sad tslliw thcin ud saw
 %%%
 -fReverseCharactersWithinWords
@@ -27,7 +30,13 @@ was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
 %1
 %
 saw ud thcin tslliw sad nam rid ut,   sad güf hcua meniek neredna uz.
-enho ßielF niek sierP!
+enho ßielF niek sierP!!  resseB täps sla ein.
 na elppa a yad speek eht rotcod yawa.
 tse'c à ervuœ'l no'uq tîannoc reirvuœ’l.
+%%%
+-fReverseSentence
+%
+%2
+%
+ c'est à l'œuvre qu'on connaît l’œuvrier. an apple a day keeps the doctor away!?!  Besser spät als nie. ohne Fleiß kein Preis!!was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
 %%%

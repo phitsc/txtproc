@@ -28,6 +28,13 @@ class OrderAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
+            "ReverseSentences", "Order", "Reverse order of sentences within input text.",
+            (string text, string[], bool) {
+                return reverseTextElements!sentenceSeparatorChars(text);
+            }
+        ));
+
+        add(new Algorithm(
             "ReverseCharacters", "Order", "Reverse order of characters within input text.",
             (string text, string[], bool) {
                 return text.reverseUni;

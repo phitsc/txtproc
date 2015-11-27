@@ -14,28 +14,71 @@ enum string lineSeparatorChars     = "\n\r";
 enum string wordSeparatorChars     = " \t" ~ lineSeparatorChars ~ sentenceSeparatorChars ~ bracketChars ~ "\"" ~ otherPunctuationChars;
 enum string whitespaceChars        = " \t";
 
-auto eachWord(string input, string function(string) func)
+
+alias eachWord = eachTextElement!wordSeparatorChars;
+alias eachSentence = eachTextElement!sentenceSeparatorChars;
+
+auto eachTextElement(alias separators)(string input, string function(string) func)
 {
     string result;
-    string word;
+    string element;
 
     foreach (character; input.stride(1))
     {
-        if (wordSeparatorChars.canFind(character))
+        if (separators.canFind(character))
         {
-            result ~= func(word);
+            result ~= func(element);
             result ~= character;
-            word = "";
+            element = "";
         }
         else
         {
-            word ~= character;
+            element ~= character;
         }
     }
 
-    result ~= func(word);
+    result ~= func(element);
 
     return result;
+}
+
+auto splitTextElements(alias separators)(string input)
+{
+    string[] result;
+    string element;
+    bool foundSeparator;
+
+    foreach (character; input.stride(1))
+    {
+        if (separators.canFind(character))
+        {
+            element ~= character;
+
+            foundSeparator = true;
+        }
+        else if (foundSeparator)
+        {
+            result ~= element;
+            element = format("%s", character);
+
+            foundSeparator = false;
+        }
+        else
+        {
+            element ~= character;
+        }
+    }
+
+    result ~= element;
+
+    return result;
+}
+
+auto reverseTextElements(alias separators)(string input)
+{
+    auto elements = splitTextElements!separators(input);
+    reverse(elements);
+    return elements.join;
 }
 
 auto counts(string input)
