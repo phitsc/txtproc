@@ -42,7 +42,7 @@ auto eachTextElement(alias separators)(string input, string function(string) fun
     return result;
 }
 
-auto splitTextElements(alias separators)(string input)
+auto splitTextElements(alias separators)(string input, KeepTerminator keepTerminator = KeepTerminator.no)
 {
     string[] result;
     string element;
@@ -52,7 +52,15 @@ auto splitTextElements(alias separators)(string input)
     {
         if (separators.canFind(character))
         {
-            element ~= character;
+            if (!foundSeparator && !keepTerminator)
+            {
+                result ~= element;
+                element = format("%s", character);
+            }
+            else
+            {
+                element ~= character;
+            }
 
             foundSeparator = true;
         }
@@ -72,13 +80,6 @@ auto splitTextElements(alias separators)(string input)
     result ~= element;
 
     return result;
-}
-
-auto reverseTextElements(alias separators)(string input)
-{
-    auto elements = splitTextElements!separators(input);
-    reverse(elements);
-    return elements.join;
 }
 
 auto counts(string input)

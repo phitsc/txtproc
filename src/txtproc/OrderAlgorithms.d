@@ -30,7 +30,18 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseSentences", "Order", "Reverse order of sentences within input text.",
             (string text, string[], bool) {
-                return reverseTextElements!sentenceSeparatorChars(text);
+                auto elements = splitTextElements!sentenceSeparatorChars(text, KeepTerminator.yes);
+                reverse(elements);
+                return elements.join;
+            }
+        ));
+
+        add(new Algorithm(
+            "ReverseWords", "Order", "Reverse order of words within input text.",
+            (string text, string[], bool) {
+                auto elements = splitTextElements!wordSeparatorChars(text).map!(a => wordSeparatorChars.canFind(a[0]) ? reverseUni(a) : a).array;
+                reverse(elements);
+                return elements.join;
             }
         ));
 
