@@ -125,7 +125,7 @@ int unittest_main()
             string result;
             if ((txtproc_main(args, &result) == 1) || (result != test.output))
             {
-                writeln(format("%s(%s)\n`%s`\n--  !=  --\n`%s`\n", fileName, test.line, result, test.output));
+                writeln(format("%s(%s) : %s\n`%s`\n--  !=  --\n`%s`\n", fileName, test.line, test.params.join(" "), result, test.output));
                 status = 1;
             }
         }
