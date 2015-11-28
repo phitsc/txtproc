@@ -39,14 +39,7 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseWords", "Order", "Reverse order of words within input text.",
             (string text, string[], bool) {
-                string result;
-
-                foreach (token; text.parseText.retro)
-                {
-                    result ~= token.value;
-                }
-
-                return result;
+                return text.parseText.retro.map!(a => a.value).join;
             }
         ));
 
