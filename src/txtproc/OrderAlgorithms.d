@@ -9,11 +9,6 @@ import std.uni;
 import Algorithms;
 import TextAlgo;
 
-string reverseUni(string text)
-{
-    return text.byGrapheme.array.retro.byCodePoint.text;
-}
-
 class OrderAlgorithms : Algorithms
 {
     this()
@@ -39,9 +34,14 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseWords", "Order", "Reverse order of words within input text.",
             (string text, string[], bool) {
-                auto elements = splitTextElements!wordSeparatorChars(text).map!(a => wordSeparatorChars.canFind(a[0]) ? reverseUni(a) : a).array;
-                reverse(elements);
-                return elements.join;
+                string result;
+
+                foreach (token; text.parseText.retro)
+                {
+                    result ~= token.value;
+                }
+
+                return result;
             }
         ));
 
@@ -55,7 +55,21 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseCharactersWithinWords", "Order", "Reverse order of characters within words of input text.",
             (string text, string[], bool) {
-                return text.eachWord(word => word.reverseUni);
+                string result;
+
+                foreach (token; text.parseText)
+                {
+                    if (token.type == TokenType.text)
+                    {
+                        result ~= token.value.reverseUni;
+                    }
+                    else
+                    {
+                        result ~= token.value;
+                    }
+                }
+
+                return result;
             }
         ));
     }
