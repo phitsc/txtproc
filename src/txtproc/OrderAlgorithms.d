@@ -53,21 +53,7 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseCharactersWithinWords", "Order", "Reverse order of characters within words of input text.",
             (string text, string[], bool) {
-                string result;
-
-                foreach (token; text.parseText)
-                {
-                    if (token.type == TokenType.text)
-                    {
-                        result ~= token.value.reverseUni;
-                    }
-                    else
-                    {
-                        result ~= token.value;
-                    }
-                }
-
-                return result;
+                return text.parseText.map!(a => a.type == TokenType.text ? a.value.reverseUni : a.value).join;
             }
         ));
     }
