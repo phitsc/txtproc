@@ -44,46 +44,6 @@ auto eachTextElement(alias separators)(string input, string function(string) fun
     return result;
 }
 
-auto splitTextElements(alias separators)(string input, KeepTerminator keepTerminator = KeepTerminator.no)
-{
-    string[] result;
-    string element;
-    bool foundSeparator;
-
-    foreach (character; input.stride(1))
-    {
-        if (separators.canFind(character))
-        {
-            if (!foundSeparator && !keepTerminator)
-            {
-                result ~= element;
-                element = format("%s", character);
-            }
-            else
-            {
-                element ~= character;
-            }
-
-            foundSeparator = true;
-        }
-        else if (foundSeparator)
-        {
-            result ~= element;
-            element = format("%s", character);
-
-            foundSeparator = false;
-        }
-        else
-        {
-            element ~= character;
-        }
-    }
-
-    result ~= element;
-
-    return result;
-}
-
 auto counts(string input)
 {
     auto c = Tuple!(size_t, "alphaNumeric", size_t, "character", size_t, "white", size_t, "word", size_t, "sentence", size_t, "line")();
