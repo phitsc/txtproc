@@ -41,7 +41,7 @@ class CapitalisationAlgorithms : Algorithms
         add(new Algorithm(
             "Capital", "Capitalisation", "Change Input Text To Capital Case.",
             (string text, string[], bool) {
-                return text.eachWord(word => word.capitalize);
+                return text.parseText.map!(a => a.type == TokenType.text ? a.value.capitalize : a.value).join;
             }
         ));
 
