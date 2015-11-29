@@ -6,6 +6,53 @@ import std.uni;
 import Algorithms;
 import TextAlgo;
 
+private pure auto toSnake(string word)
+{
+    string result;
+    bool wasLower = false;
+
+    foreach (character; word.stride(1))
+    {
+        if (character.isUpper)
+        {
+            if (wasLower)
+            {
+                result ~= format("_%s", character.toLower);
+            }
+            else
+            {
+                result ~= character;
+            }
+
+            wasLower = false;
+        }
+        else
+        {
+            result ~= character;
+            wasLower = true;
+        }
+    }
+
+    return result;
+}
+
+private pure auto toCamel(string word)
+{
+    bool isFirst = true;
+
+    return word.canFind("_") ? word.split("_").map!((w) {
+        if (isFirst)
+        {
+            isFirst = false;
+            return w; // leave first word as it is
+        }
+        else
+        {
+            return w.capitalize;
+        }
+    }).join : word;
+}
+
 class CapitalisationAlgorithms : Algorithms
 {
     this()
@@ -49,26 +96,23 @@ class CapitalisationAlgorithms : Algorithms
             "Sentence", "Capitalisation", "Change input text to sentence case.",
             (string text, string[], bool) {
                 string result;
+                bool sentenceStart = true;
 
-                bool newSentence = true;
-
-                foreach (character; text.stride(1))
+                foreach (token; text.parseText)
                 {
-                    if (sentenceSeparatorChars.canFind(character))
+                    if (sentenceStart && token.type == TokenType.text)
                     {
-                        newSentence = true;
-
-                        result ~= character;
-                    }
-                    else if (newSentence && !whitespaceChars.canFind(character))
-                    {
-                        newSentence = false;
-
-                        result ~= character.toUpper;
+                        result ~= token.value.capitalize;
+                        sentenceStart = false;
                     }
                     else
                     {
-                        result ~= character;
+                        if (token.type == TokenType.sentenceTerminator)
+                        {
+                            sentenceStart = true;
+                        }
+
+                        result ~= token.value;
                     }
                 }
 
@@ -79,54 +123,14 @@ class CapitalisationAlgorithms : Algorithms
         add(new Algorithm(
             "Snake", "Capitalisation", "Change input text to snake_case.",
             (string text, string[], bool) {
-                return text.eachWord((word) {
-                    string result;
-                    bool wasLower = false;
-
-                    foreach (character; word.stride(1))
-                    {
-                        if (character.isUpper)
-                        {
-                            if (wasLower)
-                            {
-                                result ~= format("_%s", character.toLower);
-                            }
-                            else
-                            {
-                                result ~= character;
-                            }
-
-                            wasLower = false;
-                        }
-                        else
-                        {
-                            result ~= character;
-                            wasLower = true;
-                        }
-                    }
-
-                    return result;
-                });
+                return text.parseText.map!(a => a.type == TokenType.text ? a.value.toSnake : a.value).join;
             }
         ));
 
         add(new Algorithm(
             "Camel", "Capitalisation", "Change input text to CamelCase.",
             (string text, string[], bool) {
-                return text.eachWord((word) {
-                    bool isFirst = true;
-                    return word.canFind("_") ? word.split("_").map!((w) {
-                        if (isFirst)
-                        {
-                            isFirst = false;
-                            return w; // leave first word as it is
-                        }
-                        else
-                        {
-                            return w.capitalize;
-                        }
-                    }).join : word;
-                });
+                return text.parseText.map!(a => a.type == TokenType.text ? a.value.toCamel : a.value).join;
             }
         ));
    }

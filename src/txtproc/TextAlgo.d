@@ -7,43 +7,16 @@ import std.uni;
 
 import std.stdio;
 
-enum string sentenceSeparatorChars = ".!?";
-enum string bracketChars           = "[](){}<>";
-enum string quoteChars             = "\"'";
-enum string otherPunctuationChars  = ":+-/,;=%&*@#";
-enum string lineSeparatorChars     = "\n\r";
-enum string wordTerminatorChars    = bracketChars ~ "\"" ~ otherPunctuationChars;
-enum string whitespaceChars        = " \t";
-enum string lineTerminatorChars    = "\r\n";
+private enum string sentenceSeparatorChars = ".!?";
+private enum string bracketChars           = "[](){}<>";
+private enum string quoteChars             = "\"'";
+private enum string otherPunctuationChars  = ":+-/,;=%&*@#";
+private enum string lineSeparatorChars     = "\n\r";
+private enum string wordTerminatorChars    = bracketChars ~ "\"" ~ otherPunctuationChars;
+private enum string whitespaceChars        = " \t";
+private enum string lineTerminatorChars    = "\r\n";
 
-
-alias eachWord = eachTextElement!wordTerminatorChars;
-
-auto eachTextElement(alias separators)(string input, string function(string) func)
-{
-    string result;
-    string element;
-
-    foreach (character; input.stride(1))
-    {
-        if (separators.canFind(character))
-        {
-            result ~= func(element);
-            result ~= character;
-            element = "";
-        }
-        else
-        {
-            element ~= character;
-        }
-    }
-
-    result ~= func(element);
-
-    return result;
-}
-
-auto counts(string input)
+pure auto counts(string input)
 {
     auto c = Tuple!(size_t, "alphaNumeric", size_t, "character", size_t, "white", size_t, "word", size_t, "sentence", size_t, "line")();
     c.line = 1;
@@ -94,7 +67,7 @@ alias TokenValue = string;
 alias Token = Tuple!(TokenType, "type", TokenValue, "value");
 alias Tokens = Token[];
 
-Tokens parseText(string text)
+pure auto parseText(string text)
 {
     Tokens tokens;
 
@@ -153,7 +126,7 @@ Tokens parseText(string text)
 alias lines = elements!(TokenType.lineTerminator);
 alias sentences = elements!(TokenType.sentenceTerminator);
 
-Tokens[] elements(alias tokenType)(Tokens tokens)
+pure auto elements(alias tokenType)(Tokens tokens)
 {
     Tokens[] result;
 
