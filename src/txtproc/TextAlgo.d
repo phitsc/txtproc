@@ -12,13 +12,12 @@ enum string bracketChars           = "[](){}<>";
 enum string quoteChars             = "\"'";
 enum string otherPunctuationChars  = ":+-/,;=%&*@#";
 enum string lineSeparatorChars     = "\n\r";
-enum string wordSeparatorChars     = bracketChars ~ "\"" ~ otherPunctuationChars;
+enum string wordTerminatorChars    = bracketChars ~ "\"" ~ otherPunctuationChars;
 enum string whitespaceChars        = " \t";
-enum string newlineChars           = "\r\n";
+enum string lineTerminatorChars    = "\r\n";
 
 
-alias eachWord = eachTextElement!wordSeparatorChars;
-alias eachSentence = eachTextElement!sentenceSeparatorChars;
+alias eachWord = eachTextElement!wordTerminatorChars;
 
 auto eachTextElement(alias separators)(string input, string function(string) func)
 {
@@ -60,12 +59,12 @@ auto counts(string input)
             c.white += token.value.length;
             c.word += 1;
         }
-        else if (token.type == TokenType.newline)
+        else if (token.type == TokenType.lineTerminator)
         {
             c.line += token.value.replace("\r\n", "\n").length;
             c.word += 1;
         }
-        else if (token.type == TokenType.wordSeparator)
+        else if (token.type == TokenType.wordTerminator)
         {
             c.word += 1;
         }
@@ -86,8 +85,8 @@ enum TokenType
     none,
     text,
     whitespace,
-    newline,
-    wordSeparator,
+    lineTerminator,
+    wordTerminator,
     sentenceTerminator
 }
 
@@ -113,13 +112,13 @@ Tokens parseText(string text)
         {
             newTokenType = TokenType.whitespace;
         }
-        else if (newlineChars.canFind(character))
+        else if (lineTerminatorChars.canFind(character))
         {
-            newTokenType = TokenType.newline;
+            newTokenType = TokenType.lineTerminator;
         }
-        else if (wordSeparatorChars.canFind(character))
+        else if (wordTerminatorChars.canFind(character))
         {
-            newTokenType = TokenType.wordSeparator;
+            newTokenType = TokenType.wordTerminator;
         }
         else if (sentenceSeparatorChars.canFind(character))
         {
@@ -151,7 +150,7 @@ Tokens parseText(string text)
     return tokens;
 }
 
-alias lines = elements!(TokenType.newline);
+alias lines = elements!(TokenType.lineTerminator);
 alias sentences = elements!(TokenType.sentenceTerminator);
 
 Tokens[] elements(alias tokenType)(Tokens tokens)
