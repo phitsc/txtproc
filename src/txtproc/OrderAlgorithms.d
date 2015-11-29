@@ -2,12 +2,60 @@ import std.algorithm;
 import std.ascii;
 import std.array;
 import std.conv;
+import std.random;
 import std.range;
 import std.string;
 import std.uni;
 
 import Algorithms;
 import TextAlgo;
+
+private auto shuffle(string input)
+{
+    dchar[] temp;
+
+    foreach (character; input.stride(1))
+    {
+        temp ~= character;
+    }
+
+    temp.randomShuffle;
+
+    return to!string(temp);
+}
+
+private auto shuffleWithinTokenRange(Tokens tokens)
+{
+    size_t[] indices;
+
+    foreach (size_t index, token; tokens)
+    {
+        if (token.type == TokenType.text)
+        {
+            indices ~= index;
+        }
+    }
+
+    indices.randomShuffle;
+
+    Tokens result;
+    size_t index;
+
+    foreach (token; tokens)
+    {
+        if (token.type == TokenType.text)
+        {
+            result ~= tokens[indices[index]];
+            index++;
+        }
+        else
+        {
+            result ~= token;
+        }
+    }
+
+    return result;
+}
 
 class OrderAlgorithms : Algorithms
 {
@@ -49,5 +97,34 @@ class OrderAlgorithms : Algorithms
                 return text.parseText.map!(a => a.type == TokenType.text ? a.value.reverseUni : a.value).join;
             }
         ));
+
+        add(new Algorithm(
+            "Shuffle", "Order", "Shuffle order of characters within input text.",
+            (string text, string[], bool) {
+                return text.shuffle;
+            }
+        ));
+
+        add(new Algorithm(
+            "ShuffleWords", "Order", "Shuffle order of words within input text.",
+            (string text, string[], bool) {
+                return text.parseText.shuffleWithinTokenRange.map!(a => a.value).join;
+            }
+        ));
+
+        add(new Algorithm(
+            "ShuffleWordsWithinSentence", "Order", "Shuffle order of words within input text.",
+            (string text, string[], bool) {
+                return text.parseText.sentences.map!(a => a.shuffleWithinTokenRange.map!(a => a.value).join).join;
+            }
+        ));
+
+        add(new Algorithm(
+            "ShuffleWithinWords", "Order", "Shuffle order of characters within words of input text.",
+            (string text, string[], bool) {
+                return text.parseText.map!(a => a.type == TokenType.text ? a.value.shuffle : a.value).join;
+            }
+        ));
+
     }
 }
