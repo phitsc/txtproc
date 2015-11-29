@@ -25,14 +25,7 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseSentences", "Order", "Reverse order of sentences within input text.",
             (string text, string[], bool) {
-                string result;
-
-                foreach (tokens; text.parseText.sentences.retro)
-                {
-                    result ~= tokens.map!(a => a.value).join;
-                }
-
-                return result;
+                return text.parseText.sentences.retro.map!(a => a.map!(a => a.value).join).join;
             }
         ));
 
