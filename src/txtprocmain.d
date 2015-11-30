@@ -12,6 +12,7 @@ import CountAlgorithms;
 import CapitalisationAlgorithms;
 import OrderAlgorithms;
 import SearchReplaceAlgorithms;
+import ChecksumAlgorithms;
 
 extern(C) int isatty(int);
 
@@ -72,6 +73,7 @@ int txtproc_main(string[] args, string* result = null)
         algorithms.add(new CapitalisationAlgorithms);
         algorithms.add(new OrderAlgorithms);
         algorithms.add(new SearchReplaceAlgorithms);
+        algorithms.add(new ChecksumAlgorithms);
 
         if (options.helpWanted)
         {
