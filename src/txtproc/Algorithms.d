@@ -32,18 +32,25 @@ class Algorithms
 
     const(Algorithm)[] closest(string nameish) const
     {
+        const(Algorithm)[] result;
+
         Tuple!(size_t, const Algorithm)[] algorithmsByDistance;
 
         foreach (algorithm; m_algorithms)
         {
-            algorithmsByDistance ~= tuple(lcs(algorithm.name.toLower, nameish.toLower).length, algorithm);
+            if (algorithm.name == nameish)
+            {
+                result ~= algorithm; // prefer exact match
+            }
+            else
+            {
+                algorithmsByDistance ~= tuple(lcs(algorithm.name.toLower, nameish.toLower).length, algorithm);
+            }
         }
 
         auto indices = new size_t[algorithmsByDistance.length];
 
         algorithmsByDistance.makeIndex!((a, b) => a[0] > b[0])(indices);
-
-        const(Algorithm)[] result;
 
         foreach (index; indices)
         {
