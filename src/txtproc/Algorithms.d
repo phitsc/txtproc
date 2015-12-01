@@ -38,7 +38,7 @@ class Algorithms
 
         foreach (algorithm; m_algorithms)
         {
-            if (algorithm.name == nameish)
+            if (icmp(algorithm.name, nameish) == 0)
             {
                 result ~= algorithm; // prefer exact match
             }
