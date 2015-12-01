@@ -2,6 +2,7 @@ import std.algorithm;
 import std.conv;
 import std.range;
 import std.string;
+import std.traits;
 import std.typecons;
 import std.uni;
 
@@ -121,6 +122,32 @@ pure auto parseText(string text)
     tokens ~= Token(currentTokenType, token);
 
     return tokens;
+}
+
+pure auto toText(T)(T tokens)
+{
+    return tokens.map!(a => a.value).join;
+}
+
+pure auto stripLeft(Tokens tokens)
+{
+    Tokens result;
+
+    bool stripped = false;
+
+    foreach (token; tokens)
+    {
+        if (stripped || token.type != TokenType.whitespace)
+        {
+            result ~= token;
+        }
+        else
+        {
+            stripped = true;
+        }
+    }
+
+    return result;
 }
 
 alias lines = elements!(TokenType.lineTerminator);

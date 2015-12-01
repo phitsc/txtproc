@@ -73,14 +73,14 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseSentences", "Order", "Reverse order of sentences within input text.",
             (string text, string[], bool) {
-                return text.parseText.sentences.retro.map!(a => a.map!(a => a.value).join).join;
+                return text.parseText.sentences.retro.map!(a => a.toText).join;
             }
         ));
 
         add(new Algorithm(
             "ReverseWords", "Order", "Reverse order of words within input text.",
             (string text, string[], bool) {
-                return text.parseText.retro.map!(a => a.value).join;
+                return text.parseText.retro.toText;
             }
         ));
 
@@ -108,14 +108,14 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ShuffleWords", "Order", "Shuffle order of words within input text.",
             (string text, string[], bool) {
-                return text.parseText.shuffleWithinTokenRange.map!(a => a.value).join;
+                return text.parseText.shuffleWithinTokenRange.toText;
             }
         ));
 
         add(new Algorithm(
-            "ShuffleWordsWithinSentence", "Order", "Shuffle order of words within input text.",
+            "ShuffleWordsWithinSentence", "Order", "Shuffle order of words within sentences of the input text.",
             (string text, string[], bool) {
-                return text.parseText.sentences.map!(a => a.shuffleWithinTokenRange.map!(a => a.value).join).join;
+                return text.parseText.sentences.map!(a => a.shuffleWithinTokenRange.toText).join;
             }
         ));
 
