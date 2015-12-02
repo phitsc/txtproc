@@ -41,7 +41,7 @@ class SearchReplaceAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "RegexSearch", "Search & Replace", "Search sub-text in input text using a regular expression.",
+            "SearchRegex", "Search & Replace", "Search sub-text in input text using a regular expression.",
             (string text, string[] params, bool ignoreCase) {
                 if (params.length < 1)
                 {
@@ -53,7 +53,7 @@ class SearchReplaceAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "RegexReplace", "Search & Replace", "Replace sub-text in input text by a replacement text using a regular expression.",
+            "ReplaceRegex", "Search & Replace", "Replace sub-text in input text by a replacement text using a regular expression.",
             (string text, string[] params, bool ignoreCase) {
                 if (params.length < 1)
                 {
