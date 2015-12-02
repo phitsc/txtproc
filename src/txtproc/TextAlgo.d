@@ -102,8 +102,20 @@ pure auto parseText(string text)
                 tokens ~= Token(currentTokenType, token);
             }
 
-            token = format("%s", character);
+            token = character.text;
             currentTokenType = newTokenType;
+        }
+        else if (newTokenType == TokenType.lineTerminator)
+        {
+            if (character == '\n' && token.length == 1 && token[0] == '\r')
+            {
+                token ~= character;
+            }
+            else
+            {
+                tokens ~= Token(TokenType.lineTerminator, token);
+                token = character.text;
+            }
         }
         else
         {
