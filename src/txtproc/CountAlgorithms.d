@@ -1,10 +1,10 @@
-import std.algorithm;
+import std.algorithm : sort;
 import std.array;
 import std.ascii : newline;
 import std.conv;
 import std.range;
 import std.regex;
-import std.string;
+import std.string : format;
 import std.uni;
 
   import std.stdio;
@@ -19,24 +19,52 @@ class CountAlgorithms : Algorithms
         add(new Algorithm(
             "Count", "Count", "Count number of characters, words and lines of input text.",
             (string text, string[], bool) {
-                immutable c = text.counts;
+                immutable c = text.count;
 
-                return format("%s characters (incl. whitespace), %s words, %s lines.", c.character, c.word, c.line);
+                return format("%s characters (incl. whitespace), %s words, %s lines.", c.characters, c.words, c.lines);
+            }
+        ));
+
+        add(new Algorithm(
+            "CountCharacters", "Count", "Count number of characters of input text.",
+            (string text, string[], bool) {
+                return text.count.characters.text;
+            }
+        ));
+
+        add(new Algorithm(
+            "CountWords", "Count", "Count number of words of input text.",
+            (string text, string[], bool) {
+                return text.count.words.text;
+            }
+        ));
+
+        add(new Algorithm(
+            "CountSentences", "Count", "Count number of sentences of input text.",
+            (string text, string[], bool) {
+                return text.count.sentences.text;
+            }
+        ));
+
+        add(new Algorithm(
+            "CountLines", "Count", "Count number of sentences of input text.",
+            (string text, string[], bool) {
+                return text.count.lines.text;
             }
         ));
 
         add(new Algorithm(
             "CountMore", "Count", "Count number of characters, words, sentences and lines of input text.",
             (string text, string[], bool) {
-                immutable c = text.counts;
+                immutable c = text.count;
 
                 return
-                    format("%s characters (any)", c.character) ~ newline ~
-                    format("%s alpha-numeric chars", c.alphaNumeric) ~ newline ~
-                    format("%s whitespace chars", c.white) ~ newline ~
-                    format("%s words", c.word) ~ newline ~
-                    format("%s sentences", c.sentence) ~ newline ~
-                    format("%s lines", c.line);
+                    format("%s characters (any)", c.characters) ~ newline ~
+                    format("%s alpha-numeric chars", c.alphaNumerics) ~ newline ~
+                    format("%s whitespace chars", c.whitespaces) ~ newline ~
+                    format("%s words", c.words) ~ newline ~
+                    format("%s sentences", c.sentences) ~ newline ~
+                    format("%s lines", c.lines);
             }
         ));
 

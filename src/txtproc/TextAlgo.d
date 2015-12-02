@@ -1,7 +1,6 @@
-import std.algorithm;
-import std.conv;
+import std.algorithm : canFind, map, countIf = count;
+import std.conv : text;
 import std.range;
-import std.string;
 import std.traits;
 import std.typecons;
 import std.uni;
@@ -12,43 +11,36 @@ private enum string sentenceSeparatorChars = ".!?";
 private enum string bracketChars           = "[](){}<>";
 private enum string quoteChars             = "\"'";
 private enum string otherPunctuationChars  = ":+-/,;=%&*@#";
-private enum string lineSeparatorChars     = "\n\r";
 private enum string wordTerminatorChars    = bracketChars ~ "\"" ~ otherPunctuationChars;
 private enum string whitespaceChars        = " \t";
 private enum string lineTerminatorChars    = "\r\n";
 
-pure auto counts(string input)
+pure auto count(string input)
 {
-    auto c = Tuple!(size_t, "alphaNumeric", size_t, "character", size_t, "white", size_t, "word", size_t, "sentence", size_t, "line")();
-    c.line = 1;
+    auto c = Tuple!(size_t, "alphaNumerics", size_t, "characters", size_t, "whitespaces", size_t, "words", size_t, "sentences", size_t, "lines")();
+    c.lines = 1;
 
     foreach (token; input.parseText)
     {
         if (token.type == TokenType.text)
         {
-            c.alphaNumeric += token.value.count!(a => a.isAlpha || a.isNumber);
+            c.alphaNumerics += token.value.countIf!(a => a.isAlpha || a.isNumber);
+            c.words += 1;
         }
         else if (token.type == TokenType.whitespace)
         {
-            c.white += token.value.length;
-            c.word += 1;
+            c.whitespaces += token.value.length;
         }
         else if (token.type == TokenType.lineTerminator)
         {
-            c.line += token.value.replace("\r\n", "\n").length;
-            c.word += 1;
-        }
-        else if (token.type == TokenType.wordTerminator)
-        {
-            c.word += 1;
+            c.lines += token.value.replace("\r\n", "\n").length;
         }
         else if (token.type == TokenType.sentenceTerminator)
         {
-            c.sentence += 1;
-            c.word += 1;
+            c.sentences += 1;
         }
 
-        c.character += token.value.replace("\r\n", "\n").walkLength;
+        c.characters += token.value.replace("\r\n", "\n").walkLength;
     }
 
     return c;
