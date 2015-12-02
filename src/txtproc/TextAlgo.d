@@ -133,22 +133,21 @@ pure auto toText(T)(T tokens)
     return tokens.map!(a => a.value).join;
 }
 
-pure auto stripLeft(Tokens tokens)
+pure auto trimLeft(Tokens tokens)
 {
     Tokens result;
 
-    bool stripped = false;
+    bool trimmed = false;
 
     foreach (token; tokens)
     {
-        if (stripped || token.type != TokenType.whitespace)
+        if (!trimmed && (token.type == TokenType.whitespace || token.type == TokenType.lineTerminator))
         {
-            result ~= token;
+            continue;
         }
-        else
-        {
-            stripped = true;
-        }
+
+        trimmed = true;
+        result ~= token;
     }
 
     return result;
