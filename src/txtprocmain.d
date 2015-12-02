@@ -13,6 +13,8 @@ import CapitalisationAlgorithms;
 import OrderAlgorithms;
 import SearchReplaceAlgorithms;
 import ChecksumAlgorithms;
+import SortAlgorithms;
+import LinesAlgorithms;
 
 extern(C) int isatty(int);
 
@@ -74,6 +76,8 @@ int txtproc_main(string[] args, string* result = null)
         algorithms.add(new OrderAlgorithms);
         algorithms.add(new SearchReplaceAlgorithms);
         algorithms.add(new ChecksumAlgorithms);
+        algorithms.add(new SortAlgorithms);
+        algorithms.add(new LinesAlgorithms);
 
         if (options.helpWanted)
         {

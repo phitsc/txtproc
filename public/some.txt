@@ -1,5 +1,7 @@
-This is the first line.
-Dies ist die zweite Zeile.
+erste Zeile. Noch ein Satz.
+Zweite Zeile. Hallo, wie gehts?
 
-
-Dies ist die fünfte Zeile. Die 2 Zeilen oberhalb sind leer!
+Oben eine leere Zeile!
+fünfte Zeile. und hier noch einer!
+Sechste Zeile.
+Unten folgt eine leere Zeile.
