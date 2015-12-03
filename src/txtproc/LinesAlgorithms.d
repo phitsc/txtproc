@@ -1,13 +1,14 @@
 import std.algorithm : filter;
 import std.array : join;
 import std.ascii : newline;
-import std.string : cmp, chomp, empty;
+import std.string : cmp, chomp, empty, splitLines;
 import std.uni : icmp;
 import std.typecons : Flag;
 
 //import std.stdio : writeln;
 //import std.string : format;
 
+import Algorithm;
 import Algorithms;
 import TextAlgo;
 
@@ -114,12 +115,20 @@ class LinesAlgorithms : Algorithms
 
         add(new Algorithm(
             "SplitIntoLines", "Lines", "Split input text into lines using the specified separator string.", [
-                Algorithm.ParameterDescription("The string by which to separate the input text into lines"),
+                ParameterDescription("The string by which to separate the input text into lines"),
             ],
             (string text, string[] options, bool ignoreCase) {
                 return text.split(options[0], ignoreCase ? IgnoreCase.yes : IgnoreCase.no, KeepSeparator.no).join(newline);
             }
         ));
 
+        add(new Algorithm(
+            "JoinLines", "Lines", "Join lines of input text into one single line.", [
+                ParameterDescription("Text to put between each joined line", Default("")),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                return text.splitLines.join(options[0]);
+            }
+        ));
     }
 }
