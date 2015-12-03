@@ -92,7 +92,7 @@ int txtproc_main(string[] args, string* result = null)
             return 0;
         }
 
-        const func = !functionName.empty ? algorithms.closest(functionName)[0] : new Algorithm("", "", "", (string text, string[], bool) => text);
+        const func = !functionName.empty ? algorithms.closest(functionName)[0] : new Algorithm("", "", "", [], (string text, string[], bool) => text);
         const outputText = func.process(getInputText(inputFile, fromClipboard, args), params, ignoreCase);
 
         if (result)

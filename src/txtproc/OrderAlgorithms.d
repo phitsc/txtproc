@@ -62,7 +62,7 @@ class OrderAlgorithms : Algorithms
     this()
     {
         add(new Algorithm(
-            "ReverseLines", "Order", "Reverse order of lines within input text.",
+            "ReverseLines", "Order", "Reverse order of lines within input text.", [],
             (string text, string[], bool) {
                 auto lines = text.splitLines;
                 reverse(lines);
@@ -71,56 +71,56 @@ class OrderAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "ReverseSentences", "Order", "Reverse order of sentences within input text.",
+            "ReverseSentences", "Order", "Reverse order of sentences within input text.", [],
             (string text, string[], bool) {
                 return text.parseText.sentences.retro.map!(a => a.toText).join;
             }
         ));
 
         add(new Algorithm(
-            "ReverseWords", "Order", "Reverse order of words within input text.",
+            "ReverseWords", "Order", "Reverse order of words within input text.", [],
             (string text, string[], bool) {
                 return text.parseText.retro.toText;
             }
         ));
 
         add(new Algorithm(
-            "ReverseCharacters", "Order", "Reverse order of characters within input text.",
+            "ReverseCharacters", "Order", "Reverse order of characters within input text.", [],
             (string text, string[], bool) {
                 return text.reverseUni;
             }
         ));
 
         add(new Algorithm(
-            "ReverseCharactersWithinWords", "Order", "Reverse order of characters within words of input text.",
+            "ReverseCharactersWithinWords", "Order", "Reverse order of characters within words of input text.", [],
             (string text, string[], bool) {
                 return text.parseText.map!(a => a.type == TokenType.text ? a.value.reverseUni : a.value).join;
             }
         ));
 
         add(new Algorithm(
-            "Shuffle", "Order", "Shuffle order of characters within input text.",
+            "Shuffle", "Order", "Shuffle order of characters within input text.", [],
             (string text, string[], bool) {
                 return text.shuffle;
             }
         ));
 
         add(new Algorithm(
-            "ShuffleWords", "Order", "Shuffle order of words within input text.",
+            "ShuffleWords", "Order", "Shuffle order of words within input text.", [],
             (string text, string[], bool) {
                 return text.parseText.shuffleWithinTokenRange.toText;
             }
         ));
 
         add(new Algorithm(
-            "ShuffleWordsWithinSentence", "Order", "Shuffle order of words within sentences of the input text.",
+            "ShuffleWordsWithinSentence", "Order", "Shuffle order of words within sentences of the input text.", [],
             (string text, string[], bool) {
                 return text.parseText.sentences.map!(a => a.shuffleWithinTokenRange.toText).join;
             }
         ));
 
         add(new Algorithm(
-            "ShuffleWithinWords", "Order", "Shuffle order of characters within words of input text.",
+            "ShuffleWithinWords", "Order", "Shuffle order of characters within words of input text.", [],
             (string text, string[], bool) {
                 return text.parseText.map!(a => a.type == TokenType.text ? a.value.shuffle : a.value).join;
             }

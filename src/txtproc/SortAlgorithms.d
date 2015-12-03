@@ -48,7 +48,7 @@ class SortAlgorithms : Algorithms
     this()
     {
         add(new Algorithm(
-            "SortLines", "Sort", "Sort lines of input text alphabetically.",
+            "SortLines", "Sort", "Sort lines of input text alphabetically.", [],
             (string text, string[], bool ignoreCase) {
                 return text.parseText.lines.sort!((a, b) => ignoreCase ?
                     icmp(a.trimLeft.toText, b.trimLeft.toText) < 0 :
@@ -57,14 +57,14 @@ class SortAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "SortLinesByLength", "Sort", "Sort lines of input text by line length.",
+            "SortLinesByLength", "Sort", "Sort lines of input text by line length.", [],
             (string text, string[], bool ignoreCase) {
                 return text.parseText.lines.sort!((a, b) => a.toText.length < b.toText.length).map!(a => a.toText).join;
             }
         ));
 
         add(new Algorithm(
-            "SortLinesByNumber", "Sort", "Sort lines of input text by first number found on each line.",
+            "SortLinesByNumber", "Sort", "Sort lines of input text by first number found on each line.", [],
             (string text, string[], bool ignoreCase) {
                 return text.parseText.lines.sort!((a, b) {
                     auto numberRegex = regex(`[-+]?((\b[0-9]+)?\.)?[0-9]+\b`);
@@ -84,7 +84,7 @@ class SortAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "SortSentences", "Sort", "Sort sentences of input text alphabetically.",
+            "SortSentences", "Sort", "Sort sentences of input text alphabetically.", [],
             (string text, string[], bool ignoreCase) {
                 return text.parseText.sentences.sort!((a, b) => ignoreCase ?
                     icmp(a.trimLeft.toText, b.trimLeft.toText) < 0 :
@@ -93,7 +93,7 @@ class SortAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "SortWords", "Sort", "Sort words of input text alphabetically.",
+            "SortWords", "Sort", "Sort words of input text alphabetically.", [],
             (string text, string[], bool ignoreCase) {
                 return text.parseText.sortWithinTokenRange(ignoreCase).toText;
             }

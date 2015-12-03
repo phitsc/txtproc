@@ -5,7 +5,9 @@ import std.range;
 import std.regex;
 import std.string;
 import std.uni;
+import std.typecons;
 
+import Algorithm;
 import Algorithms;
 
 class SearchReplaceAlgorithms : Algorithms
@@ -13,63 +15,49 @@ class SearchReplaceAlgorithms : Algorithms
     this()
     {
         add(new Algorithm(
-            "Search", "Search & Replace", "Search sub-text in input text.",
+            "Search", "Search & Replace", "Search sub-text in input text.", [
+                ParameterDescription("The sub-text to search within the input text"),
+                ParameterDescription("The start tag used to indicate a find", Default(defaultStag)),
+                ParameterDescription("The end tag used to indicate a find", Default(defaultEtag))],
             (string text, string[] params, bool ignoreCase) {
-                if (params.length < 1)
-                {
-                    throw new Exception("Missing parameter (search text)");
-                }
-
                 return searchAndReplace(text, replaceSpecialChars(params[0]), stag(params, 1), etag(params, 2), null, ignoreCase);
             }
         ));
 
         add(new Algorithm(
-            "Replace", "Search & Replace", "Replace sub-text in input text by a replacement text.",
+            "Replace", "Search & Replace", "Replace sub-text in input text by a replacement text.", [
+                ParameterDescription("The sub-text to replace"),
+                ParameterDescription("The replacement text"),
+                ParameterDescription("The start tag used to indicate a replacement", Default(defaultStag)),
+                ParameterDescription("The end tag used to indicate a replacement", Default(defaultEtag))],
             (string text, string[] params, bool ignoreCase) {
-                if (params.length < 1)
-                {
-                    throw new Exception("Missing parameter (search text)");
-                }
-                else if (params.length < 2)
-                {
-                    throw new Exception("Missing parameter (replacement text)");
-                }
-
                 return searchAndReplace(text, replaceSpecialChars(params[0]), stag(params, 2), etag(params, 3), replaceSpecialChars(params[1]), ignoreCase);
             }
         ));
 
         add(new Algorithm(
-            "SearchRegex", "Search & Replace", "Search sub-text in input text using a regular expression.",
+            "SearchRegex", "Search & Replace", "Search sub-text in input text using a regular expression.", [
+                ParameterDescription("The regular expression to search within the input text"),
+                ParameterDescription("The start tag used to indicate a replacement", Default(defaultStag)),
+                ParameterDescription("The end tag used to indicate a replacement", Default(defaultEtag))],
             (string text, string[] params, bool ignoreCase) {
-                if (params.length < 1)
-                {
-                    throw new Exception("Missing parameter (search text)");
-                }
-
                 return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), stag(params, 1), etag(params, 2), null, ignoreCase);
             }
         ));
 
         add(new Algorithm(
-            "ReplaceRegex", "Search & Replace", "Replace sub-text in input text by a replacement text using a regular expression.",
+            "ReplaceRegex", "Search & Replace", "Replace sub-text in input text by a replacement text using a regular expression.", [
+                ParameterDescription("The regular expression to replace"),
+                ParameterDescription("The replacement text"),
+                ParameterDescription("The start tag used to indicate a replacement", Default(defaultStag)),
+                ParameterDescription("The end tag used to indicate a replacement", Default(defaultEtag))],
             (string text, string[] params, bool ignoreCase) {
-                if (params.length < 1)
-                {
-                    throw new Exception("Missing parameter (search text)");
-                }
-                else if (params.length < 2)
-                {
-                    throw new Exception("Missing parameter (replacement text)");
-                }
-
                 return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), stag(params, 2), etag(params, 3), replaceSpecialChars(params[1]), ignoreCase);
             }
         ));
 
         add(new Algorithm(
-            "SearchNonAscii", "Search & Replace", "Search for non ASCII characters in input text.",
+            "SearchNonAscii", "Search & Replace", "Search for non ASCII characters in input text.", [],
             (string text, string[] params, bool ignoreCase) {
 
                 return text.replaceAll(regex(r"([^\u0000-\u007F])"), stag(params, 0) ~ "$1" ~ etag(params, 1));

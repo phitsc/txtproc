@@ -58,21 +58,21 @@ class CapitalisationAlgorithms : Algorithms
     this()
     {
         add(new Algorithm(
-            "Upper", "Capitalisation", "Change input text to UPPER case.",
+            "Upper", "Capitalisation", "Change input text to UPPER case.", [],
             (string text, string[], bool) {
                 return text.toUpper;
             }
         ));
 
         add(new Algorithm(
-            "Lower", "Capitalisation", "Change input text to lower case.",
+            "Lower", "Capitalisation", "Change input text to lower case.", [],
             (string text, string[], bool) {
                 return text.toLower;
             }
         ));
 
         add(new Algorithm(
-            "Toggle", "Capitalisation", "Toggle case of input text.",
+            "Toggle", "Capitalisation", "Toggle case of input text.", [],
             (string text, string[], bool) {
                 string result;
 
@@ -86,14 +86,14 @@ class CapitalisationAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "Capital", "Capitalisation", "Change Input Text To Capital Case.",
+            "Capital", "Capitalisation", "Change Input Text To Capital Case.", [],
             (string text, string[], bool) {
                 return text.parseText.map!(a => a.type == TokenType.text ? a.value.capitalize : a.value).join;
             }
         ));
 
         add(new Algorithm(
-            "Sentence", "Capitalisation", "Change input text to sentence case.",
+            "Sentence", "Capitalisation", "Change input text to sentence case.", [],
             (string text, string[], bool) {
                 string result;
                 bool sentenceStart = true;
@@ -121,14 +121,14 @@ class CapitalisationAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "Snake", "Capitalisation", "Change input text to snake_case.",
+            "Snake", "Capitalisation", "Change input text to snake_case.", [],
             (string text, string[], bool) {
                 return text.parseText.map!(a => a.type == TokenType.text ? a.value.toSnake : a.value).join;
             }
         ));
 
         add(new Algorithm(
-            "Camel", "Capitalisation", "Change input text to CamelCase.",
+            "Camel", "Capitalisation", "Change input text to CamelCase.", [],
             (string text, string[], bool) {
                 return text.parseText.map!(a => a.type == TokenType.text ? a.value.toCamel : a.value).join;
             }

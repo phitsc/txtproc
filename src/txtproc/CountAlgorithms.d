@@ -17,7 +17,7 @@ class CountAlgorithms : Algorithms
     this()
     {
         add(new Algorithm(
-            "Count", "Count", "Count number of characters, words and lines of input text.",
+            "Count", "Count", "Count number of characters, words and lines of input text.", [],
             (string text, string[], bool) {
                 immutable c = text.count;
 
@@ -26,35 +26,35 @@ class CountAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "CountCharacters", "Count", "Count number of characters of input text.",
+            "CountCharacters", "Count", "Count number of characters of input text.", [],
             (string text, string[], bool) {
                 return text.count.characters.text;
             }
         ));
 
         add(new Algorithm(
-            "CountWords", "Count", "Count number of words of input text.",
+            "CountWords", "Count", "Count number of words of input text.", [],
             (string text, string[], bool) {
                 return text.count.words.text;
             }
         ));
 
         add(new Algorithm(
-            "CountSentences", "Count", "Count number of sentences of input text.",
+            "CountSentences", "Count", "Count number of sentences of input text.", [],
             (string text, string[], bool) {
                 return text.count.sentences.text;
             }
         ));
 
         add(new Algorithm(
-            "CountLines", "Count", "Count number of sentences of input text.",
+            "CountLines", "Count", "Count number of sentences of input text.", [],
             (string text, string[], bool) {
                 return text.count.lines.text;
             }
         ));
 
         add(new Algorithm(
-            "CountMore", "Count", "Count number of characters, words, sentences and lines of input text.",
+            "CountMore", "Count", "Count number of characters, words, sentences and lines of input text.", [],
             (string text, string[], bool) {
                 immutable c = text.count;
 
@@ -69,7 +69,7 @@ class CountAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "CountAlphabet", "Count", "Per-character count of input text.",
+            "CountAlphabet", "Count", "Per-character count of input text.", [],
             (string text, string[], bool ignoreCase) {
                 int[dchar] dict;
 
@@ -104,13 +104,9 @@ class CountAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "CountRegex", "Count", "Count how many times the specified regular expression matches.",
+            "CountRegex", "Count", "Count how many times the specified regular expression matches.", [
+                Algorithm.ParameterDescription("The regular expression to count") ],
             (string text, string[] params, bool ignoreCase) {
-                if (params.length < 1)
-                {
-                    throw new Exception("Missing parameter (search text)");
-                }
-
                 return to!string(text.matchAll(regex(params[0], "m" ~ (ignoreCase ? "i" : ""))).array.length);
             }
         ));
