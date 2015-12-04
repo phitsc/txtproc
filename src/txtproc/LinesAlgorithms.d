@@ -1,5 +1,5 @@
 import std.algorithm : filter;
-import std.array : join;
+import std.array : insertInPlace, join;
 import std.ascii : newline;
 import std.string : cmp, chomp, empty, splitLines;
 import std.uni : icmp;
@@ -128,6 +128,43 @@ class LinesAlgorithms : Algorithms
             ],
             (string text, string[] options, bool ignoreCase) {
                 return text.splitLines.join(options[0]);
+            }
+        ));
+
+        add(new Algorithm(
+            "AppendToLines", "Lines", "Append some text to each line of the input text.", [
+                ParameterDescription("Text to append to each line"),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                string result;
+
+                foreach (line; text.parseText.lines)
+                {
+                    if (line[$-1 .. $][0].type == TokenType.lineTerminator)
+                    {
+                        line.insertInPlace(line.length - 1, Token(TokenType.text, options[0]));
+                    }
+                    else
+                    {
+                        line ~= Token(TokenType.text, options[0]);
+                    }
+
+                    result ~= line.toText;
+                }
+
+                return result;
+            }
+        ));
+
+        add(new Algorithm(
+            "PrependToLines", "Lines", "Prepend (prefix) some text to each line of the input text.", [
+                ParameterDescription("Text to prepend to each line"),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                return text.parseText.lines.map!((a) {
+                    a.insertInPlace(0, Token(TokenType.text, options[0]));
+                    return a.toText;
+                }).join;
             }
         ));
     }
