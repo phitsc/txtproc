@@ -1,6 +1,8 @@
 import std.algorithm : filter;
 import std.array : insertInPlace, join;
 import std.ascii : newline;
+import std.conv : text, to;
+import std.regex;
 import std.string : cmp, chomp, empty, splitLines;
 import std.uni : icmp;
 import std.typecons : Flag;
@@ -136,23 +138,7 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("Text to append to each line"),
             ],
             (string text, string[] options, bool ignoreCase) {
-                string result;
-
-                foreach (line; text.parseText.lines)
-                {
-                    if (line[$-1 .. $][0].type == TokenType.lineTerminator)
-                    {
-                        line.insertInPlace(line.length - 1, Token(TokenType.text, options[0]));
-                    }
-                    else
-                    {
-                        line ~= Token(TokenType.text, options[0]);
-                    }
-
-                    result ~= line.toText;
-                }
-
-                return result;
+                return text.parseText.lines.map!(a => a.appendTextToLine(options[0])).map!(a => a.toText).join;
             }
         ));
 
@@ -161,10 +147,35 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("Text to prepend to each line"),
             ],
             (string text, string[] options, bool ignoreCase) {
+                return text.parseText.lines.map!(a => a.prependTextToLine(options[0])).map!(a => a.toText).join;
+            }
+        ));
+
+        add(new Algorithm(
+            "PrependLineNumbers", "Lines", "Prepend (prefix) each line of input text with a line number.", [
+                ParameterDescription("Line number format string (use # for line number)", Default("#")),
+                ParameterDescription("On what line number to start", Default("1")),
+                ParameterDescription("How much to increment on each line", Default("1")),
+                ParameterDescription("Base to use for line numbers (can be any of b(inary), o(ctal), d(ecimal) or he(x|X)", Default("d")),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                if (!"bodxX".canFind(options[3]))
+                {
+                    throw new Exception(options[3] ~ " is not a valid base.");
+                }
+
+                auto r = regex("[#]+");
+                auto captures = options[0].matchFirst(r);
+                immutable fmt = captures.empty ? "" : options[0].replaceFirst(r, "%" ~ captures.hit.length.text ~ options[3]);
+                immutable start = to!size_t(options[1]);
+                immutable increment = to!size_t(options[2]);
+
+                size_t lineNumber = start;
                 return text.parseText.lines.map!((a) {
-                    a.insertInPlace(0, Token(TokenType.text, options[0]));
-                    return a.toText;
-                }).join;
+                        const result = a.prependTextToLine(format(fmt, lineNumber));
+                        lineNumber += increment;
+                        return result;
+                    }).map!(a => a.toText).join;
             }
         ));
     }

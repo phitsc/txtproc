@@ -153,6 +153,26 @@ pure auto trimLeft(Tokens tokens)
     return result;
 }
 
+pure auto appendTextToLine(Tokens line, string text)
+{
+    if (line[$-1 .. $][0].type == TokenType.lineTerminator)
+    {
+        line.insertInPlace(line.length - 1, Token(TokenType.text, text));
+    }
+    else
+    {
+        line ~= Token(TokenType.text, text);
+    }
+
+    return line;
+}
+
+pure auto prependTextToLine(Tokens line, string text)
+{
+    line.insertInPlace(0, Token(TokenType.text, text));
+    return line;
+}
+
 alias lines = elements!(TokenType.lineTerminator);
 alias sentences = elements!(TokenType.sentenceTerminator);
 
