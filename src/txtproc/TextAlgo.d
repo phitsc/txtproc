@@ -153,24 +153,23 @@ pure auto trimLeft(Tokens tokens)
     return result;
 }
 
-pure auto appendTextToLine(Tokens line, string text)
+auto eachLineJoin(Tokens[] lines, string delegate(string) func)
 {
-    if (line[$-1 .. $][0].type == TokenType.lineTerminator)
+    string result;
+
+    foreach (line; lines)
     {
-        line.insertInPlace(line.length - 1, Token(TokenType.text, text));
-    }
-    else
-    {
-        line ~= Token(TokenType.text, text);
+        if (line[$-1 .. $][0].type == TokenType.lineTerminator)
+        {
+            result ~= func(line[0 .. $-1].toText) ~ line[$-1 .. $][0].value;
+        }
+        else
+        {
+            result ~= func(line.toText);
+        }
     }
 
-    return line;
-}
-
-pure auto prependTextToLine(Tokens line, string text)
-{
-    line.insertInPlace(0, Token(TokenType.text, text));
-    return line;
+    return result;
 }
 
 alias lines = elements!(TokenType.lineTerminator);

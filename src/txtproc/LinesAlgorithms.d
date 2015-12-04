@@ -138,7 +138,7 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("Text to append to each line"),
             ],
             (string text, string[] options, bool ignoreCase) {
-                return text.parseText.lines.map!(a => a.appendTextToLine(options[0])).map!(a => a.toText).join;
+                return text.parseText.lines.eachLineJoin(a => a ~ options[0]);
             }
         ));
 
@@ -147,7 +147,7 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("Text to prepend to each line"),
             ],
             (string text, string[] options, bool ignoreCase) {
-                return text.parseText.lines.map!(a => a.prependTextToLine(options[0])).map!(a => a.toText).join;
+                return text.parseText.lines.eachLineJoin(a => options[0] ~ a);
             }
         ));
 
@@ -171,11 +171,11 @@ class LinesAlgorithms : Algorithms
                 immutable increment = to!size_t(options[2]);
 
                 size_t lineNumber = start;
-                return text.parseText.lines.map!((a) {
-                        const result = a.prependTextToLine(format(fmt, lineNumber));
+                return text.parseText.lines.eachLineJoin((a) {
+                        const result = format(fmt, lineNumber) ~ a;
                         lineNumber += increment;
                         return result;
-                    }).map!(a => a.toText).join;
+                    });
             }
         ));
     }
