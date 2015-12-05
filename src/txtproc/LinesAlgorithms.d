@@ -117,6 +117,34 @@ class LinesAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
+            "RemoveExtraEmptyLines", "Lines", "Reduces consecutive empty lines to one empty line.", [],
+            (string text, string[], bool) {
+
+                bool emptyLine;
+
+                return text.parseText.lines.filter!((a) {
+                        if (a.trimLeft.toText.chomp.empty)
+                        {
+                            if (!emptyLine)
+                            {
+                                emptyLine = true;
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            emptyLine = false;
+                            return true;
+                        }
+                    }).map!(a => a.toText).join;
+            }
+        ));
+
+        add(new Algorithm(
             "SplitIntoLines", "Lines", "Split input text into lines using the specified separator string.", [
                 ParameterDescription("The string by which to separate the input text into lines"),
             ],
