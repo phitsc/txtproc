@@ -2,13 +2,13 @@ import std.algorithm : filter, max;
 import std.array : insertInPlace, join;
 import std.ascii : newline;
 import std.conv : text, to;
-import std.range : stride, walkLength;
+import std.range : retro, stride, walkLength;
 import std.regex;
 import std.string : cmp, chomp, empty, splitLines;
 import std.uni : icmp;
 import std.typecons : Flag;
 
-//import std.stdio : writeln;
+import std.stdio : writeln;
 //import std.string : format;
 
 import Algorithm;
@@ -215,6 +215,54 @@ class LinesAlgorithms : Algorithms
             }
         ));
 
+        add(new Algorithm(
+            "RemoveWords", "Lines", "Removes a specified number of words from the beginning and/or end of each line.", [
+                ParameterDescription("Number of words to remove at the beginning of each line"),
+                ParameterDescription("Number of words to remove at the end of each line", Default("0")),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                return text.parseText.lines.map!((a) {
+                        auto left = max(0, to!int(options[0]));
+                        auto right = max(0, to!int(options[1]));
 
+                        size_t leftIndex = 0;
+
+                        foreach (token; a)
+                        {
+                            if (token.type == TokenType.text)
+                            {
+                                if (left == 0)
+                                {
+                                    break;
+                                }
+
+                                left--;
+                            }
+
+                            leftIndex++;
+                        }
+
+                        size_t rightIndex = 0;
+
+                        foreach (token; a.retro)
+                        {
+                            if (token.type == TokenType.text && right > 0)
+                            {
+                                right--;
+                            }
+                            else if (right == 0)
+                            {
+                                break;
+                            }
+
+                            rightIndex++;
+                        }
+
+                        auto result = (leftIndex + rightIndex) < a.length ? a[leftIndex .. $ - 1 - rightIndex] ~ a[$-1] : [ a[$-1] ];
+
+                        return result;
+                    }).map!(a => a.toText).join;
+            }
+        ));
     }
 }

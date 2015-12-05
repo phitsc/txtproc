@@ -1,5 +1,5 @@
 erste Zeile. Noch ein Satz.
-Zweite Zeile. Hallo, wie gehts?
+Zweite Zeile. Hallo, wie geht's?
 
 Oben eine leere Zeile!
 fünfte Zeile. und hier noch einer!

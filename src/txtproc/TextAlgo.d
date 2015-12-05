@@ -10,7 +10,7 @@ import std.stdio;
 private enum string sentenceSeparatorChars = ".!?";
 private enum string bracketChars           = "[](){}<>";
 private enum string quoteChars             = "\"'";
-private enum string otherPunctuationChars  = ":+-/,;=%&*@#";
+private enum string otherPunctuationChars  = ":+/,;=%&*@#";
 private enum string wordTerminatorChars    = bracketChars ~ "\"" ~ otherPunctuationChars;
 private enum string whitespaceChars        = " \t";
 private enum string lineTerminatorChars    = "\r\n";
