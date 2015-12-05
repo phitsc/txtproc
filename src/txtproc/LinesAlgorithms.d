@@ -1,7 +1,8 @@
-import std.algorithm : filter;
+import std.algorithm : filter, max;
 import std.array : insertInPlace, join;
 import std.ascii : newline;
 import std.conv : text, to;
+import std.range : stride, walkLength;
 import std.regex;
 import std.string : cmp, chomp, empty, splitLines;
 import std.uni : icmp;
@@ -178,5 +179,42 @@ class LinesAlgorithms : Algorithms
                     });
             }
         ));
+
+        add(new Algorithm(
+            "RemoveCharacters", "Lines", "Removes a specified number of characters from the beginning and/or end of each line.", [
+                ParameterDescription("Number of characters to remove at the beginning of each line"),
+                ParameterDescription("Number of characters to remove at the end of each line", Default("0")),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                return text.parseText.lines.eachLineJoin((a) {
+                        immutable left = max(0, to!int(options[0]));
+                        immutable right = a.walkLength - max(0, to!int(options[1]));
+
+                        string result;
+                        size_t index = 0;
+
+                        foreach (character; a.stride(1))
+                        {
+                            if (index >= right)
+                            {
+                                break;
+                            }
+                            else if (index >= left)
+                            {
+                                result ~= character;
+                            }
+
+                            ++index;
+                        }
+
+                        return result;
+
+                        // if splices would work with unicode characters
+                        //return (left + right) < a.length ? a[left .. $ - right] : "";
+                    });
+            }
+        ));
+
+
     }
 }
