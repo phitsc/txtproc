@@ -1,0 +1,239 @@
+%1
+erste Zeile. Noch ein Satz. Und ein dritter.
+Zweite Zeile. Hallo, wie geht's?
+
+
+
+Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+     5 Leerzeichen. fünfte Zeile. und hier noch einer!
+Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Unten folgt eine leere Zeile.
+
+neunte Zeile
+10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+eleventh line. This line ends with 3 spaces   
+
+
+Oben noch zwei leere Zeilen.
+%%%
+-fRemoveEmptyLines
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter.
+Zweite Zeile. Hallo, wie geht's?
+Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+     5 Leerzeichen. fünfte Zeile. und hier noch einer!
+Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Unten folgt eine leere Zeile.
+neunte Zeile
+10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+eleventh line. This line ends with 3 spaces   
+Oben noch zwei leere Zeilen.
+%%%
+-fRemoveExtraEmptyLines
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter.
+Zweite Zeile. Hallo, wie geht's?
+
+Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+     5 Leerzeichen. fünfte Zeile. und hier noch einer!
+Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Unten folgt eine leere Zeile.
+
+neunte Zeile
+10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+eleventh line. This line ends with 3 spaces   
+
+Oben noch zwei leere Zeilen.
+%%%
+-fSplitIntoLines
+-p,
+%
+Dieser Text, ist durch Kommas getrennt., äöü kommen auch vor  ,  Leerzeichen ebenfalls,geht auch so
+%
+Dieser Text
+ ist durch Kommas getrennt.
+ äöü kommen auch vor  
+  Leerzeichen ebenfalls
+geht auch so
+%%%
+-fJoinLines
+%
+Zeile 1
+Zeile 2
+  Zeile 3  
+Zeile 4
+%
+Zeile 1Zeile 2  Zeile 3  Zeile 4
+%%%
+-fJoinLines
+-paü€
+%
+Zeile 1
+Zeile 2
+  Zeile 3  
+Zeile 4
+%
+Zeile 1aü€Zeile 2aü€  Zeile 3  aü€Zeile 4
+%%%
+-fAppendToLines
+-paü€
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter.aü€
+Zweite Zeile. Hallo, wie geht's?aü€
+aü€
+aü€
+aü€
+Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.aü€
+     5 Leerzeichen. fünfte Zeile. und hier noch einer!aü€
+Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    aü€
+Unten folgt eine leere Zeile.aü€
+aü€
+neunte Zeileaü€
+10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.aü€
+eleventh line. This line ends with 3 spaces   aü€
+aü€
+aü€
+Oben noch zwei leere Zeilen.aü€
+%%%
+-fPrependToLines
+-paü€
+%
+%1
+%
+aü€erste Zeile. Noch ein Satz. Und ein dritter.
+aü€Zweite Zeile. Hallo, wie geht's?
+aü€
+aü€
+aü€
+aü€Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+aü€     5 Leerzeichen. fünfte Zeile. und hier noch einer!
+aü€Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+aü€Unten folgt eine leere Zeile.
+aü€
+aü€neunte Zeile
+aü€10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+aü€eleventh line. This line ends with 3 spaces   
+aü€
+aü€
+aü€Oben noch zwei leere Zeilen.
+%%%
+-fPrependLineNumbers
+%
+%1
+%
+1erste Zeile. Noch ein Satz. Und ein dritter.
+2Zweite Zeile. Hallo, wie geht's?
+3
+4
+5
+6Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+7     5 Leerzeichen. fünfte Zeile. und hier noch einer!
+8Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+9Unten folgt eine leere Zeile.
+10
+11neunte Zeile
+1210-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+13eleventh line. This line ends with 3 spaces   
+14
+15
+16Oben noch zwei leere Zeilen.
+%%%
+-fPrependLineNumbers
+-p##. 
+%
+%1
+%
+ 1. erste Zeile. Noch ein Satz. Und ein dritter.
+ 2. Zweite Zeile. Hallo, wie geht's?
+ 3. 
+ 4. 
+ 5. 
+ 6. Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+ 7.      5 Leerzeichen. fünfte Zeile. und hier noch einer!
+ 8. Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+ 9. Unten folgt eine leere Zeile.
+10. 
+11. neunte Zeile
+12. 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+13. eleventh line. This line ends with 3 spaces   
+14. 
+15. 
+16. Oben noch zwei leere Zeilen.
+%%%
+-fPrependLineNumbers
+-p##. 
+-p10
+%
+%1
+%
+10. erste Zeile. Noch ein Satz. Und ein dritter.
+11. Zweite Zeile. Hallo, wie geht's?
+12. 
+13. 
+14. 
+15. Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+16.      5 Leerzeichen. fünfte Zeile. und hier noch einer!
+17. Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+18. Unten folgt eine leere Zeile.
+19. 
+20. neunte Zeile
+21. 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+22. eleventh line. This line ends with 3 spaces   
+23. 
+24. 
+25. Oben noch zwei leere Zeilen.
+%%%
+-fPrependLineNumbers
+-p####. 
+-p10
+-p10
+%
+%1
+%
+  10. erste Zeile. Noch ein Satz. Und ein dritter.
+  20. Zweite Zeile. Hallo, wie geht's?
+  30. 
+  40. 
+  50. 
+  60. Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+  70.      5 Leerzeichen. fünfte Zeile. und hier noch einer!
+  80. Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+  90. Unten folgt eine leere Zeile.
+ 100. 
+ 110. neunte Zeile
+ 120. 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+ 130. eleventh line. This line ends with 3 spaces   
+ 140. 
+ 150. 
+ 160. Oben noch zwei leere Zeilen.
+%%%
+-fPrependLineNumbers
+-p## 
+-p1
+-p1
+-pX
+%
+%1
+%
+ 1 erste Zeile. Noch ein Satz. Und ein dritter.
+ 2 Zweite Zeile. Hallo, wie geht's?
+ 3 
+ 4 
+ 5 
+ 6 Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+ 7      5 Leerzeichen. fünfte Zeile. und hier noch einer!
+ 8 Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+ 9 Unten folgt eine leere Zeile.
+ A 
+ B neunte Zeile
+ C 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+ D eleventh line. This line ends with 3 spaces   
+ E 
+ F 
+10 Oben noch zwei leere Zeilen.
