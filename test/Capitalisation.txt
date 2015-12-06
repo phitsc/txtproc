@@ -25,3 +25,51 @@ WAS DU NICHT WILLST DAS MAN DIR TU, DAS FÜG AUCH KEINEM ANDEREN ZU. OHNE FLEISS
 %
 was du nicht willst das man dir tu, das füg auch keinem anderen zu. ohne fleiß kein preis!
 %%%
+-fCapital
+%
+%1
+%
+Was Du Nicht Willst Das Man Dir Tu, Das Füg Auch Keinem Anderen Zu. Ohne Fleiß Kein Preis!
+%%%
+-fSentence
+%
+%1
+%
+Was du nicht willst das man dir tu, das füg auch keinem anderen zu. Ohne Fleiß kein Preis!
+%%%
+-fCamel
+%
+require "net/http"
+require "uri"
+the_uri = URI.parse("http://google.com/")
+the_response = Net::HTTP.get_response(uri)
+Net::HTTP.get_print(uri)
+http = Net::HTTP.new(uri.host, uri.port)
+response = http.request(Net::HTTP::Get.new(uri.request_uri))
+%
+require "net/http"
+require "uri"
+theUri = URI.parse("http://google.com/")
+theResponse = Net::HTTP.getResponse(uri)
+Net::HTTP.getPrint(uri)
+http = Net::HTTP.new(uri.host, uri.port)
+response = http.request(Net::HTTP::Get.new(uri.requestUri))
+%%%
+-fSnake
+%
+require "net/http"
+require "uri"
+theUri = URI.parse("http://google.com/")
+theResponse = Net::HTTP.getResponse(uri)
+Net::HTTP.getPrint(uri)
+http = Net::HTTP.new(uri.host, uri.port)
+response = http.request(Net::HTTP::Get.new(uri.requestUri))
+%
+require "net/http"
+require "uri"
+the_uri = URI.parse("http://google.com/")
+the_response = Net::HTTP.get_response(uri)
+Net::HTTP.get_print(uri)
+http = Net::HTTP.new(uri.host, uri.port)
+response = http.request(Net::HTTP::Get.new(uri.request_uri))
+%%%
