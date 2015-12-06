@@ -5,11 +5,11 @@ Zweite Zeile. Hallo, wie geht's?
 
 
 Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
-     5 Leerzeichen. fünfte Zeile. und hier noch einer!
-Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+fünfte Zeile. und hier noch einer!
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
 Unten folgt eine leere Zeile.
 
-neunte Zeile
+     5 Leerzeichen. neunte Zeile
 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
 eleventh line. This line ends with 3 spaces   
 
@@ -23,10 +23,10 @@ Oben noch zwei leere Zeilen.
 erste Zeile. Noch ein Satz. Und ein dritter.
 Zweite Zeile. Hallo, wie geht's?
 Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
-     5 Leerzeichen. fünfte Zeile. und hier noch einer!
-Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+fünfte Zeile. und hier noch einer!
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
 Unten folgt eine leere Zeile.
-neunte Zeile
+     5 Leerzeichen. neunte Zeile
 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
 eleventh line. This line ends with 3 spaces   
 Oben noch zwei leere Zeilen.
@@ -39,11 +39,11 @@ erste Zeile. Noch ein Satz. Und ein dritter.
 Zweite Zeile. Hallo, wie geht's?
 
 Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
-     5 Leerzeichen. fünfte Zeile. und hier noch einer!
-Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+fünfte Zeile. und hier noch einer!
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
 Unten folgt eine leere Zeile.
 
-neunte Zeile
+     5 Leerzeichen. neunte Zeile
 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
 eleventh line. This line ends with 3 spaces   
 
@@ -90,11 +90,11 @@ aü€
 aü€
 aü€
 Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.aü€
-     5 Leerzeichen. fünfte Zeile. und hier noch einer!aü€
-Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    aü€
+fünfte Zeile. und hier noch einer!aü€
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    aü€
 Unten folgt eine leere Zeile.aü€
 aü€
-neunte Zeileaü€
+     5 Leerzeichen. neunte Zeileaü€
 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.aü€
 eleventh line. This line ends with 3 spaces   aü€
 aü€
@@ -112,11 +112,11 @@ aü€
 aü€
 aü€
 aü€Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
-aü€     5 Leerzeichen. fünfte Zeile. und hier noch einer!
-aü€Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+aü€fünfte Zeile. und hier noch einer!
+aü€ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
 aü€Unten folgt eine leere Zeile.
 aü€
-aü€neunte Zeile
+aü€     5 Leerzeichen. neunte Zeile
 aü€10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
 aü€eleventh line. This line ends with 3 spaces   
 aü€
@@ -133,11 +133,11 @@ aü€Oben noch zwei leere Zeilen.
 4
 5
 6Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
-7     5 Leerzeichen. fünfte Zeile. und hier noch einer!
-8Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+7fünfte Zeile. und hier noch einer!
+8 Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
 9Unten folgt eine leere Zeile.
 10
-11neunte Zeile
+11     5 Leerzeichen. neunte Zeile
 1210-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
 13eleventh line. This line ends with 3 spaces   
 14
@@ -155,11 +155,11 @@ aü€Oben noch zwei leere Zeilen.
  4. 
  5. 
  6. Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
- 7.      5 Leerzeichen. fünfte Zeile. und hier noch einer!
- 8. Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+ 7. fünfte Zeile. und hier noch einer!
+ 8.  Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
  9. Unten folgt eine leere Zeile.
 10. 
-11. neunte Zeile
+11.      5 Leerzeichen. neunte Zeile
 12. 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
 13. eleventh line. This line ends with 3 spaces   
 14. 
@@ -178,11 +178,11 @@ aü€Oben noch zwei leere Zeilen.
 13. 
 14. 
 15. Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
-16.      5 Leerzeichen. fünfte Zeile. und hier noch einer!
-17. Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+16. fünfte Zeile. und hier noch einer!
+17.  Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
 18. Unten folgt eine leere Zeile.
 19. 
-20. neunte Zeile
+20.      5 Leerzeichen. neunte Zeile
 21. 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
 22. eleventh line. This line ends with 3 spaces   
 23. 
@@ -202,11 +202,11 @@ aü€Oben noch zwei leere Zeilen.
   40. 
   50. 
   60. Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
-  70.      5 Leerzeichen. fünfte Zeile. und hier noch einer!
-  80. Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+  70. fünfte Zeile. und hier noch einer!
+  80.  Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
   90. Unten folgt eine leere Zeile.
  100. 
- 110. neunte Zeile
+ 110.      5 Leerzeichen. neunte Zeile
  120. 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
  130. eleventh line. This line ends with 3 spaces   
  140. 
@@ -227,13 +227,104 @@ aü€Oben noch zwei leere Zeilen.
  4 
  5 
  6 Oben drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
- 7      5 Leerzeichen. fünfte Zeile. und hier noch einer!
- 8 Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+ 7 fünfte Zeile. und hier noch einer!
+ 8  Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
  9 Unten folgt eine leere Zeile.
  A 
- B neunte Zeile
+ B      5 Leerzeichen. neunte Zeile
  C 10-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
  D eleventh line. This line ends with 3 spaces   
  E 
  F 
 10 Oben noch zwei leere Zeilen.
+%%%
+-fRemoveCharacters
+-p2
+%
+%1
+%
+ste Zeile. Noch ein Satz. Und ein dritter.
+eite Zeile. Hallo, wie geht's?
+
+
+
+en drei leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+nfte Zeile. und hier noch einer!
+echste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+ten folgt eine leere Zeile.
+
+   5 Leerzeichen. neunte Zeile
+-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+eventh line. This line ends with 3 spaces   
+
+
+en noch zwei leere Zeilen.
+%%%
+-fRemoveCharacters
+-p2
+-p8
+%
+%1
+%
+ste Zeile. Noch ein Satz. Und ein 
+eite Zeile. Hallo, wie
+
+
+
+en drei leere Zeile! Die Zürcher Straßenbahn hei
+nfte Zeile. und hier noc
+echste Zeile. Diese Zeile endet mit 4 Leerzei
+ten folgt eine leer
+
+   5 Leerzeichen. neun
+-te Zeile. Zeiter Satz. Dritter. Und ein vierter. Und ein 
+eventh line. This line ends with 3 s
+
+
+en noch zwei leere
+%%%
+-fRemoveCharacters
+-p20
+-p20
+%
+%1
+%
+n Sa
+
+
+
+
+e! Die Zürcher Str
+
+e Zeile endet m
+
+
+
+Satz. Dritter. Und ein viert
+line e
+
+
+
+%%%
+-fRemoveWords
+-p2
+%
+%1
+%
+Noch ein Satz. Und ein dritter.
+Hallo, wie geht's?
+
+
+
+leere Zeile! Die Zürcher Straßenbahn heißt Tram.
+und hier noch einer!
+Diese Zeile endet mit 4 Leerzeichen    
+eine leere Zeile.
+
+neunte Zeile
+Zeiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+This line ends with 3 spaces   
+
+
+zwei leere Zeilen.
+%%%
