@@ -16,7 +16,7 @@ eleventh line. This line ends with 3 spaces
 
 Oben noch zwei leere Zeilen.
 %%%
--fRemoveEmptyLines
+-eRemoveEmptyLines
 %
 %1
 %
@@ -31,7 +31,7 @@ Unten folgt eine leere Zeile.
 eleventh line. This line ends with 3 spaces   
 Oben noch zwei leere Zeilen.
 %%%
--fRemoveExtraEmptyLines
+-eRemoveExtraEmptyLines
 %
 %1
 %
@@ -49,7 +49,7 @@ eleventh line. This line ends with 3 spaces
 
 Oben noch zwei leere Zeilen.
 %%%
--fSplitIntoLines
+-eSplitIntoLines
 -p,
 %
 Dieser Text, ist durch Kommas getrennt., äöü kommen auch vor  ,  Leerzeichen ebenfalls,geht auch so
@@ -60,7 +60,7 @@ Dieser Text
   Leerzeichen ebenfalls
 geht auch so
 %%%
--fJoinLines
+-eJoinLines
 %
 Zeile 1
 Zeile 2
@@ -69,7 +69,7 @@ Zeile 4
 %
 Zeile 1Zeile 2  Zeile 3  Zeile 4
 %%%
--fJoinLines
+-eJoinLines
 -paü€
 %
 Zeile 1
@@ -79,7 +79,7 @@ Zeile 4
 %
 Zeile 1aü€Zeile 2aü€  Zeile 3  aü€Zeile 4
 %%%
--fAppendToLines
+-eAppendToLines
 -paü€
 %
 %1
@@ -101,7 +101,7 @@ aü€
 aü€
 Oben noch zwei leere Zeilen.aü€
 %%%
--fPrependToLines
+-ePrependToLines
 -paü€
 %
 %1
@@ -123,7 +123,7 @@ aü€
 aü€
 aü€Oben noch zwei leere Zeilen.
 %%%
--fPrependLineNumbers
+-ePrependLineNumbers
 %
 %1
 %
@@ -144,7 +144,7 @@ aü€Oben noch zwei leere Zeilen.
 15
 16Oben noch zwei leere Zeilen.
 %%%
--fPrependLineNumbers
+-ePrependLineNumbers
 -p##. 
 %
 %1
@@ -166,7 +166,7 @@ aü€Oben noch zwei leere Zeilen.
 15. 
 16. Oben noch zwei leere Zeilen.
 %%%
--fPrependLineNumbers
+-ePrependLineNumbers
 -p##. 
 -p10
 %
@@ -189,7 +189,7 @@ aü€Oben noch zwei leere Zeilen.
 24. 
 25. Oben noch zwei leere Zeilen.
 %%%
--fPrependLineNumbers
+-ePrependLineNumbers
 -p####. 
 -p10
 -p10
@@ -213,7 +213,7 @@ aü€Oben noch zwei leere Zeilen.
  150. 
  160. Oben noch zwei leere Zeilen.
 %%%
--fPrependLineNumbers
+-ePrependLineNumbers
 -p## 
 -p1
 -p1
@@ -238,7 +238,7 @@ aü€Oben noch zwei leere Zeilen.
  F 
 10 Oben noch zwei leere Zeilen.
 %%%
--fRemoveCharacters
+-eRemoveCharacters
 -p2
 %
 %1
@@ -260,7 +260,7 @@ eventh line. This line ends with 3 spaces
 
 en noch zwei leere Zeilen.
 %%%
--fRemoveCharacters
+-eRemoveCharacters
 -p2
 -p8
 %
@@ -283,7 +283,7 @@ eventh line. This line ends with 3 s
 
 en noch zwei leere
 %%%
--fRemoveCharacters
+-eRemoveCharacters
 -p20
 -p20
 %
@@ -306,7 +306,7 @@ line e
 
 
 %%%
--fRemoveWords
+-eRemoveWords
 -p2
 %
 %1

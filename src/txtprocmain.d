@@ -22,9 +22,9 @@ int txtproc_main(string[] args, string* result = null)
 {
     try
     {
-        bool ignoreCase;
         string functionName;
         string inputFile;
+        bool ignoreCase;
         bool listFunctions;
         bool modifyInputFile;
         string[] params;
@@ -44,9 +44,9 @@ int txtproc_main(string[] args, string* result = null)
         ];
 
         version(Windows) auto options = getopt(args,
-            opts[0][0], opts[0][1], &ignoreCase,
-            opts[1][0], opts[1][1], &functionName,
-            opts[2][0], opts[2][1], &inputFile,
+            opts[0][0], opts[0][1], &functionName,
+            opts[1][0], opts[1][1], &inputFile,
+            opts[2][0], opts[2][1], &ignoreCase,
             opts[3][0], opts[3][1], &listFunctions,
             opts[4][0], opts[4][1], &modifyInputFile,
             opts[5][0], opts[5][1], &params,
@@ -55,9 +55,9 @@ int txtproc_main(string[] args, string* result = null)
         );
 
         version(linux) auto options = getopt(args,
-            opts[0][0], opts[0][1], &ignoreCase,
-            opts[1][0], opts[1][1], &functionName,
-            opts[2][0], opts[2][1], &inputFile,
+            opts[0][0], opts[0][1], &functionName,
+            opts[1][0], opts[1][1], &inputFile,
+            opts[2][0], opts[2][1], &ignoreCase,
             opts[3][0], opts[3][1], &listFunctions,
             opts[4][0], opts[4][1], &modifyInputFile,
             opts[5][0], opts[5][1], &params

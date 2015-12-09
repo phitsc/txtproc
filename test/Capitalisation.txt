@@ -7,37 +7,37 @@ Hello world
 %
 Hello world
 %%%
--fToggle
+-eToggle
 %
 Hellö wÖrld!
 %
 hELLÖ WöRLD!
 %%%
--fUpper
+-eUpper
 %
 %1
 %
 WAS DU NICHT WILLST DAS MAN DIR TU, DAS FÜG AUCH KEINEM ANDEREN ZU. OHNE FLEISS KEIN PREIS!
 %%%
--fLower
+-eLower
 %
 %1
 %
 was du nicht willst das man dir tu, das füg auch keinem anderen zu. ohne fleiß kein preis!
 %%%
--fCapital
+-eCapital
 %
 %1
 %
 Was Du Nicht Willst Das Man Dir Tu, Das Füg Auch Keinem Anderen Zu. Ohne Fleiß Kein Preis!
 %%%
--fSentence
+-eSentence
 %
 %1
 %
 Was du nicht willst das man dir tu, das füg auch keinem anderen zu. Ohne Fleiß kein Preis!
 %%%
--fCamel
+-eCamel
 %
 require "net/http"
 require "uri"
@@ -55,7 +55,7 @@ Net::HTTP.getPrint(uri)
 http = Net::HTTP.new(uri.host, uri.port)
 response = http.request(Net::HTTP::Get.new(uri.requestUri))
 %%%
--fSnake
+-eSnake
 %
 require "net/http"
 require "uri"

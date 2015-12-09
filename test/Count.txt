@@ -2,13 +2,13 @@
 Was du nicht willst dass man dir tu,das
 füg auch keinem anderen zu.Ohne Fleiß kein Preis.
 %%%
--fCount
+-eCount
 %
 %1
 %
 89 characters (incl. whitespace), 18 words, 2 lines.
 %%%
--fCountMore
+-eCountMore
 %
 %1
 %
@@ -19,7 +19,7 @@ füg auch keinem anderen zu.Ohne Fleiß kein Preis.
 2 sentences
 2 lines
 %%%
--fCountAlphabet
+-eCountAlphabet
 %
 %1
 %
@@ -48,8 +48,8 @@ z: 1
 ß: 1
 ü: 1
 %%%
--fCountAlphabet
--c
+-eCountAlphabet
+-i
 %
 %1
 %
