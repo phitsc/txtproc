@@ -250,21 +250,34 @@ class LinesAlgorithms : Algorithms
             ],
             (string text, string[] options, bool ignoreCase) {
                 return text.parseText.lines.map!((a) {
+
+                        if (a.length <= 1)
+                        {
+                            return a;
+                        }
+
                         auto left = max(0, to!int(options[0]));
                         auto right = max(0, to!int(options[1]));
 
+                        const line = a[$-1].type == TokenType.lineTerminator ? a[0 .. $-1] : a[0 .. $];
+
                         size_t leftIndex = 0;
 
-                        foreach (token; a)
+                        if (left > 0)
                         {
-                            if (token.type == TokenType.text)
+                            foreach (token; line)
                             {
-                                if (left == 0)
+                                if (token.type == TokenType.text)
                                 {
-                                    break;
+                                    left--;
+
+                                    if (left == 0)
+                                    {
+                                        break;
+                                    }
                                 }
 
-                                left--;
+                                leftIndex++;
                             }
 
                             leftIndex++;
@@ -272,21 +285,32 @@ class LinesAlgorithms : Algorithms
 
                         size_t rightIndex = 0;
 
-                        foreach (token; a.retro)
+                        if (right > 0)
                         {
-                            if (token.type == TokenType.text && right > 0)
+                            foreach (token; line.retro)
                             {
-                                right--;
-                            }
-                            else if (right == 0)
-                            {
-                                break;
+                                if (token.type == TokenType.text)
+                                {
+                                    right--;
+
+                                    if (right == 0)
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                rightIndex++;
                             }
 
                             rightIndex++;
                         }
 
-                        auto result = (leftIndex + rightIndex) < a.length ? a[leftIndex .. $ - 1 - rightIndex] ~ a[$-1] : [ a[$-1] ];
+                        auto result = (leftIndex + rightIndex) < line.length ? line[leftIndex .. $ - rightIndex] : [ Token(TokenType.none, "") ];
+
+                        if (a[$-1].type == TokenType.lineTerminator)
+                        {
+                            result ~= a[$-1];
+                        }
 
                         return result;
                     }).map!(a => a.toText).join;
