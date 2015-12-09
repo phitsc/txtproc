@@ -33,14 +33,14 @@ int txtproc_main(string[] args, string* result = null)
 
         immutable opts =
         [
-            [ "ignore-case|c", "Ignore case."],
-            [ "function|f", "Function to process the supplied text with." ],
-            [ "input-file|i", "Input file containing text to process." ],
-            [ "list-functions|l", "List available text processing functions." ],
-            [ "modify-input-file|m", "Modify the input file in-place." ],
-            [ "parameter|p", "Parameter to pass to processing function. Supply multiple times if necessary." ],
+            [ "execute|e",        "Function to process the supplied text with." ],
+            [ "file|f",           "Input file containing text to process." ],
+            [ "ignore-case|i",    "Ignore case."],
+            [ "list|l",           "List available text processing functions." ],
+            [ "modify|m",         "Modify the input file in-place." ],
+            [ "parameter|p",      "Parameter to pass to processing function. Supply multiple times if necessary." ],
             [ "from-clipboard|v", "Read text to process from clipboard" ],
-            [ "to-clipboard|x", "Write processed text to clipboard" ]
+            [ "to-clipboard|x",   "Write processed text to clipboard" ]
         ];
 
         version(Windows) auto options = getopt(args,
