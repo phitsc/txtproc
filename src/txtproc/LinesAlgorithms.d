@@ -4,7 +4,7 @@ import std.ascii : newline;
 import std.conv : text, to;
 import std.range : retro, stride, walkLength;
 import std.regex;
-import std.string : cmp, chomp, empty, splitLines;
+import std.string : cmp, chomp, empty, indexOf, splitLines, CaseSensitive;
 import std.uni : icmp;
 import std.typecons : Flag;
 
@@ -18,7 +18,7 @@ import TextAlgo;
 alias KeepSeparator = Flag!("keepSeparator");
 alias IgnoreCase = Flag!("ignoreCase");
 
-
+// supports ignoring case
 private string[] split(string input, string separator, IgnoreCase ignoreCase, KeepSeparator keepSeparator)
 {
     string[] result;
@@ -105,6 +105,33 @@ unittest
         == ["Multi char€$", "terminator€$", "at€$", "the€$", "end€$"]);
 }
 
+enum End
+{
+    left,
+    right,
+    both
+}
+
+End whichEnd(string end)
+{
+    if (!icmp(end, "l") || !icmp(end, "left"))
+    {
+        return End.left;
+    }
+    else if (!icmp(end, "r") || !icmp(end, "right"))
+    {
+        return End.right;
+    }
+    else if (!icmp(end, "b") || !icmp(end, "both"))
+    {
+        return End.both;
+    }
+    else
+    {
+        throw new Exception(end ~ " does not specify a valid line end.");
+    }
+}
+
 class LinesAlgorithms : Algorithms
 {
     this()
@@ -123,24 +150,63 @@ class LinesAlgorithms : Algorithms
                 bool emptyLine;
 
                 return text.parseText.lines.filter!((a) {
-                        if (a.trimLeft.toText.chomp.empty)
+                    if (a.trimLeft.toText.chomp.empty)
+                    {
+                        if (!emptyLine)
                         {
-                            if (!emptyLine)
-                            {
-                                emptyLine = true;
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
+                            emptyLine = true;
+                            return true;
                         }
                         else
                         {
-                            emptyLine = false;
-                            return true;
+                            return false;
                         }
-                    }).map!(a => a.toText).join;
+                    }
+                    else
+                    {
+                        emptyLine = false;
+                        return true;
+                    }
+                }).map!(a => a.toText).join;
+            }
+        ));
+
+        add(new Algorithm(
+            "RemoveDuplicateLines", "Lines", "Removes duplicate lines from input text.", [],
+            (string text, string[], bool) {
+                int[string] uniqueLines;
+
+                return text.parseText.lines.filter!((a) {
+                    immutable line = a.toText;
+
+                    if (!(line in uniqueLines))
+                    {
+                        uniqueLines[line] = 0;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }).map!(a => a.toText).join;
+            }
+        ));
+
+        add(new Algorithm(
+            "RemoveLinesContaining", "Lines", "Removes lines containing a specified sub-text from input text.", [
+                ParameterDescription("The sub-text to be found on lines to remove"),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                return text.parseText.lines.filter!(a => a.toText.indexOf(options[0], ignoreCase ? CaseSensitive.no : CaseSensitive.yes) == -1).map!(a => a.toText).join;
+            }
+        ));
+
+        add(new Algorithm(
+            "RemoveLinesContainingRegex", "Lines", "Removes lines containing a specified regular expression from input text.", [
+                ParameterDescription("The regular expression to be found on lines to remove"),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                return text.parseText.lines.filter!(a => !a.toText.matchFirst(regex(options[0], ignoreCase ? "i" : ""))).map!(a => a.toText).join;
             }
         ));
 
@@ -249,71 +315,106 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("Number of words to remove at the end of each line", Default("0")),
             ],
             (string text, string[] options, bool ignoreCase) {
-                return text.parseText.lines.map!((a) {
+                return text.parseText.lines.eachLineJoinT((line) {
+                    auto left = max(0, to!int(options[0]));
+                    auto right = max(0, to!int(options[1]));
 
-                        if (a.length <= 1)
+                    pure size_t getIndex(R)(int count, R range)
+                    {
+                        size_t index = 0;
+
+                        if (count > 0)
                         {
-                            return a;
-                        }
-
-                        auto left = max(0, to!int(options[0]));
-                        auto right = max(0, to!int(options[1]));
-
-                        const line = a[$-1].type == TokenType.lineTerminator ? a[0 .. $-1] : a[0 .. $];
-
-                        size_t leftIndex = 0;
-
-                        if (left > 0)
-                        {
-                            foreach (token; line)
+                            foreach (token; range)
                             {
                                 if (token.type == TokenType.text)
                                 {
-                                    left--;
-
-                                    if (left == 0)
+                                    if (--count == 0)
                                     {
                                         break;
                                     }
                                 }
 
-                                leftIndex++;
+                                index++;
                             }
 
-                            leftIndex++;
+                            index++;
                         }
 
-                        size_t rightIndex = 0;
+                        return index;
+                    }
 
-                        if (right > 0)
+                    immutable leftIndex = getIndex(left, line);
+                    immutable rightIndex = getIndex(right, line.retro);
+
+                    return (leftIndex + rightIndex) < line.length ? line[leftIndex .. $ - rightIndex].dup : [ Token(TokenType.none, "") ];
+                }).map!(a => a.toText).join;
+            }
+        ));
+
+        add(new Algorithm(
+            "Strip", "Lines", "Removes whitespace from the beginning and/or end of each line.", [
+                ParameterDescription("On which end to remove whitespace - l[eft], r[ight] or b[oth]", Default("both")),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                return text.parseText.lines.eachLineJoinT((line) {
+                    immutable end = whichEnd(options[0]);
+
+                    pure size_t getIndex(R)(R range)
+                    {
+                        size_t index = 0;
+
+                        foreach (token; range)
                         {
-                            foreach (token; line.retro)
+                            if (token.type != TokenType.whitespace)
                             {
-                                if (token.type == TokenType.text)
-                                {
-                                    right--;
-
-                                    if (right == 0)
-                                    {
-                                        break;
-                                    }
-                                }
-
-                                rightIndex++;
+                                break;
                             }
 
-                            rightIndex++;
+                            index++;
                         }
 
-                        auto result = (leftIndex + rightIndex) < line.length ? line[leftIndex .. $ - rightIndex] : [ Token(TokenType.none, "") ];
+                        return index;
+                    }
 
-                        if (a[$-1].type == TokenType.lineTerminator)
+                    immutable leftIndex = (end == End.left || end == End.both) ? getIndex(line) : 0;
+                    immutable rightIndex = (end == End.right || end == End.both) ? getIndex(line.retro) : 0;
+
+                    return (leftIndex + rightIndex) < line.length ? line[leftIndex .. $ - rightIndex].dup : [ Token(TokenType.none, "") ];
+                }).map!(a => a.toText).join;
+            }
+        ));
+
+        add(new Algorithm(
+            "StripNonWordCharacters", "Lines", "Removes non-word characters from the beginning and/or end of each line.", [
+                ParameterDescription("On which end to remove non-word characters - l[eft], r[ight] or b[oth]", Default("both")),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                return text.parseText.lines.eachLineJoinT((line) {
+                    immutable end = whichEnd(options[0]);
+
+                    pure size_t getIndex(R)(R range)
+                    {
+                        size_t index = 0;
+
+                        foreach (token; range)
                         {
-                            result ~= a[$-1];
+                            if (token.type == TokenType.text)
+                            {
+                                break;
+                            }
+
+                            index++;
                         }
 
-                        return result;
-                    }).map!(a => a.toText).join;
+                        return index;
+                    }
+
+                    immutable leftIndex = (end == End.left || end == End.both) ? getIndex(line) : 0;
+                    immutable rightIndex = (end == End.right || end == End.both) ? getIndex(line.retro) : 0;
+
+                    return (leftIndex + rightIndex) < line.length ? line[leftIndex .. $ - rightIndex].dup : [ Token(TokenType.none, "") ];
+                }).map!(a => a.toText).join;
             }
         ));
     }

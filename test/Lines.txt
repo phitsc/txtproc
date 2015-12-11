@@ -1,6 +1,6 @@
 %1
 erste Zeile. Noch ein Satz. Und ein dritter.
-Zweite Zeile. Hallo, wie geht's?
+Zweite Zeile. Hallo, wie geht's??
 
 
 
@@ -11,7 +11,7 @@ Unten folgt eine leere Zeile.
 
      5 Leerzeichen. neunte Zeile
 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
-eleventh line. This line ends with 3 spaces   
+ ?+. eleventh line. This line ends with 3 spaces   
 
 
 Oben noch zwei leere Zeilen.
@@ -21,14 +21,14 @@ Oben noch zwei leere Zeilen.
 %1
 %
 erste Zeile. Noch ein Satz. Und ein dritter.
-Zweite Zeile. Hallo, wie geht's?
+Zweite Zeile. Hallo, wie geht's??
 Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
 fünfte Zeile. und hier noch einer!
  Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
 Unten folgt eine leere Zeile.
      5 Leerzeichen. neunte Zeile
 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
-eleventh line. This line ends with 3 spaces   
+ ?+. eleventh line. This line ends with 3 spaces   
 Oben noch zwei leere Zeilen.
 %%%
 -eRemoveExtraEmptyLines
@@ -36,7 +36,7 @@ Oben noch zwei leere Zeilen.
 %1
 %
 erste Zeile. Noch ein Satz. Und ein dritter.
-Zweite Zeile. Hallo, wie geht's?
+Zweite Zeile. Hallo, wie geht's??
 
 Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
 fünfte Zeile. und hier noch einer!
@@ -45,7 +45,7 @@ Unten folgt eine leere Zeile.
 
      5 Leerzeichen. neunte Zeile
 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
-eleventh line. This line ends with 3 spaces   
+ ?+. eleventh line. This line ends with 3 spaces   
 
 Oben noch zwei leere Zeilen.
 %%%
@@ -85,7 +85,7 @@ Zeile 1aü€Zeile 2aü€  Zeile 3  aü€Zeile 4
 %1
 %
 erste Zeile. Noch ein Satz. Und ein dritter.aü€
-Zweite Zeile. Hallo, wie geht's?aü€
+Zweite Zeile. Hallo, wie geht's??aü€
 aü€
 aü€
 aü€
@@ -96,7 +96,7 @@ Unten folgt eine leere Zeile.aü€
 aü€
      5 Leerzeichen. neunte Zeileaü€
 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.aü€
-eleventh line. This line ends with 3 spaces   aü€
+ ?+. eleventh line. This line ends with 3 spaces   aü€
 aü€
 aü€
 Oben noch zwei leere Zeilen.aü€
@@ -107,7 +107,7 @@ Oben noch zwei leere Zeilen.aü€
 %1
 %
 aü€erste Zeile. Noch ein Satz. Und ein dritter.
-aü€Zweite Zeile. Hallo, wie geht's?
+aü€Zweite Zeile. Hallo, wie geht's??
 aü€
 aü€
 aü€
@@ -118,7 +118,7 @@ aü€Unten folgt eine leere Zeile.
 aü€
 aü€     5 Leerzeichen. neunte Zeile
 aü€10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
-aü€eleventh line. This line ends with 3 spaces   
+aü€ ?+. eleventh line. This line ends with 3 spaces   
 aü€
 aü€
 aü€Oben noch zwei leere Zeilen.
@@ -128,7 +128,7 @@ aü€Oben noch zwei leere Zeilen.
 %1
 %
 1erste Zeile. Noch ein Satz. Und ein dritter.
-2Zweite Zeile. Hallo, wie geht's?
+2Zweite Zeile. Hallo, wie geht's??
 3
 4
 5
@@ -139,7 +139,7 @@ aü€Oben noch zwei leere Zeilen.
 10
 11     5 Leerzeichen. neunte Zeile
 1210-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
-13eleventh line. This line ends with 3 spaces   
+13 ?+. eleventh line. This line ends with 3 spaces   
 14
 15
 16Oben noch zwei leere Zeilen.
@@ -150,7 +150,7 @@ aü€Oben noch zwei leere Zeilen.
 %1
 %
  1. erste Zeile. Noch ein Satz. Und ein dritter.
- 2. Zweite Zeile. Hallo, wie geht's?
+ 2. Zweite Zeile. Hallo, wie geht's??
  3. 
  4. 
  5. 
@@ -161,7 +161,7 @@ aü€Oben noch zwei leere Zeilen.
 10. 
 11.      5 Leerzeichen. neunte Zeile
 12. 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
-13. eleventh line. This line ends with 3 spaces   
+13.  ?+. eleventh line. This line ends with 3 spaces   
 14. 
 15. 
 16. Oben noch zwei leere Zeilen.
@@ -173,7 +173,7 @@ aü€Oben noch zwei leere Zeilen.
 %1
 %
 10. erste Zeile. Noch ein Satz. Und ein dritter.
-11. Zweite Zeile. Hallo, wie geht's?
+11. Zweite Zeile. Hallo, wie geht's??
 12. 
 13. 
 14. 
@@ -184,7 +184,7 @@ aü€Oben noch zwei leere Zeilen.
 19. 
 20.      5 Leerzeichen. neunte Zeile
 21. 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
-22. eleventh line. This line ends with 3 spaces   
+22.  ?+. eleventh line. This line ends with 3 spaces   
 23. 
 24. 
 25. Oben noch zwei leere Zeilen.
@@ -197,7 +197,7 @@ aü€Oben noch zwei leere Zeilen.
 %1
 %
   10. erste Zeile. Noch ein Satz. Und ein dritter.
-  20. Zweite Zeile. Hallo, wie geht's?
+  20. Zweite Zeile. Hallo, wie geht's??
   30. 
   40. 
   50. 
@@ -208,7 +208,7 @@ aü€Oben noch zwei leere Zeilen.
  100. 
  110.      5 Leerzeichen. neunte Zeile
  120. 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
- 130. eleventh line. This line ends with 3 spaces   
+ 130.  ?+. eleventh line. This line ends with 3 spaces   
  140. 
  150. 
  160. Oben noch zwei leere Zeilen.
@@ -222,7 +222,7 @@ aü€Oben noch zwei leere Zeilen.
 %1
 %
  1 erste Zeile. Noch ein Satz. Und ein dritter.
- 2 Zweite Zeile. Hallo, wie geht's?
+ 2 Zweite Zeile. Hallo, wie geht's??
  3 
  4 
  5 
@@ -233,7 +233,7 @@ aü€Oben noch zwei leere Zeilen.
  A 
  B      5 Leerzeichen. neunte Zeile
  C 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
- D eleventh line. This line ends with 3 spaces   
+ D  ?+. eleventh line. This line ends with 3 spaces   
  E 
  F 
 10 Oben noch zwei leere Zeilen.
@@ -244,7 +244,7 @@ aü€Oben noch zwei leere Zeilen.
 %1
 %
 ste Zeile. Noch ein Satz. Und ein dritter.
-eite Zeile. Hallo, wie geht's?
+eite Zeile. Hallo, wie geht's??
 
 
 
@@ -255,7 +255,7 @@ ten folgt eine leere Zeile.
 
    5 Leerzeichen. neunte Zeile
 -te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
-eventh line. This line ends with 3 spaces   
++. eleventh line. This line ends with 3 spaces   
 
 
 en noch zwei leere Zeilen.
@@ -267,7 +267,7 @@ en noch zwei leere Zeilen.
 %1
 %
 ste Zeile. Noch ein Satz. Und ein 
-eite Zeile. Hallo, wie
+eite Zeile. Hallo, wie 
 
 
 
@@ -278,7 +278,7 @@ ten folgt eine leer
 
    5 Leerzeichen. neun
 -te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein 
-eventh line. This line ends with 3 s
++. eleventh line. This line ends with 3 s
 
 
 en noch zwei leere
@@ -301,7 +301,7 @@ e Zeile endet m
 
 
  Satz. Dritter. Und ein viert
-line e
+This line e
 
 
 
@@ -312,7 +312,7 @@ line e
 %1
 %
 . Noch ein Satz. Und ein dritter.
-. Hallo, wie geht's?
+. Hallo, wie geht's??
 
 
 
@@ -346,8 +346,158 @@ Unten folgt eine
 
      5 Leerzeichen. 
 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und 
-eleventh line. This line ends with 
+ ?+. eleventh line. This line ends with 
 
 
 Oben noch zwei 
+%%%
+-eStrip
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter.
+Zweite Zeile. Hallo, wie geht's??
+
+
+
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+fünfte Zeile. und hier noch einer!
+Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen
+Unten folgt eine leere Zeile.
+
+5 Leerzeichen. neunte Zeile
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+?+. eleventh line. This line ends with 3 spaces
+
+
+Oben noch zwei leere Zeilen.
+%%%
+-eStrip
+-pleft
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter.
+Zweite Zeile. Hallo, wie geht's??
+
+
+
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+fünfte Zeile. und hier noch einer!
+Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Unten folgt eine leere Zeile.
+
+5 Leerzeichen. neunte Zeile
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+?+. eleventh line. This line ends with 3 spaces   
+
+
+Oben noch zwei leere Zeilen.
+%%%
+-eStrip
+-pright
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter.
+Zweite Zeile. Hallo, wie geht's??
+
+
+
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+fünfte Zeile. und hier noch einer!
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen
+Unten folgt eine leere Zeile.
+
+     5 Leerzeichen. neunte Zeile
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+ ?+. eleventh line. This line ends with 3 spaces
+
+
+Oben noch zwei leere Zeilen.
+%%%
+-eStripNonWordCharacters
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter
+Zweite Zeile. Hallo, wie geht's
+
+
+
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram
+fünfte Zeile. und hier noch einer
+Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen
+Unten folgt eine leere Zeile
+
+5 Leerzeichen. neunte Zeile
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter
+eleventh line. This line ends with 3 spaces
+
+
+Oben noch zwei leere Zeilen
+%%%
+-eStripNonWordCharacters
+-pright
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter
+Zweite Zeile. Hallo, wie geht's
+
+
+
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram
+fünfte Zeile. und hier noch einer
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen
+Unten folgt eine leere Zeile
+
+     5 Leerzeichen. neunte Zeile
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter
+ ?+. eleventh line. This line ends with 3 spaces
+
+
+Oben noch zwei leere Zeilen
+%%%
+-eRemoveDuplicateLines
+%
+Erste Zeile
+Doppelte Zeile
+3. Zeile
+
+
+Oben leere Zeilen
+Doppelte Zeile
+noch eine Zeile
+
+
+mehr leere Zeilen
+%
+Erste Zeile
+Doppelte Zeile
+3. Zeile
+
+Oben leere Zeilen
+noch eine Zeile
+mehr leere Zeilen
+%%%
+-eRemoveLinesContaining
+-peine
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter.
+Zweite Zeile. Hallo, wie geht's??
+
+
+
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+
+     5 Leerzeichen. neunte Zeile
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+ ?+. eleventh line. This line ends with 3 spaces   
+
+
+Oben noch zwei leere Zeilen.
 %%%

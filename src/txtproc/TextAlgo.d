@@ -153,7 +153,8 @@ pure auto trimLeft(Tokens tokens)
     return result;
 }
 
-auto eachLineJoin(Tokens[] lines, string delegate(string) func)
+// preserves original line terminator. string-based processing function.
+auto eachLineJoin(const(Tokens[]) lines, string delegate(const(string)) func)
 {
     string result;
 
@@ -166,6 +167,26 @@ auto eachLineJoin(Tokens[] lines, string delegate(string) func)
         else
         {
             result ~= func(line.toText);
+        }
+    }
+
+    return result;
+}
+
+// preserves original line terminator. Tokens-based processing function.
+auto eachLineJoinT(const(Tokens[]) lines, Tokens delegate(const(Tokens)) func)
+{
+    Tokens[] result;
+
+    foreach (line; lines)
+    {
+        if (line[$-1 .. $][0].type == TokenType.lineTerminator)
+        {
+            result ~= func(line[0 .. $-1]) ~ line[$-1 .. $][0];
+        }
+        else
+        {
+            result ~= func(line);
         }
     }
 
