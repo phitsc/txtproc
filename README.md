@@ -6,6 +6,10 @@ A tool for text processing.
 
 **txtproc** is a command line tool to do various text transformations. It is called with some text to transform and a transformation function as input and will return the transformed text as output. For some of the transformation functions additional parameters must be provided as well.
 
+To get a list of all the available transformation functions type:
+
+    ./txtproc --list
+
 A simple example:
 
     ./txtproc --execute CountWords "Hello world!"
