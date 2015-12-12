@@ -25,7 +25,7 @@ will output:
     three
     four
 
-Function names are not case-sensitive, i.e. `SplitIntoLines` and `splitintolines` is the same. Actually, **txtproc** will apply the function that most closly matches the supplied function name, so `splin` will also split the input into lines (at least until a function is added which matches `splin` better than `SplitIntoLines`). Function names within **txtproc** are unique though and an exact match will always be preferred. To learn which function **txtproc** chooses for a provided function name, either the `list` or the `help` option can be used. While
+Function names are not case-sensitive, i.e. `SplitIntoLines` and `splitintolines` is the same. Actually, **txtproc** will apply the function that most closly matches the supplied function name, so `splin` will also split the input text into lines (at least until a function is added which matches `splin` better than `SplitIntoLines`). Function names within **txtproc** are unique though and an exact match will always be preferred. To learn which function **txtproc** chooses for a provided function name, either the `list` or the `help` option can be used. While
 
     ./txtproc --list --execute split
 
@@ -33,21 +33,21 @@ will print a list of all functions sorted by how closely they match the supplied
 
     ./txtproc --execute split --help
 
-will print a description of the specified function (i.e. of the one **txtproc** main chooses to execute), including information about required (and optional) parameters if available.
+will print a description of the specified function (i.e. of the one **txtproc** chooses to execute), including information about required (and optional) parameters if available.
 
 Input text can be supplied:
 
 * on the command line (like in the examples above)
 * via a file (using the `--file` parameter)
 * from `stdin` when **txtproc** main is used in a [pipeline](https://en.wikipedia.org/wiki/Pipeline_(Unix)) (doesn't currently work properly on Windows)
-* via the clipboard (built in on Windows or using a tool like xclip on Linux)
+* via the clipboard (built-in on Windows or using a tool like xclip on Linux)
 
 Output text can go:
 
-* to `stdout`
-* back to the input file (the file is being modified)
+* to `stdout`, i.e. the console window or another tool in a pipeline (which of course can be **txtproc**)
+* back to the input file (i.e. modifying the input file)
 * a new file (using redirection, i.e. the `>` symbol)
-* back to the clipboard (built in on Windows or using a tool like xclip on Linux)
+* back to the clipboard (built-in on Windows or using a tool like xclip on Linux)
 
 ## Build instructions
 
@@ -59,8 +59,10 @@ The executable will be built in the `bin` subdirectory.
 
 ## Tests
 
-**txtproc** comes with automated test which can be built as follows:
+**txtproc** comes with automated tests which can be built as follows:
 
     dub test
 
 The executable which is built like this will run all the tests specified in all `.txt` files underneath test.
+
+*not all of the functions have tests yet*
