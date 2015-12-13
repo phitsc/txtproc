@@ -30,17 +30,19 @@ int txtproc_main(string[] args, string* result = null)
         string[] params;
         bool fromClipboard;
         bool toClipboard;
+        bool printVersionInfo;
 
         immutable opts =
         [
-            [ "execute|e",        "Function to process the supplied text with." ],
-            [ "file|f",           "Input file containing text to process." ],
-            [ "ignore-case|i",    "Ignore case."],
-            [ "list|l",           "List available text processing functions." ],
-            [ "modify|m",         "Modify the input file in-place." ],
+            [ "execute|e",        "Function to process the supplied text with" ],
+            [ "file|f",           "Input file containing text to process" ],
+            [ "ignore-case|i",    "Ignore case"],
+            [ "list|l",           "List available text processing functions" ],
+            [ "modify|m",         "Modify the input file in-place" ],
             [ "parameter|p",      "Parameter to pass to processing function. Supply multiple times if necessary." ],
             [ "from-clipboard|v", "Read text to process from clipboard" ],
-            [ "to-clipboard|x",   "Write processed text to clipboard" ]
+            [ "to-clipboard|x",   "Write processed text to clipboard" ],
+            [ "version",          "Print version information"]
         ];
 
         version(Windows) auto options = getopt(args,
@@ -51,7 +53,8 @@ int txtproc_main(string[] args, string* result = null)
             opts[4][0], opts[4][1], &modifyInputFile,
             opts[5][0], opts[5][1], &params,
             opts[6][0], opts[6][1], &fromClipboard,
-            opts[7][0], opts[7][1], &toClipboard
+            opts[7][0], opts[7][1], &toClipboard,
+            opts[8][0], opts[8][1], &printVersionInfo
         );
 
         version(linux) auto options = getopt(args,
@@ -60,10 +63,17 @@ int txtproc_main(string[] args, string* result = null)
             opts[2][0], opts[2][1], &ignoreCase,
             opts[3][0], opts[3][1], &listFunctions,
             opts[4][0], opts[4][1], &modifyInputFile,
-            opts[5][0], opts[5][1], &params
+            opts[5][0], opts[5][1], &params,
+            opts[8][0], opts[8][1], &printVersionInfo
         );
 
-        if (options.helpWanted && functionName.empty)
+        if (printVersionInfo)
+        {
+            writeln("txtproc version 0.1");
+
+            return 0;
+        }
+        else if (options.helpWanted && functionName.empty)
         {
             defaultGetoptPrinter("Usage: txtproc [options] [input text]", options.options);
 
