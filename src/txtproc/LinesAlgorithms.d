@@ -1,5 +1,5 @@
 import std.algorithm : filter, max;
-import std.array : insertInPlace, join;
+import std.array : array, insertInPlace, join;
 import std.ascii : newline;
 import std.conv : text, to;
 import std.range : retro, stride, walkLength;
@@ -105,6 +105,17 @@ unittest
         == ["Multi char€$", "terminator€$", "at€$", "the€$", "end€$"]);
 }
 
+private auto formatLineWithNumber(string fmtString, string line, int number, string base)
+{
+    static auto numberRegex = regex("[#]+");
+    auto numberCaptures = fmtString.matchFirst(numberRegex);
+    auto fmt = numberCaptures.empty ? fmtString : fmtString.replaceFirst(numberRegex, format("%" ~ numberCaptures.hit.length.text ~ base, number));
+
+    static auto lineRegex = regex("\\$");
+    auto lineCaptures = fmt.matchFirst(lineRegex);
+    return lineCaptures.empty ? fmt : fmt.replaceFirst(lineRegex, line);
+}
+
 enum End
 {
     left,
@@ -172,23 +183,26 @@ class LinesAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "RemoveDuplicateLines", "Lines", "Removes duplicate lines from input text.", [],
-            (string text, string[], bool) {
+            "RemoveDuplicateLines", "Lines", "Removes duplicate lines from input text.", [
+                ParameterDescription("A format string to add the number of duplications + 1 to each line (use # for duplicate count, $ for line contents)", Default("$")),
+            ],
+            (string text, string[] options, bool) {
                 int[string] uniqueLines;
 
                 return text.parseText.lines.filter!((a) {
-                    immutable line = a.toText;
+                    immutable line = a.toText.chomp;
 
                     if (!(line in uniqueLines))
                     {
-                        uniqueLines[line] = 0;
+                        uniqueLines[line] = 1;
                         return true;
                     }
                     else
                     {
+                        uniqueLines[line] += 1;
                         return false;
                     }
-                }).map!(a => a.toText).join;
+                }).array.eachLineJoin(a => formatLineWithNumber(options[0], a, uniqueLines[a], "d"));
             }
         ));
 
@@ -247,8 +261,8 @@ class LinesAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "PrependLineNumbers", "Lines", "Prepend (prefix) each line of input text with a line number.", [
-                ParameterDescription("Line number format string (use # for line number)", Default("#")),
+            "AddLineNumbers", "Lines", "Add line numbers to each line of input text.", [
+                ParameterDescription("Line number format string (use # for line number, $ for line contents)", Default("#$")),
                 ParameterDescription("On what line number to start", Default("1")),
                 ParameterDescription("How much to increment on each line", Default("1")),
                 ParameterDescription("Base to use for line numbers (can be any of b(inary), o(ctal), d(ecimal) or he(x|X)", Default("d")),
@@ -259,15 +273,11 @@ class LinesAlgorithms : Algorithms
                     throw new Exception(options[3] ~ " is not a valid base.");
                 }
 
-                auto r = regex("[#]+");
-                auto captures = options[0].matchFirst(r);
-                immutable fmt = captures.empty ? "" : options[0].replaceFirst(r, "%" ~ captures.hit.length.text ~ options[3]);
-                immutable start = to!size_t(options[1]);
                 immutable increment = to!size_t(options[2]);
 
-                size_t lineNumber = start;
+                size_t lineNumber = to!size_t(options[1]);
                 return text.parseText.lines.eachLineJoin((a) {
-                        const result = format(fmt, lineNumber) ~ a;
+                        const result = formatLineWithNumber(options[0], a, lineNumber, options[3]);
                         lineNumber += increment;
                         return result;
                     });

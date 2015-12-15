@@ -123,7 +123,7 @@ aü€
 aü€
 aü€Oben noch zwei leere Zeilen.
 %%%
--ePrependLineNumbers
+-eAddLineNumbers
 %
 %1
 %
@@ -144,8 +144,8 @@ aü€Oben noch zwei leere Zeilen.
 15
 16Oben noch zwei leere Zeilen.
 %%%
--ePrependLineNumbers
--p##. 
+-eAddLineNumbers
+-p##. $
 %
 %1
 %
@@ -166,8 +166,30 @@ aü€Oben noch zwei leere Zeilen.
 15. 
 16. Oben noch zwei leere Zeilen.
 %%%
--ePrependLineNumbers
--p##. 
+-eAddLineNumbers
+-p$ (#)
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter. (1)
+Zweite Zeile. Hallo, wie geht's?? (2)
+ (3)
+ (4)
+ (5)
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram. (6)
+fünfte Zeile. und hier noch einer! (7)
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen     (8)
+Unten folgt eine leere Zeile. (9)
+ (10)
+     5 Leerzeichen. neunte Zeile (11)
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter. (12)
+ ?+. eleventh line. This line ends with 3 spaces    (13)
+ (14)
+ (15)
+Oben noch zwei leere Zeilen. (16)
+%%%
+-eAddLineNumbers
+-p##. $
 -p10
 %
 %1
@@ -189,8 +211,8 @@ aü€Oben noch zwei leere Zeilen.
 24. 
 25. Oben noch zwei leere Zeilen.
 %%%
--ePrependLineNumbers
--p####. 
+-eAddLineNumbers
+-p####. $
 -p10
 -p10
 %
@@ -213,8 +235,8 @@ aü€Oben noch zwei leere Zeilen.
  150. 
  160. Oben noch zwei leere Zeilen.
 %%%
--ePrependLineNumbers
--p## 
+-eAddLineNumbers
+-p## $
 -p1
 -p1
 -pX
@@ -480,6 +502,29 @@ Doppelte Zeile
 Oben leere Zeilen
 noch eine Zeile
 mehr leere Zeilen
+%%%
+-eRemoveDuplicateLines
+-p$ (#)
+%
+Erste Zeile
+Doppelte Zeile
+3. Zeile
+
+
+Oben leere Zeilen
+Doppelte Zeile
+noch eine Zeile
+
+
+mehr leere Zeilen
+%
+Erste Zeile (1)
+Doppelte Zeile (2)
+3. Zeile (1)
+ (4)
+Oben leere Zeilen (1)
+noch eine Zeile (1)
+mehr leere Zeilen (1)
 %%%
 -eRemoveLinesContaining
 -peine
