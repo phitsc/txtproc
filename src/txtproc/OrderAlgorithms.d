@@ -7,21 +7,39 @@ import std.range;
 import std.string;
 import std.uni;
 
+import std.stdio : writeln;
+
+import Algorithm;
 import Algorithms;
 import TextAlgo;
+import YesNo : YesNo, yesNo;
 
-private auto shuffle(string input)
+private auto shuffle(string input, bool keepEnds = false)
 {
-    dchar[] temp;
-
-    foreach (character; input.stride(1))
+    if (input.walkLength > 1)
     {
-        temp ~= character;
+        dchar[] temp;
+
+        foreach (character; input.stride(1))
+        {
+            temp ~= character;
+        }
+
+        if (keepEnds)
+        {
+            temp[1 .. $-1].randomShuffle;
+        }
+        else
+        {
+            temp.randomShuffle;
+        }
+
+        return to!string(temp);
     }
-
-    temp.randomShuffle;
-
-    return to!string(temp);
+    else
+    {
+        return input;
+    }
 }
 
 private auto shuffleWithinTokenRange(Tokens tokens)
@@ -113,6 +131,24 @@ class OrderAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
+            "ShuffleLines", "Order", "Shuffle order of lines within input text.", [],
+            (string text, string[], bool) {
+                auto temp = text.parseText.lines.map!(a => a.toText).array;
+                temp.randomShuffle;
+                return temp.join;
+            }
+        ));
+
+        add(new Algorithm(
+            "ShuffleSentences", "Order", "Shuffle order of sentences within input text.", [],
+            (string text, string[], bool) {
+                auto temp = text.parseText.sentences.map!(a => a.toText).array;
+                temp.randomShuffle;
+                return temp.join;
+            }
+        ));
+
+        add(new Algorithm(
             "ShuffleWordsWithinSentence", "Order", "Shuffle order of words within sentences of the input text.", [],
             (string text, string[], bool) {
                 return text.parseText.sentences.map!(a => a.shuffleWithinTokenRange.toText).join;
@@ -120,9 +156,11 @@ class OrderAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "ShuffleWithinWords", "Order", "Shuffle order of characters within words of input text.", [],
-            (string text, string[], bool) {
-                return text.parseText.map!(a => a.type == TokenType.text ? a.value.shuffle : a.value).join;
+            "ShuffleWithinWords", "Order", "Shuffle order of characters within words of input text.", [
+                ParameterDescription("Typoglycemia - y[es], n[o]", Default("no")),
+            ],
+            (string text, string[] options, bool) {
+                return text.parseText.map!(a => a.type == TokenType.text ? a.value.shuffle(yesNo(options[0]) == YesNo.yes) : a.value).join;
             }
         ));
 
