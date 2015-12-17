@@ -16,6 +16,7 @@ import SearchReplaceAlgorithms;
 import ChecksumAlgorithms;
 import SortAlgorithms;
 import LinesAlgorithms;
+import WebAlgorithms;
 
 extern(C) int isatty(int);
 
@@ -94,6 +95,7 @@ int txtproc_main(string[] args, string* result = null)
         algorithms.add(new ChecksumAlgorithms);
         algorithms.add(new SortAlgorithms);
         algorithms.add(new LinesAlgorithms);
+        algorithms.add(new WebAlgorithms);
 
         if (options.helpWanted)
         {
