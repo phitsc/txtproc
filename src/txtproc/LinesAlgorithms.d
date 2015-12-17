@@ -118,7 +118,7 @@ private auto formatLineWithNumber(string fmtString, string line, int number, str
 
 private auto maxLength(const(Token[][]) lines)
 {
-    return reduce!((res, t) => max(res, t.toText.chomp.walkLength))(0UL, lines);
+    return reduce!((res, t) => max(res, t.toText.chomp.walkLength))(cast(size_t)0, lines);
 }
 
 private enum End
