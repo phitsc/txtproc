@@ -116,6 +116,11 @@ private auto formatLineWithNumber(string fmtString, string line, int number, str
     return lineCaptures.empty ? fmt : fmt.replaceFirst(lineRegex, line);
 }
 
+private auto maxLength(const(Token[][]) lines)
+{
+    return reduce!((res, t) => max(res, t.toText.chomp.walkLength))(0UL, lines);
+}
+
 private enum End
 {
     left,
@@ -256,8 +261,7 @@ class LinesAlgorithms : Algorithms
                 }
                 else
                 {
-                    immutable maxLength = reduce!((res, t) => max(res, t.toText.chomp.walkLength))(0, lines);
-                    return lines.eachLineJoin(a => a.leftJustify(maxLength, options[1][0]) ~ options[0]);
+                    return lines.eachLineJoin(a => a.leftJustify(lines.maxLength, options[1][0]) ~ options[0]);
                 }
             }
         ));
@@ -276,8 +280,7 @@ class LinesAlgorithms : Algorithms
                 }
                 else
                 {
-                    immutable maxLength = reduce!((res, t) => max(res, t.toText.chomp.walkLength))(0, lines);
-                    return lines.eachLineJoin(a => options[0] ~ a.rightJustify(maxLength, options[1][0]));
+                    return lines.eachLineJoin(a => options[0] ~ a.rightJustify(lines.maxLength, options[1][0]));
                 }
             }
         ));
@@ -295,9 +298,9 @@ class LinesAlgorithms : Algorithms
                     throw new Exception(options[3] ~ " is not a valid base.");
                 }
 
-                immutable increment = to!size_t(options[2]);
+                immutable increment = to!int(options[2]);
 
-                size_t lineNumber = to!size_t(options[1]);
+                auto lineNumber = to!int(options[1]);
                 return text.parseText.lines.eachLineJoin((a) {
                         const result = formatLineWithNumber(options[0], a, lineNumber, options[3]);
                         lineNumber += increment;
@@ -461,7 +464,7 @@ class LinesAlgorithms : Algorithms
                         immutable end = whichEnd(options[1]);
                         immutable yn = yesNo(options[2]);
 
-                        auto from = 0;
+                        size_t from = 0;
 
                         if (end == End.left || end == End.both)
                         {

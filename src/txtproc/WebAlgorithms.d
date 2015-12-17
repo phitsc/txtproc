@@ -104,7 +104,7 @@ class WebAlgorithms : Algorithms
 
                 string result;
 
-                auto sectionLength = 0;
+                size_t sectionLength = 0;
 
                 foreach (token; text.parseText)
                 {
