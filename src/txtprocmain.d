@@ -1,4 +1,5 @@
 import std.algorithm;
+import std.ascii;
 import std.array;
 import std.conv;
 import std.file;
@@ -20,6 +21,8 @@ extern(C) int isatty(int);
 
 int txtproc_main(string[] args, string* result = null)
 {
+    bool printDebugOutput;
+
     try
     {
         string functionName;
@@ -42,7 +45,8 @@ int txtproc_main(string[] args, string* result = null)
             [ "parameter|p",      "Parameter to pass to processing function. Supply multiple times if necessary." ],
             [ "from-clipboard|v", "Read text to process from clipboard" ],
             [ "to-clipboard|x",   "Write processed text to clipboard" ],
-            [ "version",          "Print version information"]
+            [ "version",          "Print version information"],
+            [ "debug|d",          "Print debug output"]
         ];
 
         version(Windows) auto options = getopt(args,
@@ -54,7 +58,8 @@ int txtproc_main(string[] args, string* result = null)
             opts[5][0], opts[5][1], &params,
             opts[6][0], opts[6][1], &fromClipboard,
             opts[7][0], opts[7][1], &toClipboard,
-            opts[8][0], opts[8][1], &printVersionInfo
+            opts[8][0], opts[8][1], &printVersionInfo,
+            opts[9][0], opts[9][1], &printDebugOutput
         );
 
         version(linux) auto options = getopt(args,
@@ -64,7 +69,8 @@ int txtproc_main(string[] args, string* result = null)
             opts[3][0], opts[3][1], &listFunctions,
             opts[4][0], opts[4][1], &modifyInputFile,
             opts[5][0], opts[5][1], &params,
-            opts[8][0], opts[8][1], &printVersionInfo
+            opts[8][0], opts[8][1], &printVersionInfo,
+            opts[9][0], opts[9][1], &printDebugOutput
         );
 
         if (printVersionInfo)
@@ -128,6 +134,12 @@ int txtproc_main(string[] args, string* result = null)
     {
         stderr.writeln("Error: ", e.msg);
 
+        if (printDebugOutput)
+        {
+            stderr.writeln(e.file, "(", e.line, ")");
+            stderr.writeln(e.info);
+        }
+
         return 1;
     }
 }
@@ -152,7 +164,7 @@ version(Windows)
 
     enum CF_UNICODETEXT = 13;
 
-    string readFromClipboard()
+    private string readFromClipboard()
     {
         string result;
 
@@ -174,7 +186,7 @@ version(Windows)
         return result;
     }
 
-    void writeToClipboard(string text)
+    private void writeToClipboard(string text)
     {
         if (OpenClipboard(null))
         {
@@ -199,21 +211,83 @@ version(Windows)
 
 version(linux)
 {
-    string readFromClipboard()
+    private string readFromClipboard()
     {
         return "";
     }
 
-    void writeToClipboard(string text)
+    private void writeToClipboard(string text)
     {
     }
 }
 
-string getInputText(string inputFile, bool fromClipboard, string[] args)
+private bool isUtf8(void[] rawText)
+{
+    import std.utf;
+
+    try
+    {
+        validate!string(cast(string) rawText);
+
+        return true;
+    }
+    catch (UTFException)
+    {
+        return false;
+    }
+}
+
+private bool isUtf16(void[] rawText)
+{
+    import std.utf;
+
+    try
+    {
+        validate!wstring(cast(wstring) rawText);
+
+        return true;
+    }
+    catch (UTFException)
+    {
+        return false;
+    }
+}
+
+private string toUtf(S)(void[] rawText)
+{
+    import std.encoding;
+
+    string text;
+    transcode(cast(S) rawText, text);
+
+    return text;
+}
+
+private string readFromFile(string path)
+{
+    import std.encoding;
+
+    auto rawFileContents = read(path);
+
+    if (isUtf8(rawFileContents))
+    {
+        return toUtf!string(rawFileContents);
+    }
+    else if (isUtf16(rawFileContents))
+    {
+        return toUtf!wstring(rawFileContents);
+    }
+    else
+    {
+        throw new Exception("Don't know how to deal with encoding of " ~ path);
+    }
+}
+
+private string getInputText(string inputFile, bool fromClipboard, string[] args)
 {
     if (!isatty(0))
     {
-        return stdin.byLineCopy.array.join("\n");
+        return stdin.byLineCopy.array.join(newline);
     }
     else if (fromClipboard)
     {
@@ -221,7 +295,7 @@ string getInputText(string inputFile, bool fromClipboard, string[] args)
     }
     else if (!inputFile.empty)
     {
-        return readText(inputFile);
+        return readFromFile(inputFile);
     }
     else
     {
@@ -229,7 +303,7 @@ string getInputText(string inputFile, bool fromClipboard, string[] args)
     }
 }
 
-void printFunctionList(const Algorithms algorithms, string filter)
+private void printFunctionList(const Algorithms algorithms, string filter)
 {
     string result;
 
@@ -255,7 +329,7 @@ void printFunctionList(const Algorithms algorithms, string filter)
     writeln(result);
 }
 
-void printHelpOnFunction(const Algorithms algorithms, string filter)
+private void printHelpOnFunction(const Algorithms algorithms, string filter)
 {
     string result;
 
