@@ -9,6 +9,7 @@ import std.typecons;
 
 import Algorithm;
 import Algorithms;
+import TextAlgo;
 
 class SearchReplaceAlgorithms : Algorithms
 {
@@ -59,8 +60,42 @@ class SearchReplaceAlgorithms : Algorithms
         add(new Algorithm(
             "SearchNonAscii", "Search & Replace", "Search for non ASCII characters in input text.", [],
             (string text, string[] params, bool ignoreCase) {
-
                 return text.replaceAll(regex(r"([^\u0000-\u007F])"), stag(params, 0) ~ "$1" ~ etag(params, 1));
+            }
+        ));
+
+        add(new Algorithm(
+            "SearchDuplicateWords", "Search & Replace", "Search the input text for consecutive words which have been duplicated.", [
+                ParameterDescription("The start tag used to indicate a duplication", Default(defaultStag)),
+                ParameterDescription("The end tag used to indicate a duplication", Default(defaultEtag))],
+            (string text, string[] options, bool ignoreCase) {
+                string result;
+
+                string previousWord;
+
+                foreach (token; text.parseText)
+                {
+                    if (token.type == TokenType.text)
+                    {
+                        if ((ignoreCase && !icmp(token.value, previousWord)) ||
+                            (token.value == previousWord))
+                        {
+                            result ~= options[0] ~ token.value ~ options[1];
+                        }
+                        else
+                        {
+                            result ~= token.value;
+                        }
+
+                        previousWord = token.value;
+                    }
+                    else
+                    {
+                        result ~= token.value;
+                    }
+                }
+
+                return result;
             }
         ));
     }
