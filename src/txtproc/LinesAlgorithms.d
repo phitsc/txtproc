@@ -1,19 +1,19 @@
-import std.algorithm : filter, max;
+import std.algorithm : filter, max, reduce;
 import std.array : array, insertInPlace, join;
 import std.ascii : newline;
 import std.conv : text, to;
 import std.range : retro, stride, walkLength;
 import std.regex;
-import std.string : cmp, chomp, empty, indexOf, splitLines, CaseSensitive;
+import std.string : cmp, chomp, empty, indexOf, lastIndexOf, leftJustify, rightJustify, splitLines, CaseSensitive;
 import std.uni : icmp;
 import std.typecons : Flag;
 
 import std.stdio : writeln;
-//import std.string : format;
 
 import Algorithm;
 import Algorithms;
 import TextAlgo;
+import YesNo : YesNo, yesNo;
 
 alias KeepSeparator = Flag!("keepSeparator");
 alias IgnoreCase = Flag!("ignoreCase");
@@ -116,14 +116,14 @@ private auto formatLineWithNumber(string fmtString, string line, int number, str
     return lineCaptures.empty ? fmt : fmt.replaceFirst(lineRegex, line);
 }
 
-enum End
+private enum End
 {
     left,
     right,
     both
 }
 
-End whichEnd(string end)
+private End whichEnd(string end)
 {
     if (!icmp(end, "l") || !icmp(end, "left"))
     {
@@ -245,18 +245,40 @@ class LinesAlgorithms : Algorithms
         add(new Algorithm(
             "AppendToLines", "Lines", "Append some text to each line of the input text.", [
                 ParameterDescription("Text to append to each line"),
+                ParameterDescription("Fill character to pad up to length of longest line", Default("")),
             ],
             (string text, string[] options, bool ignoreCase) {
-                return text.parseText.lines.eachLineJoin(a => a ~ options[0]);
+                const lines = text.parseText.lines;
+
+                if (options[1].empty)
+                {
+                    return lines.eachLineJoin(a => a ~ options[0]);
+                }
+                else
+                {
+                    immutable maxLength = reduce!((res, t) => max(res, t.toText.chomp.walkLength))(0, lines);
+                    return lines.eachLineJoin(a => a.leftJustify(maxLength, options[1][0]) ~ options[0]);
+                }
             }
         ));
 
         add(new Algorithm(
             "PrependToLines", "Lines", "Prepend (prefix) some text to each line of the input text.", [
                 ParameterDescription("Text to prepend to each line"),
+                ParameterDescription("Fill character to pad up to length of longest line", Default("")),
             ],
             (string text, string[] options, bool ignoreCase) {
-                return text.parseText.lines.eachLineJoin(a => options[0] ~ a);
+                const lines = text.parseText.lines;
+
+                if (options[1].empty)
+                {
+                    return text.parseText.lines.eachLineJoin(a => options[0] ~ a);
+                }
+                else
+                {
+                    immutable maxLength = reduce!((res, t) => max(res, t.toText.chomp.walkLength))(0, lines);
+                    return lines.eachLineJoin(a => options[0] ~ a.rightJustify(maxLength, options[1][0]));
+                }
             }
         ));
 
@@ -425,6 +447,46 @@ class LinesAlgorithms : Algorithms
 
                     return (leftIndex + rightIndex) < line.length ? line[leftIndex .. $ - rightIndex].dup : [ Token(TokenType.none, "") ];
                 }).map!(a => a.toText).join;
+            }
+        ));
+
+        add(new Algorithm(
+            "RemoveTo", "Lines", "Removes everything before and/or after the sub-text specified (optionally including the sub-text).", [
+                ParameterDescription("The sub-text to search for on each line"),
+                ParameterDescription("On which end to remove - l[eft], r[ight] or b[oth]", Default("left")),
+                ParameterDescription("Remove the sub-text as well? - y[es], n[o]", Default("no")),
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                return text.parseText.lines.eachLineJoin((a) {
+                        immutable end = whichEnd(options[1]);
+                        immutable yn = yesNo(options[2]);
+
+                        auto from = 0;
+
+                        if (end == End.left || end == End.both)
+                        {
+                            immutable index = a.indexOf(options[0], ignoreCase ? CaseSensitive.no : CaseSensitive.yes);
+
+                            if (index != -1)
+                            {
+                                from = (yn == YesNo.no) ? index : index + options[0].length;
+                            }
+                        }
+
+                        auto to = a.length;
+
+                        if (end == End.right || end == End.both)
+                        {
+                            immutable index = a.lastIndexOf(options[0], ignoreCase ? CaseSensitive.no : CaseSensitive.yes);
+
+                            if (index != -1)
+                            {
+                                to = (yn == YesNo.no) ? index + options[0].length : index;
+                            }
+                        }
+
+                        return text[from .. to];
+                    });
             }
         ));
     }
