@@ -7,8 +7,10 @@ import std.uni;
 
  import std.stdio : write, writeln;
 
+import Algorithm;
 import Algorithms;
 import TextAlgo;
+import YesNo : YesNo, yesNo;
 
 private auto sortWithinTokenRange(Tokens tokens, bool ignoreCase)
 {
@@ -48,18 +50,25 @@ class SortAlgorithms : Algorithms
     this()
     {
         add(new Algorithm(
-            "SortLines", "Sort", "Sort lines of input text alphabetically.", [],
-            (string text, string[], bool ignoreCase) {
-                return text.parseText.lines.sort!((a, b) => ignoreCase ?
-                    icmp(a.trimLeft.toText, b.trimLeft.toText) < 0 :
-                    cmp(a.trimLeft.toText, b.trimLeft.toText) < 0).map!(a => a.toText).join;
+            "SortLines", "Sort", "Sort lines of input text alphabetically.", [
+                ParameterDescription("Sort left trimmed - y[es] or n[o]", Default("no"))
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                immutable t = yesNo(options[0]) == YesNo.yes;
+                return correctLineEndings(text.parseText.lines.sort!((a, b) => ignoreCase ?
+                    icmp(t ? a.trimLeft.toText : a.toText, t ? b.trimLeft.toText : b.toText) < 0 :
+                    cmp(t ? a.trimLeft.toText : a.toText, t ? b.trimLeft.toText : b.toText) < 0)).map!(a => a.toText).join;
             }
         ));
 
         add(new Algorithm(
-            "SortLinesByLength", "Sort", "Sort lines of input text by line length.", [],
-            (string text, string[], bool ignoreCase) {
-                return text.parseText.lines.sort!((a, b) => a.toText.length < b.toText.length).map!(a => a.toText).join;
+            "SortLinesByLength", "Sort", "Sort lines of input text by line length.", [
+                ParameterDescription("Sort left trimmed - y[es] or n[o]", Default("no"))
+            ],
+            (string text, string[] options, bool ignoreCase) {
+                immutable t = yesNo(options[0]) == YesNo.yes;
+                return correctLineEndings(text.parseText.lines.sort!((a, b) => (t ? a.trimLeft.toText.chomp.walkLength : a.toText.chomp.walkLength)
+                    < (t ? b.trimLeft.toText.chomp.walkLength : b.toText.chomp.walkLength))).map!(a => a.toText).join;
             }
         ));
 

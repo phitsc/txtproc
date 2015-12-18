@@ -1,11 +1,12 @@
 import std.algorithm : canFind, map, countIf = count;
+import std.ascii : newline;
 import std.conv : text;
 import std.range;
 import std.traits;
 import std.typecons;
 import std.uni;
 
-import std.stdio;
+import std.stdio : writeln;
 
 private enum string sentenceSeparatorChars = ".!?";
 private enum string bracketChars           = "[](){}<>";
@@ -131,6 +132,33 @@ pure auto parseText(string text)
 pure auto toText(T)(T tokens)
 {
     return tokens.map!(a => a.value).join;
+}
+
+Tokens[] correctLineEndings(T)(T newLines)
+{
+    auto endsWithNewline = true;
+
+    Tokens[] result;
+
+    foreach (line; newLines)
+    {
+        if (line[$-1].type != TokenType.lineTerminator)
+        {
+            endsWithNewline = false;
+            result ~= line ~ Token(TokenType.lineTerminator, newline);
+        }
+        else
+        {
+            result ~= line;
+        }
+    }
+
+    if (!endsWithNewline)
+    {
+        result[$-1] = result[$-1][0..$-1];
+    }
+
+    return result;
 }
 
 pure auto trimLeft(Tokens tokens)

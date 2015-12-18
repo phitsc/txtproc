@@ -1,0 +1,131 @@
+%1
+erste Zeile. Noch ein Satz. Und ein dritter.
+Zweite Zeile. Hallo, wie geht's??
+
+
+
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+fünfte Zeile. und hier noch einer!
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Unten folgt eine leere Zeile.
+
+     5 Leerzeichen. neunte Zeile
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+ ?+. eleventh line. This line ends with 3 spaces   
+
+
+Oben noch zwei leere Zeilen.
+%%%
+%2
+eins
+Zwei
+drei
+Vier
+fünf
+Sechs
+sieben
+Acht
+neun
+%%%
+-eSortLines
+-i
+%
+%2
+%
+Acht
+drei
+eins
+fünf
+neun
+Sechs
+sieben
+Vier
+Zwei
+%%%
+-eSortLines
+-pyes
+%
+%1
+%
+
+
+
+
+
+
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+     5 Leerzeichen. neunte Zeile
+ ?+. eleventh line. This line ends with 3 spaces   
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+Oben noch zwei leere Zeilen.
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Unten folgt eine leere Zeile.
+Zweite Zeile. Hallo, wie geht's??
+erste Zeile. Noch ein Satz. Und ein dritter.
+fünfte Zeile. und hier noch einer!
+%%%
+-eSortLines
+-pyes
+%
+%1
+%
+
+
+
+
+
+
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+     5 Leerzeichen. neunte Zeile
+ ?+. eleventh line. This line ends with 3 spaces   
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+Oben noch zwei leere Zeilen.
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Unten folgt eine leere Zeile.
+Zweite Zeile. Hallo, wie geht's??
+erste Zeile. Noch ein Satz. Und ein dritter.
+fünfte Zeile. und hier noch einer!
+%%%
+-eSortLinesByLength
+%
+%1
+%
+
+
+
+
+
+
+Oben noch zwei leere Zeilen.
+Unten folgt eine leere Zeile.
+     5 Leerzeichen. neunte Zeile
+Zweite Zeile. Hallo, wie geht's??
+fünfte Zeile. und hier noch einer!
+erste Zeile. Noch ein Satz. Und ein dritter.
+ ?+. eleventh line. This line ends with 3 spaces   
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+%%%
+-eSortLinesByLength
+-pyes
+%
+%1
+%
+
+
+
+
+
+
+     5 Leerzeichen. neunte Zeile
+Oben noch zwei leere Zeilen.
+Unten folgt eine leere Zeile.
+Zweite Zeile. Hallo, wie geht's??
+fünfte Zeile. und hier noch einer!
+erste Zeile. Noch ein Satz. Und ein dritter.
+ ?+. eleventh line. This line ends with 3 spaces   
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+%%%
