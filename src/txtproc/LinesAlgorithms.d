@@ -457,7 +457,7 @@ class LinesAlgorithms : Algorithms
             "RemoveTo", "Lines", "Removes everything before and/or after the sub-text specified (optionally including the sub-text).", [
                 ParameterDescription("The sub-text to search for on each line"),
                 ParameterDescription("On which end to remove - l[eft], r[ight] or b[oth]", Default("left")),
-                ParameterDescription("Remove the sub-text as well? - y[es], n[o]", Default("no")),
+                ParameterDescription("Remove the sub-text as well? - y[es] or n[o]", Default("no")),
             ],
             (string text, string[] options, bool ignoreCase) {
                 return text.parseText.lines.eachLineJoin((a) {
