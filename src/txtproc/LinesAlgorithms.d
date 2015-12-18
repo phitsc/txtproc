@@ -488,7 +488,7 @@ class LinesAlgorithms : Algorithms
                             }
                         }
 
-                        return text[from .. to];
+                        return a[from .. to];
                     });
             }
         ));

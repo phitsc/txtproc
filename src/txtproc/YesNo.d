@@ -21,3 +21,18 @@ YesNo yesNo(string yn)
         throw new Exception(yn ~ " is neither yes nor no.");
     }
 }
+
+unittest
+{
+    assert(yesNo("yes") == YesNo.yes);
+    assert(yesNo("y") == YesNo.yes);
+    assert(yesNo("YES") == YesNo.yes);
+    assert(yesNo("Y") == YesNo.yes);
+    assert(yesNo("Yes") == YesNo.yes);
+
+    assert(yesNo("no") == YesNo.no);
+    assert(yesNo("n") == YesNo.no);
+    assert(yesNo("NO") == YesNo.no);
+    assert(yesNo("N") == YesNo.no);
+    assert(yesNo("No") == YesNo.no);
+}

@@ -101,6 +101,29 @@ aü€
 aü€
 Oben noch zwei leere Zeilen.aü€
 %%%
+-eAppendToLines
+-paü€
+-p*
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter.*************************aü€
+Zweite Zeile. Hallo, wie geht's??************************************aü€
+*********************************************************************aü€
+*********************************************************************aü€
+*********************************************************************aü€
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.**********aü€
+fünfte Zeile. und hier noch einer!***********************************aü€
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    **************aü€
+Unten folgt eine leere Zeile.****************************************aü€
+*********************************************************************aü€
+     5 Leerzeichen. neunte Zeile*************************************aü€
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.aü€
+ ?+. eleventh line. This line ends with 3 spaces   ******************aü€
+*********************************************************************aü€
+*********************************************************************aü€
+Oben noch zwei leere Zeilen.*****************************************aü€
+%%%
 -ePrependToLines
 -paü€
 %
@@ -122,6 +145,29 @@ aü€ ?+. eleventh line. This line ends with 3 spaces
 aü€
 aü€
 aü€Oben noch zwei leere Zeilen.
+%%%
+-ePrependToLines
+-paü€
+-p.
+%
+%1
+%
+aü€.........................erste Zeile. Noch ein Satz. Und ein dritter.
+aü€....................................Zweite Zeile. Hallo, wie geht's??
+aü€.....................................................................
+aü€.....................................................................
+aü€.....................................................................
+aü€..........Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+aü€...................................fünfte Zeile. und hier noch einer!
+aü€.............. Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+aü€........................................Unten folgt eine leere Zeile.
+aü€.....................................................................
+aü€.....................................     5 Leerzeichen. neunte Zeile
+aü€10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+aü€.................. ?+. eleventh line. This line ends with 3 spaces   
+aü€.....................................................................
+aü€.....................................................................
+aü€.........................................Oben noch zwei leere Zeilen.
 %%%
 -eAddLineNumbers
 %
@@ -545,4 +591,137 @@ Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
 
 
 Oben noch zwei leere Zeilen.
+%%%
+-eRemoveLinesContainingRegex
+-p\su[^\s]+
+%
+%1
+%
+erste Zeile. Noch ein Satz. Und ein dritter.
+Zweite Zeile. Hallo, wie geht's??
+
+
+
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Unten folgt eine leere Zeile.
+
+     5 Leerzeichen. neunte Zeile
+10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+ ?+. eleventh line. This line ends with 3 spaces   
+
+
+Oben noch zwei leere Zeilen.
+%%%
+-eRemoveLinesContainingRegex
+-p\bu[^\s]+
+-i
+%
+%1
+%
+Zweite Zeile. Hallo, wie geht's??
+
+
+
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+ Sechste Zeile. Diese Zeile endet mit 4 Leerzeichen    
+
+     5 Leerzeichen. neunte Zeile
+ ?+. eleventh line. This line ends with 3 spaces   
+
+
+Oben noch zwei leere Zeilen.
+%%%
+-eRemoveTo
+-pZeile
+%
+%1
+%
+Zeile. Noch ein Satz. Und ein dritter.
+Zeile. Hallo, wie geht's??
+
+
+
+Zeilen! Die Zürcher Straßenbahn heißt Tram.
+Zeile. und hier noch einer!
+Zeile. Diese Zeile endet mit 4 Leerzeichen    
+Zeile.
+
+Zeile
+Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+ ?+. eleventh line. This line ends with 3 spaces   
+
+
+Zeilen.
+%%%
+-eRemoveTo
+-pZeile
+-pleft
+-pyes
+%
+%1
+%
+. Noch ein Satz. Und ein dritter.
+. Hallo, wie geht's??
+
+
+
+n! Die Zürcher Straßenbahn heißt Tram.
+. und hier noch einer!
+. Diese Zeile endet mit 4 Leerzeichen    
+.
+
+
+. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
+ ?+. eleventh line. This line ends with 3 spaces   
+
+
+n.
+%%%
+-eRemoveTo
+-pei
+-pboth
+%
+%1
+%
+eile. Noch ein Satz. Und ei
+eite Zei
+
+
+
+ei leere Zeilen! Die Zürcher Straßenbahn hei
+eile. und hier noch ei
+eile. Diese Zeile endet mit 4 Leerzei
+eine leere Zei
+
+eichen. neunte Zei
+eile. Zweiter Satz. Dritter. Und ein vierter. Und ei
+ ?+. eleventh line. This line ends with 3 spaces   
+
+
+ei leere Zei
+%%%
+-eRemoveTo
+-pei
+-pboth
+-pyes
+%
+%1
+%
+le. Noch ein Satz. Und 
+te Z
+
+
+
+ leere Zeilen! Die Zürcher Straßenbahn h
+le. und hier noch 
+le. Diese Zeile endet mit 4 Leerz
+ne leere Z
+
+chen. neunte Z
+le. Zweiter Satz. Dritter. Und ein vierter. Und 
+ ?+. eleventh line. This line ends with 3 spaces   
+
+
+ leere Z
 %%%
