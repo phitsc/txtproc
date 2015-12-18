@@ -1,0 +1,38 @@
+# Hashes calculated with https://quickhash.com/
+%1
+Copyright (c) 2015, Philipp Tschannen
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+%%%
+-eCRC32
+%
+%1
+%
+1B7EAD8E
+%%%
+-eMD5
+%
+%1
+%
+8BF47A7C5C02E67339887551236F1F94
+%%%
+-eSHA1
+%
+%1
+%
+EB271F13C12F5A5C8089598ABF41CEFB9F93E6DD
+%%%
+-eSHA256
+%
+%1
+%
+969D329966CCF57E4D96FA31CC37BA13D0BB7D40608C45008386F242419214B9
+%%%
+-eSHA512
+%
+%1
+%
+DC71A850429F2AEF771D1907035B448BE4D80E53F696F526B8345F462BF716DD44F33078BC0DCC11475E7C00472338CD8A02179EC4FAF82E95479BD8FB1338E5
+%%%
