@@ -43,7 +43,7 @@ Input text can be supplied:
 
 * on the command line (like in the examples above)
 * via a file (using the `--file` parameter)
-* from `stdin` when **txtproc** main is used in a [pipeline](https://en.wikipedia.org/wiki/Pipeline_(Unix)) (doesn't currently work properly on Windows)
+* from `stdin` when **txtproc** main is used in a [pipeline](https://en.wikipedia.org/wiki/Pipeline_(Unix))
 * via the clipboard (built-in on Windows or using a tool like xclip on Linux)
 
 Output text can go:
