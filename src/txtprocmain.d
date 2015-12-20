@@ -127,7 +127,7 @@ int txtproc_main(string[] args, string* result = null)
         }
         else
         {
-            writeln(outputText);
+            stdout.rawWrite(outputText ~ "\n");
         }
 
         return 0;
