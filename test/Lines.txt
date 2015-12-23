@@ -725,3 +725,30 @@ le. Zweiter Satz. Dritter. Und ein vierter. Und
 
  leere Z
 %%%
+-eExtractColumn
+-p2
+%
+This,is,a,comma,separated,list
+of,lines,with,multiple,entries
+on,each,line
+%
+is
+lines
+each
+%%%
+-eExtractColumn
+-p3
+-p;
+%
+This;is a;semicolon,separated;list
+of lines;with;multiple entries
+on;each;line.;where;
+some
+lines;do;not;have;enough entries
+%
+semicolon,separated
+multiple entries
+line.
+
+not
+%%%
