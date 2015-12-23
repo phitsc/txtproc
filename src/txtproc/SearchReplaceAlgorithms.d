@@ -68,7 +68,7 @@ class SearchReplaceAlgorithms : Algorithms
             "SearchDuplicateWords", "Search & Replace", "Search the input text for consecutive words which have been duplicated.", [
                 ParameterDescription("The start tag used to indicate a duplication", Default(defaultStag)),
                 ParameterDescription("The end tag used to indicate a duplication", Default(defaultEtag))],
-            (string text, string[] options, bool ignoreCase) {
+            (string text, string[] params, bool ignoreCase) {
                 string result;
 
                 string previousWord;
@@ -80,7 +80,7 @@ class SearchReplaceAlgorithms : Algorithms
                         if ((ignoreCase && !icmp(token.value, previousWord)) ||
                             (token.value == previousWord))
                         {
-                            result ~= options[0] ~ token.value ~ options[1];
+                            result ~= params[0] ~ token.value ~ params[1];
                         }
                         else
                         {
@@ -96,6 +96,56 @@ class SearchReplaceAlgorithms : Algorithms
                 }
 
                 return result;
+            }
+        ));
+
+        add(new Algorithm(
+            "TabsToSpaces", "Search & Replace", "Replace tabs by spaces such that characters following a tab align at their respective tab stops.", [
+                ParameterDescription("Distance between tab stops", Default("4")),
+            ],
+            (string text, string[] params, bool ignoreCase) {
+                return text.detab(to!size_t(params[0]));
+            }
+        ));
+
+        add(new Algorithm(
+            "SpacesToTabs", "Search & Replace", "Replace spaces with the optimal number of tabs (spaces and tabs at the end of a line are removed).", [
+                ParameterDescription("Distance between tab stops", Default("4")),
+            ],
+            (string text, string[] params, bool ignoreCase) {
+                return text.entab(to!size_t(params[0])).to!string;
+            }
+        ));
+
+        add(new Algorithm(
+            "RemoveCharacters", "Search & Replace", "Removes the specified set of characters from the input text).", [
+                ParameterDescription("Characters to remove"),
+            ],
+            (string text, string[] params, bool ignoreCase) {
+                string result;
+
+                foreach (character; text.stride(1))
+                {
+                    if (params[0].indexOf(character, ignoreCase ? CaseSensitive.no : CaseSensitive.yes) == -1)
+                    {
+                        result ~= character;
+                    }
+                }
+
+                return result;
+            }
+        ));
+
+        add(new Algorithm(
+            "FlipUpsideDown", "Search & Replace", "Flips the input text upside down (works only for supported characters).", [],
+            (string text, string[] params, bool ignoreCase) {
+                immutable dchar[dchar] translationTable = [
+                    'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ', 'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ', 'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+                    'A': 'Ɐ', 'B': 'B', 'C': 'Ɔ', 'D': 'D', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': 'פ', 'H': 'H', 'I': 'I', 'J': 'ſ', 'K': 'K', 'L': '˥', 'M': 'Ɯ', 'N': 'N', 'O': 'O', 'P': 'Ԁ', 'Q': 'Q', 'R': 'R', 'S': 'S', 'T': '┴', 'U': '∩', 'V': 'Ʌ', 'W': 'M', 'X': 'X', 'Y': 'ʎ', 'Z': 'Z',
+                    ',': '\'', '.': '˙', '?': '¿', '!': '¡', '\'': ',', '(': ')', ')': '(', '[': ']', ']': '[', '<': '>', '>': '<', '{': '}', '}': '{', '_': '‾'
+                ];
+
+                return text.translate(translationTable);
             }
         ));
     }
