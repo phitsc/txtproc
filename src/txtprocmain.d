@@ -148,17 +148,19 @@ int txtproc_main(string[] args, string* result = null)
 
 version(Windows)
 {
+    import core.sys.windows.windows;
+
     extern(Windows)
     {
-        bool OpenClipboard(void*);
-        bool CloseClipboard();
-        bool EmptyClipboard();
+        BOOL OpenClipboard(HWND);
+        BOOL CloseClipboard();
+        BOOL EmptyClipboard();
 
-        void* GetClipboardData(uint);
-        void* SetClipboardData(uint, void*);
-        void* GlobalAlloc(uint, size_t);
-        void* GlobalLock(void*);
-        bool  GlobalUnlock(void*);
+        HANDLE  GetClipboardData(UINT);
+        HANDLE  SetClipboardData(UINT, HANDLE);
+        HGLOBAL GlobalAlloc(UINT, size_t);
+        HGLOBAL GlobalLock(HGLOBAL);
+        BOOL    GlobalUnlock(HGLOBAL);
     }
 
     extern(C) size_t wcslen(const wchar*);
@@ -311,7 +313,7 @@ private void printFunctionList(const Algorithms algorithms, string filter)
 
     size_t maxAlgorithmWidth;
 
-    foreach(algorithm; algorithms)
+    foreach (algorithm; algorithms)
     {
         maxAlgorithmWidth = max(maxAlgorithmWidth, algorithm.name.length);
     }
