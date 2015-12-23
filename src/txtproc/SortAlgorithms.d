@@ -5,7 +5,7 @@ import std.regex;
 import std.string;
 import std.uni;
 
- import std.stdio : write, writeln;
+ import std.stdio : writeln;
 
 import Algorithm;
 import Algorithms;
@@ -75,20 +75,20 @@ class SortAlgorithms : Algorithms
         add(new Algorithm(
             "SortLinesByNumber", "Sort", "Sort lines of input text by first number found on each line.", [],
             (string text, string[], bool ignoreCase) {
-                return text.parseText.lines.sort!((a, b) {
+                return correctLineEndings(text.parseText.lines.sort!((a, b) {
                     auto numberRegex = regex(`[-+]?((\b[0-9]+)?\.)?[0-9]+\b`);
                     auto aNumber = a.toText.matchFirst(numberRegex);
                     auto bNumber = b.toText.matchFirst(numberRegex);
 
                     if (aNumber && bNumber)
                     {
-                        return to!double(aNumber.hit) > to!double(bNumber.hit);
+                        return to!double(aNumber.hit) < to!double(bNumber.hit);
                     }
                     else
                     {
                         return aNumber ? true : false;
                     }
-                }).map!(a => a.toText).join;
+                })).map!(a => a.toText).join;
             }
         ));
 

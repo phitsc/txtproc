@@ -129,3 +129,37 @@ erste Zeile. Noch ein Satz. Und ein dritter.
 Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
 10-te Zeile. Zweiter Satz. Dritter. Und ein vierter. Und ein fünfter.
 %%%
+-eSortLinesByNumber
+%
+5 qwert
+2 asdf
+99 yxcv
+-8 zuio
+42 hjkl
+2.1 bnm
+%
+-8 zuio
+2 asdf
+2.1 bnm
+5 qwert
+42 hjkl
+99 yxcv
+%%%
+-eSortLinesByNumber
+%
+qwert 5 zuio
+2 asdf
+yxcv 99
+zuio-8
+has no number
+hjkl 42 asdfg 1 2 3
+- 2.1 bnm
+%
+zuio-8
+2 asdf
+- 2.1 bnm
+qwert 5 zuio
+hjkl 42 asdfg 1 2 3
+yxcv 99
+has no number
+%%%
