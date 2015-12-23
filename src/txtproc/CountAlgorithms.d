@@ -40,6 +40,32 @@ class CountAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
+            "CountWordOccurence", "Count", "Count how many times each word occurs in the input text.", [],
+            (string text, string[], bool ignoreCase) {
+                size_t[string] words;
+
+                foreach (token; text.parseText)
+                {
+                    if (token.type == TokenType.text)
+                    {
+                        immutable word = ignoreCase ? token.value.toLower : token.value;
+
+                        if (word in words)
+                        {
+                            words[word]++;
+                        }
+                        else
+                        {
+                            words[word] = 1;
+                        }
+                    }
+                }
+
+                return formatDictionary(words);
+            }
+        ));
+
+        add(new Algorithm(
             "CountSentences", "Count", "Count number of sentences of input text.", [],
             (string text, string[], bool) {
                 return text.count.sentences.text;
@@ -69,9 +95,9 @@ class CountAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "CountAlphabet", "Count", "Per-character count of input text.", [],
+            "CountCharacterOccurence", "Count", "Count how many times each character occurs in the input text.", [],
             (string text, string[], bool ignoreCase) {
-                int[dchar] dict;
+                size_t[dchar] dict;
 
                 foreach (character; text.stride(1))
                 {
@@ -90,16 +116,7 @@ class CountAlgorithms : Algorithms
                     }
                 }
 
-                string result;
-
-                foreach (character; sort!((a, b) => a.toLower < b.toLower)(dict.keys))
-                {
-                    if (!result.empty) result ~= newline;
-
-                    result ~= format("%s: %s", character, dict[character]);
-                }
-
-                return result;
+                return formatDictionary(dict);
             }
         ));
 
@@ -112,4 +129,18 @@ class CountAlgorithms : Algorithms
         ));
     }
 
+private:
+    static pure auto formatDictionary(A)(A dict)
+    {
+        string result;
+
+        foreach (key; sort!((a, b) => a.toLower < b.toLower)(dict.keys))
+        {
+            if (!result.empty) result ~= newline;
+
+            result ~= format("%s: %s", key, dict[key]);
+        }
+
+        return result;
+    }
 }

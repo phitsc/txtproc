@@ -50,7 +50,7 @@ füg auch keinem anderen zu.Ohne Fleiß kein Preis.
 2 sentences
 2 lines
 %%%
--eCountAlphabet
+-eCountCharacterOccurence
 %
 %1
 %
@@ -79,7 +79,7 @@ z: 1
 ß: 1
 ü: 1
 %%%
--eCountAlphabet
+-eCountCharacterOccurence
 -i
 %
 %1
