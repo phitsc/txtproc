@@ -69,6 +69,9 @@ class Algorithms
 protected:
     void add(Algorithm algorithm)
     {
+        // Algorithm names must be unique
+        assert(!m_algorithms.canFind(algorithm));
+
         m_algorithms ~= algorithm;
     }
 

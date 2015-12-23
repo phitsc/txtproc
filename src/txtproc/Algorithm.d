@@ -110,6 +110,22 @@ class Algorithm
         return m_process(text, params, ignoreCase);
     }
 
+    override bool opEquals(Object o)
+    {
+        if(auto a = cast(Algorithm) o)
+        {
+            // Return true if both refer to the same instance.
+            if(a is this)
+            {
+                return true;
+            }
+
+            return a.name == m_name;
+        }
+
+        return false;
+    }
+
 private:
     const void checkParams(const(string[]) params)
     {
