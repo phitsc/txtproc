@@ -42,7 +42,7 @@ alias ParameterDescriptions = ParameterDescription[];
 
 class Algorithm
 {
-    alias Process = string function(string, string[], bool);
+    alias Process = string delegate(string, string[], bool);
 
     this(string name, string group, string description, immutable ParameterDescriptions parameterDescriptions, Process process)
     {
