@@ -36,6 +36,18 @@ private pure auto toSnake(string word)
     return result;
 }
 
+unittest
+{
+    assert(toSnake("") == "");
+    assert(toSnake("c") == "c");
+    assert(toSnake("C") == "C");
+    assert(toSnake("camel") == "camel");
+    assert(toSnake("Camel") == "Camel");
+    assert(toSnake("CamelCase") == "Camel_case");
+    assert(toSnake("camelCase") == "camel_case");
+    assert(toSnake("camelCaseCamel") == "camel_case_camel");
+}
+
 private pure auto toCamel(string word)
 {
     bool isFirst = true;
@@ -51,6 +63,18 @@ private pure auto toCamel(string word)
             return w.capitalize;
         }
     }).join : word;
+}
+
+unittest
+{
+    assert(toCamel("") == "");
+    assert(toCamel("s") == "s");
+    assert(toCamel("S") == "S");
+    assert(toCamel("snake") == "snake");
+    assert(toCamel("Snake") == "Snake");
+    assert(toCamel("Snake_case") == "SnakeCase");
+    assert(toCamel("snake_Case") == "snakeCase");
+    assert(toCamel("snake_case_snake") == "snakeCaseSnake");
 }
 
 class CapitalisationAlgorithms : Algorithms
@@ -134,4 +158,16 @@ class CapitalisationAlgorithms : Algorithms
             }
         ));
    }
+}
+
+unittest
+{
+    auto a = new CapitalisationAlgorithms();
+    assert(a.closest("Upper")[0].process("", [], false) == "");
+    assert(a.closest("Lower")[0].process("", [], false) == "");
+    assert(a.closest("Toggle")[0].process("", [], false) == "");
+    assert(a.closest("Capital")[0].process("", [], false) == "");
+    assert(a.closest("Sentence")[0].process("", [], false) == "");
+    assert(a.closest("Snake")[0].process("", [], false) == "");
+    assert(a.closest("Camel")[0].process("", [], false) == "");
 }
