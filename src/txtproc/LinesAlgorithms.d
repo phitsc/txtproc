@@ -116,7 +116,7 @@ private auto formatLineWithNumber(string fmtString, string line, int number, str
     return lineCaptures.empty ? fmt : fmt.replaceFirst(lineRegex, line);
 }
 
-private auto maxLength(const(Token[][]) lines)
+private auto maxLineLength(const(Token[][]) lines)
 {
     return reduce!((res, t) => max(res, t.toText.chomp.walkLength))(cast(size_t)0, lines);
 }
@@ -261,7 +261,7 @@ class LinesAlgorithms : Algorithms
                 }
                 else
                 {
-                    return lines.eachLineJoin(a => a.leftJustify(lines.maxLength, options[1][0]) ~ options[0]);
+                    return lines.eachLineJoin(a => a.leftJustify(lines.maxLineLength, options[1][0]) ~ options[0]);
                 }
             }
         ));
@@ -280,7 +280,7 @@ class LinesAlgorithms : Algorithms
                 }
                 else
                 {
-                    return lines.eachLineJoin(a => options[0] ~ a.rightJustify(lines.maxLength, options[1][0]));
+                    return lines.eachLineJoin(a => options[0] ~ a.rightJustify(lines.maxLineLength, options[1][0]));
                 }
             }
         ));
@@ -490,6 +490,20 @@ class LinesAlgorithms : Algorithms
 
                         return a[from .. to];
                     });
+            }
+        ));
+
+        add(new Algorithm(
+            "ExtractColumn", "Lines", "Extracts the specified column delimited by the specified text out of each line.", [
+                ParameterDescription("Column number (1-based)"),
+                ParameterDescription("Column delimiter text", Default(",")),
+            ],
+            (string text, string[] params, bool ignoreCase) {
+                return text.parseText.lines.eachLineJoin((a) {
+                    const columns = a.split(params[1], ignoreCase ? IgnoreCase.yes : IgnoreCase.no, KeepSeparator.no);
+                    immutable columnNumber = to!int(params[0]);
+                    return (columnNumber - 1) < columns.length ? columns[columnNumber - 1] : "";
+                });
             }
         ));
     }
