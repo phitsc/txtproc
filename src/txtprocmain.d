@@ -76,7 +76,7 @@ int txtproc_main(string[] args, string* result = null)
 
         if (printVersionInfo)
         {
-            writeln("txtproc version 0.1");
+            writeln("txtproc version 0.2.0");
 
             return 0;
         }
