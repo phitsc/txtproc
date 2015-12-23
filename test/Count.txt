@@ -2,6 +2,11 @@
 Was du nicht willst dass man dir tu,das
 füg auch keinem anderen zu.Ohne Fleiß kein Preis.
 %%%
+%2
+THE SOFTWARE IS PROVIDED "as is" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS.
+%%%
 -eCount
 %
 %1
@@ -106,4 +111,54 @@ w: 2
 z: 1
 ß: 1
 ü: 1
+%%%
+-eCountWordOccurence
+%
+%2
+%
+ALL: 2
+AND: 2
+as: 1
+AUTHOR: 1
+DISCLAIMS: 1
+FITNESS: 1
+IMPLIED: 1
+INCLUDING: 1
+IS: 1
+is: 1
+MERCHANTABILITY: 1
+OF: 1
+PROVIDED: 1
+REGARD: 1
+SOFTWARE: 2
+THE: 2
+THIS: 1
+TO: 1
+WARRANTIES: 2
+WITH: 1
+%%%
+-eCountWordOccurence
+-i
+%
+%2
+%
+all: 2
+and: 2
+as: 1
+author: 1
+disclaims: 1
+fitness: 1
+implied: 1
+including: 1
+is: 2
+merchantability: 1
+of: 1
+provided: 1
+regard: 1
+software: 2
+the: 2
+this: 1
+to: 1
+warranties: 2
+with: 1
 %%%
