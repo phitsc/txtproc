@@ -310,7 +310,7 @@ class LinesAlgorithms : Algorithms
         ));
 
         add(new Algorithm(
-            "RemoveCharacters", "Lines", "Removes a specified number of characters from the beginning and/or end of each line.", [
+            "TrimLine", "Lines", "Removes a specified number of characters from the beginning and/or end of each line.", [
                 ParameterDescription("Number of characters to remove at the beginning of each line"),
                 ParameterDescription("Number of characters to remove at the end of each line", Default("0")),
             ],

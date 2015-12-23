@@ -306,7 +306,7 @@ Oben noch zwei leere Zeilen. (16)
  F 
 10 Oben noch zwei leere Zeilen.
 %%%
--eRemoveCharacters
+-eTrimLine
 -p2
 %
 %1
@@ -328,7 +328,7 @@ ten folgt eine leere Zeile.
 
 en noch zwei leere Zeilen.
 %%%
--eRemoveCharacters
+-eTrimLine
 -p2
 -p8
 %
@@ -351,7 +351,7 @@ ten folgt eine leer
 
 en noch zwei leere
 %%%
--eRemoveCharacters
+-eTrimLine
 -p20
 -p20
 %
