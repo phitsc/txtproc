@@ -3,6 +3,7 @@ import std.array;
 import std.conv;
 import std.range;
 import std.string;
+import std.traits;
 import std.typecons;
 
 import Algorithm;
@@ -102,6 +103,6 @@ private:
 
         result.reverse();
 
-        return result;
+        return result.to!string;
     }
 }
