@@ -1,9 +1,8 @@
-import std.algorithm;
+import std.algorithm: cmp, sort;
 import std.conv : to;
-import std.range;
-import std.regex;
-import std.string;
-import std.uni;
+import std.range : join, walkLength;
+import std.regex : matchFirst, regex;
+import std.string : chomp, icmp;
 
  import std.stdio : writeln;
 

@@ -1,12 +1,6 @@
-import std.algorithm;
-import std.ascii;
-import std.array;
-import std.conv;
-import std.file;
+import std.file : read;
 import std.getopt;
-import std.range;
 import std.stdio;
-import std.string;
 
 import Algorithm;
 import CapitalisationAlgorithms;

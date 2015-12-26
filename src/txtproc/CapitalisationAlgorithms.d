@@ -1,7 +1,6 @@
-import std.algorithm;
-import std.range;
+import std.range : stride;
 import std.string;
-import std.uni;
+import std.uni : isUpper, isLower;
 
 import Algorithms;
 import TextAlgo;

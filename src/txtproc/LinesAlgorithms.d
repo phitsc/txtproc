@@ -8,8 +8,6 @@ import std.string : cmp, chomp, empty, indexOf, lastIndexOf, leftJustify, rightJ
 import std.uni : icmp;
 import std.typecons : Flag;
 
-import std.stdio : writeln;
-
 import Algorithm;
 import Algorithms;
 import TextAlgo;

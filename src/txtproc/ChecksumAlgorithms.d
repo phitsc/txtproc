@@ -1,13 +1,8 @@
-import std.ascii;
-import std.conv;
-import std.digest.crc;
-import std.digest.digest;
-import std.digest.md;
-import std.digest.ripemd;
+import std.digest.crc : CRC32, crcHexString;
+import std.digest.md : MD5;
+import std.digest.ripemd : RIPEMD160;
 import std.digest.sha;
-import std.string;
-
-import std.stdio;
+import std.string : format;
 
 import Algorithms;
 import TextAlgo;

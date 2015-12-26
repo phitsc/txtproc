@@ -1,11 +1,7 @@
-import std.algorithm;
-import std.array;
-import std.conv;
-import std.range;
-import std.regex;
+import std.conv : to;
+import std.range : stride;
+import std.regex : matchAll, regex, replaceAll;
 import std.string;
-import std.uni;
-import std.typecons;
 
 import Algorithm;
 import Algorithms;

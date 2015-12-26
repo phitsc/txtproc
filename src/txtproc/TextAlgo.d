@@ -2,8 +2,7 @@ import std.algorithm : canFind, map, countIf = count;
 import std.ascii : newline;
 import std.conv : text;
 import std.range;
-import std.traits;
-import std.typecons;
+import std.typecons : Tuple;
 import std.uni;
 
 import std.stdio : writeln;

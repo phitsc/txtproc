@@ -1,13 +1,8 @@
-import std.algorithm;
-import std.ascii;
-import std.array;
-import std.conv;
-import std.random;
-import std.range;
-import std.string;
-import std.uni;
-
-import std.stdio : writeln;
+import std.algorithm : reverse;
+import std.conv : to;
+import std.random : randomShuffle;
+import std.range : array, retro, stride, walkLength;
+import std.string : join, splitLines;
 
 import Algorithm;
 import Algorithms;

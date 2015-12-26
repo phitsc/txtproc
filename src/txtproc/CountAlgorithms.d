@@ -1,13 +1,10 @@
 import std.algorithm : sort;
-import std.array;
 import std.ascii : newline;
-import std.conv;
-import std.range;
-import std.regex;
+import std.conv : to;
+import std.range : array, empty, stride;
+import std.regex : matchAll, regex;
 import std.string : format;
-import std.uni;
-
-  import std.stdio;
+import std.uni : isAlpha, toLower;
 
 import Algorithms;
 import TextAlgo;
