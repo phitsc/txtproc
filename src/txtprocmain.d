@@ -9,13 +9,13 @@ import std.stdio;
 import std.string;
 
 import Algorithm;
-import CountAlgorithms;
 import CapitalisationAlgorithms;
+import ChecksumAlgorithms;
+import CountAlgorithms;
+import LinesAlgorithms;
 import OrderAlgorithms;
 import SearchReplaceAlgorithms;
-import ChecksumAlgorithms;
 import SortAlgorithms;
-import LinesAlgorithms;
 import WebAlgorithms;
 
 extern(C) int isatty(int);
@@ -88,13 +88,13 @@ int txtproc_main(string[] args, string* result = null)
         }
 
         auto algorithms = new Algorithms;
-        algorithms.add(new CountAlgorithms);
         algorithms.add(new CapitalisationAlgorithms);
+        algorithms.add(new ChecksumAlgorithms);
+        algorithms.add(new CountAlgorithms);
+        algorithms.add(new LinesAlgorithms);
         algorithms.add(new OrderAlgorithms);
         algorithms.add(new SearchReplaceAlgorithms);
-        algorithms.add(new ChecksumAlgorithms);
         algorithms.add(new SortAlgorithms);
-        algorithms.add(new LinesAlgorithms);
         algorithms.add(new WebAlgorithms);
 
         if (options.helpWanted)
