@@ -70,7 +70,7 @@ int txtproc_main(string[] args, string* result = null)
 
         if (printVersionInfo)
         {
-            writeln("txtproc version 0.2.0");
+            writeln("txtproc version 0.3.0");
 
             return 0;
         }
@@ -324,7 +324,7 @@ private void printFunctionList(const Algorithms algorithms, string filter)
         result ~= leftJustify(algorithm.name, maxAlgorithmWidth, ' ') ~ " - " ~ algorithm.description;
     }
 
-    writeln(result);
+    stdout.rawWrite(result ~ "\n");
 }
 
 private void printHelpOnFunction(const Algorithms algorithms, string filter)
