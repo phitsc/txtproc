@@ -1,6 +1,5 @@
 import std.file : read;
 import std.getopt;
-import std.stdio;
 
 import Algorithm;
 import CapitalisationAlgorithms;
@@ -13,6 +12,11 @@ import SortAlgorithms;
 import WebAlgorithms;
 
 extern(C) int isatty(int);
+
+void writeline(string text)
+{
+    std.stdio.stdout.rawWrite(text ~ "\n");
+}
 
 int txtproc_main(string[] args, string* result = null)
 {
@@ -113,7 +117,7 @@ int txtproc_main(string[] args, string* result = null)
         }
         else if (modifyInputFile)
         {
-            File(inputFile, "w").rawWrite(outputText);
+            std.stdio.File(inputFile, "w").rawWrite(outputText);
         }
         else if (toClipboard)
         {
@@ -121,19 +125,21 @@ int txtproc_main(string[] args, string* result = null)
         }
         else
         {
-            stdout.rawWrite(outputText ~ "\n");
+            writeline(outputText);
         }
 
         return 0;
     }
     catch (Exception e)
     {
-        stderr.writeln("Error: ", e.msg);
+        import std.stdio : stderr;
+
+        stderr.rawWrite("Error: " ~ e.msg ~ "\n");
 
         if (printDebugOutput)
         {
-            stderr.writeln(e.file, "(", e.line, ")");
-            stderr.writeln(e.info);
+            stderr.rawWrite(e.file.text ~ "(" ~ e.line.text ~ ")\n");
+            stderr.rawWrite(e.info.text ~ "\n");
         }
 
         return 1;
@@ -285,7 +291,7 @@ private string getInputText(string inputFile, bool fromClipboard, string[] args)
 {
     if (!isatty(0))
     {
-        return stdin.byLineCopy.array.join(newline);
+        return std.stdio.stdin.byLineCopy.array.join(newline);
     }
     else if (fromClipboard)
     {
@@ -324,7 +330,7 @@ private void printFunctionList(const Algorithms algorithms, string filter)
         result ~= leftJustify(algorithm.name, maxAlgorithmWidth, ' ') ~ " - " ~ algorithm.description;
     }
 
-    stdout.rawWrite(result ~ "\n");
+    writeline(result);
 }
 
 private void printHelpOnFunction(const Algorithms algorithms, string filter)
@@ -333,6 +339,6 @@ private void printHelpOnFunction(const Algorithms algorithms, string filter)
 
     auto algorithm = algorithms.closest(filter)[0];
 
-    writeln(algorithm.help);
+    writeline(algorithm.help);
 }
 
