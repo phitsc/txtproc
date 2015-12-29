@@ -8,13 +8,23 @@ import Algorithm;
 import Algorithms;
 import TextAlgo;
 
+extern(C) int isatty(int);
+
 bool terminalHasColors()
 {
-    version(linux) return true;
-    version(Windows)
+    if (isatty(0))
     {
-        import std.process;
-        return environment.get("ANSICON") !is null;
+        version(linux) return true;
+
+        version(Windows)
+        {
+            import std.process;
+            return environment.get("ANSICON") !is null;
+        }
+    }
+    else
+    {
+        return false;
     }
 }
 
