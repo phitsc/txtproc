@@ -10,8 +10,12 @@ import TextAlgo;
 
 bool terminalHasColors()
 {
-    import std.process;
-    return environment.get("ANSICON") !is null;
+    version(linux) return true;
+    version(Windows)
+    {
+        import std.process;
+        return environment.get("ANSICON") !is null;
+    }
 }
 
 private enum int[string] ansiColors =
