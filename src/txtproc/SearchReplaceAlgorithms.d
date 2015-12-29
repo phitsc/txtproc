@@ -1,11 +1,75 @@
 import std.conv : to;
-import std.range : stride;
+import std.range : retro, stride;
 import std.regex : matchAll, regex, replaceAll;
 import std.string;
+import std.typecons : Tuple, tuple;
 
 import Algorithm;
 import Algorithms;
 import TextAlgo;
+
+bool terminalHasColors()
+{
+    import std.process;
+    return environment.get("ANSICON") !is null;
+}
+
+private enum int[string] ansiColors =
+[
+    "black"  : 30,
+    "red"    : 31,
+    "green"  : 32,
+    "yellow" : 33,
+    "blue"   : 34,
+    "magenta": 35,
+    "cyan"   : 36,
+    "white"  : 37,
+];
+
+private enum dchar[dchar] mirrorChars =
+[
+    '(' : ')',
+    ')' : '(',
+    '<' : '>',
+    '>' : '<',
+    '[' : ']',
+    ']' : '[',
+    '{' : '}',
+    '}' : '{',
+];
+
+private static pure string mirror(string beginMarker)
+{
+    string endMarker;
+
+    foreach (character; beginMarker.retro.stride(1))
+    {
+        auto c = (character in mirrorChars);
+
+        if (c !is null)
+        {
+            endMarker ~= *c;
+        }
+        else
+        {
+            endMarker ~= character;
+        }
+    }
+
+    return endMarker;
+}
+
+unittest
+{
+    assert(mirror("(") == ")");
+    assert(mirror("))") == "((");
+    assert(mirror("<") == ">");
+    assert(mirror("<<<") == ">>>");
+    assert(mirror("{") == "}");
+    assert(mirror("(<}]") == "[{>)");
+    assert(mirror("|") == "|");
+    assert(mirror("abc") == "cba");
+}
 
 class SearchReplaceAlgorithms : Algorithms
 {
@@ -14,10 +78,9 @@ class SearchReplaceAlgorithms : Algorithms
         add(new Algorithm(
             "Search", "Search & Replace", "Search sub-text in input text.", [
                 ParameterDescription("The sub-text to search within the input text"),
-                ParameterDescription("The start tag used to indicate a find", Default(defaultStag)),
-                ParameterDescription("The end tag used to indicate a find", Default(defaultEtag))],
+                ParameterDescription("The marker used to indicate a find", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplace(text, replaceSpecialChars(params[0]), stag(params, 1), etag(params, 2), null, ignoreCase);
+                return searchAndReplace(text, replaceSpecialChars(params[0]), null, ignoreCase, marker(params, 1));
             }
         ));
 
@@ -25,20 +88,18 @@ class SearchReplaceAlgorithms : Algorithms
             "Replace", "Search & Replace", "Replace sub-text in input text by a replacement text.", [
                 ParameterDescription("The sub-text to replace"),
                 ParameterDescription("The replacement text"),
-                ParameterDescription("The start tag used to indicate a replacement", Default(defaultStag)),
-                ParameterDescription("The end tag used to indicate a replacement", Default(defaultEtag))],
+                ParameterDescription("The marker used to indicate a replacement", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplace(text, replaceSpecialChars(params[0]), stag(params, 2), etag(params, 3), replaceSpecialChars(params[1]), ignoreCase);
+                return searchAndReplace(text, replaceSpecialChars(params[0]), replaceSpecialChars(params[1]), ignoreCase, marker(params, 2));
             }
         ));
 
         add(new Algorithm(
             "SearchRegex", "Search & Replace", "Search sub-text in input text using a regular expression.", [
                 ParameterDescription("The regular expression to search within the input text"),
-                ParameterDescription("The start tag used to indicate a replacement", Default(defaultStag)),
-                ParameterDescription("The end tag used to indicate a replacement", Default(defaultEtag))],
+                ParameterDescription("The marker used to indicate a find", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), stag(params, 1), etag(params, 2), null, ignoreCase);
+                return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), null, ignoreCase, marker(params, 1));
             }
         ));
 
@@ -46,24 +107,23 @@ class SearchReplaceAlgorithms : Algorithms
             "ReplaceRegex", "Search & Replace", "Replace sub-text in input text by a replacement text using a regular expression.", [
                 ParameterDescription("The regular expression to replace"),
                 ParameterDescription("The replacement text"),
-                ParameterDescription("The start tag used to indicate a replacement", Default(defaultStag)),
-                ParameterDescription("The end tag used to indicate a replacement", Default(defaultEtag))],
+                ParameterDescription("The marker used to indicate a replacement", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), stag(params, 2), etag(params, 3), replaceSpecialChars(params[1]), ignoreCase);
+                return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), replaceSpecialChars(params[1]), ignoreCase, marker(params, 2));
             }
         ));
 
         add(new Algorithm(
-            "SearchNonAscii", "Search & Replace", "Search for non ASCII characters in input text.", [],
+            "SearchNonAscii", "Search & Replace", "Search for non ASCII characters in input text.", [
+                ParameterDescription("The marker used to indicate a replacement", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return text.replaceAll(regex(r"([^\u0000-\u007F])"), stag(params, 0) ~ "$1" ~ etag(params, 1));
+                return text.replaceAll(regex(r"([^\u0000-\u007F])"), marker(params, 0)("$1"));
             }
         ));
 
         add(new Algorithm(
             "SearchDuplicateWords", "Search & Replace", "Search the input text for consecutive words which have been duplicated.", [
-                ParameterDescription("The start tag used to indicate a duplication", Default(defaultStag)),
-                ParameterDescription("The end tag used to indicate a duplication", Default(defaultEtag))],
+                ParameterDescription("The marker used to indicate a duplication", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
                 string result;
 
@@ -76,7 +136,7 @@ class SearchReplaceAlgorithms : Algorithms
                         if ((ignoreCase && !icmp(token.value, previousWord)) ||
                             (token.value == previousWord))
                         {
-                            result ~= params[0] ~ token.value ~ params[1];
+                            result ~= marker(params, 0)(token.value);
                         }
                         else
                         {
@@ -147,19 +207,33 @@ class SearchReplaceAlgorithms : Algorithms
     }
 
 private:
-    enum auto defaultStag = ">>>";
-    enum auto defaultEtag = "<<<";
+    alias Marker = string delegate(string);
 
-    static string stag(string[] params, size_t paramIndex)
+    enum defaultMarkerColor = "green";
+    enum defaultMarkerText = ">>>";
+
+    static string defaultMarker()
     {
-        immutable param = params.length > paramIndex ? params[paramIndex] : defaultStag;
-        return param == r"\0" ? "" : param;
+        return terminalHasColors ? defaultMarkerColor : defaultMarkerText;
     }
 
-    static string etag(string[] params, size_t paramIndex)
+    static Tuple!(string, string) beginEndMarker(string marker)
     {
-        immutable param = params.length > (paramIndex - 1) ? (params.length > paramIndex ? params[paramIndex] : params[paramIndex - 1]) : defaultEtag;
-        return param == r"\0" ? "" : param;
+        if (terminalHasColors && marker in ansiColors)
+        {
+            return tuple("\033[" ~ ansiColors[marker].text ~ "m", "\033[0m");
+        }
+        else
+        {
+            return tuple(marker, mirror(marker));
+        }
+    }
+
+    static Marker marker(string[] params, size_t paramIndex)
+    {
+        immutable param = params.length > paramIndex ? params[paramIndex] : (terminalHasColors ? defaultMarkerColor : defaultMarkerText);
+        immutable markers = beginEndMarker(param);
+        return (text) => markers[0] ~ text ~ markers[1];
     }
 
     static string replaceSpecialChars(string text)
@@ -170,10 +244,9 @@ private:
     static string searchAndReplace(
         string input,
         string searchTerm,
-        string searchStartTag,
-        string searchEndTag,
         string replacementText,
-        bool ignoreCase)
+        bool ignoreCase,
+        Marker mark)
     {
         ptrdiff_t[] finds;
 
@@ -194,11 +267,11 @@ private:
 
             if (replacementText)
             {
-                result ~= searchStartTag ~ replacementText ~ searchEndTag;
+                result ~= mark(replacementText);
             }
             else
             {
-                result ~= searchStartTag ~ input[finds[index] .. finds[index] + searchTerm.length] ~ searchEndTag;
+                result ~= mark(input[finds[index] .. finds[index] + searchTerm.length]);
             }
 
             from = finds[index] + searchTerm.length;
@@ -212,10 +285,9 @@ private:
     static string searchAndReplaceRegex(
         string input,
         string searchTerm,
-        string searchStartTag,
-        string searchEndTag,
         string replacementText,
-        bool ignoreCase)
+        bool ignoreCase,
+        Marker mark)
     {
         string result;
 
@@ -235,11 +307,11 @@ private:
                     substReplacementText = substReplacementText.replace("\\" ~ captureIndex.text, match.captures[captureIndex]);
                 }
 
-                result ~= searchStartTag ~ substReplacementText ~ searchEndTag;
+                result ~= mark(substReplacementText.text);
             }
             else
             {
-                result ~= searchStartTag ~ match.front ~ searchEndTag;
+                result ~= mark(match.front);
             }
 
             from = index + match.front.length;
