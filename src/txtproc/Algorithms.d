@@ -1,10 +1,6 @@
-import std.algorithm;
-import std.array;
-import std.conv;
-import std.range;
-import std.string;
-import std.traits;
-import std.typecons;
+import std.algorithm : canFind, makeIndex, max, reverse;
+import std.string : icmp, toLower, toUpper;
+import std.typecons : Tuple, tuple, Unqual;
 
 import Algorithm;
 
@@ -82,6 +78,8 @@ private:
     // longest common subsequence. from rosetta code.
     string lcs(in string a, in string b) const pure
     {
+        import std.conv : text;
+
         auto L = new uint[][](a.length + 1, b.length + 1);
 
         foreach (immutable i; 0 .. a.length)
@@ -106,6 +104,6 @@ private:
 
         result.reverse();
 
-        return result.to!string;
+        return result.text;
     }
 }
