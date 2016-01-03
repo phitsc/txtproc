@@ -1,5 +1,6 @@
 import std.file : read;
 import std.getopt;
+import std.typecons : Tuple;
 
 import Algorithm;
 import CapitalisationAlgorithms;
@@ -13,9 +14,31 @@ import WebAlgorithms;
 
 extern(C) int isatty(int);
 
-void writeline(string text)
+private void writeline(string text)
 {
     std.stdio.stdout.rawWrite(text ~ "\n");
+}
+
+private alias Option = Tuple!(string, "cmd", string, "desc");
+
+private immutable Option[string] opts;
+
+static this()
+{
+    opts =
+    [
+        "changes"       : Option("changes",          "Print change history"),
+        "execute"       : Option("execute|e",        "Function to process the supplied text with"),
+        "file"          : Option("file|f",           "Input file containing text to process"),
+        "ignore-case"   : Option("ignore-case|i",    "Ignore case"),
+        "list"          : Option("list|l",           "List available text processing functions"),
+        "modify"        : Option("modify|m",         "Modify the input file in-place"),
+        "parameter"     : Option("parameter|p",      "Parameter to pass to processing function. Supply multiple times if necessary."),
+        "from-clipboard": Option("from-clipboard|v", "Read text to process from clipboard"),
+        "to-clipboard"  : Option("to-clipboard|x",   "Write processed text to clipboard"),
+        "version"       : Option("version",          "Print version information"),
+        "debug"         : Option("debug|d",          "Print debug output"),
+    ];
 }
 
 int txtproc_main(string[] args, string* result = null)
@@ -33,48 +56,54 @@ int txtproc_main(string[] args, string* result = null)
         bool fromClipboard;
         bool toClipboard;
         bool printVersionInfo;
-
-        immutable opts =
-        [
-            [ "execute|e",        "Function to process the supplied text with" ],
-            [ "file|f",           "Input file containing text to process" ],
-            [ "ignore-case|i",    "Ignore case"],
-            [ "list|l",           "List available text processing functions" ],
-            [ "modify|m",         "Modify the input file in-place" ],
-            [ "parameter|p",      "Parameter to pass to processing function. Supply multiple times if necessary." ],
-            [ "from-clipboard|v", "Read text to process from clipboard" ],
-            [ "to-clipboard|x",   "Write processed text to clipboard" ],
-            [ "version",          "Print version information"],
-            [ "debug|d",          "Print debug output"]
-        ];
+        bool printChanges;
 
         version(Windows) auto options = getopt(args,
-            opts[0][0], opts[0][1], &functionName,
-            opts[1][0], opts[1][1], &inputFile,
-            opts[2][0], opts[2][1], &ignoreCase,
-            opts[3][0], opts[3][1], &listFunctions,
-            opts[4][0], opts[4][1], &modifyInputFile,
-            opts[5][0], opts[5][1], &params,
-            opts[6][0], opts[6][1], &fromClipboard,
-            opts[7][0], opts[7][1], &toClipboard,
-            opts[8][0], opts[8][1], &printVersionInfo,
-            opts[9][0], opts[9][1], &printDebugOutput
+            opts["changes"       ].cmd, opts["changes"       ].desc, &printChanges,
+            opts["execute"       ].cmd, opts["execute"       ].desc, &functionName,
+            opts["file"          ].cmd, opts["file"          ].desc, &inputFile,
+            opts["ignore-case"   ].cmd, opts["ignore-case"   ].desc, &ignoreCase,
+            opts["list"          ].cmd, opts["list"          ].desc, &listFunctions,
+            opts["modify"        ].cmd, opts["modify"        ].desc, &modifyInputFile,
+            opts["parameter"     ].cmd, opts["parameter"     ].desc, &params,
+            opts["from-clipboard"].cmd, opts["from-clipboard"].desc, &fromClipboard,
+            opts["to-clipboard"  ].cmd, opts["to-clipboard"  ].desc, &toClipboard,
+            opts["version"       ].cmd, opts["version"       ].desc, &printVersionInfo,
+            opts["debug"         ].cmd, opts["debug"         ].desc, &printDebugOutput
         );
 
         version(linux) auto options = getopt(args,
-            opts[0][0], opts[0][1], &functionName,
-            opts[1][0], opts[1][1], &inputFile,
-            opts[2][0], opts[2][1], &ignoreCase,
-            opts[3][0], opts[3][1], &listFunctions,
-            opts[4][0], opts[4][1], &modifyInputFile,
-            opts[5][0], opts[5][1], &params,
-            opts[8][0], opts[8][1], &printVersionInfo,
-            opts[9][0], opts[9][1], &printDebugOutput
+            opts["changes"       ].cmd, opts["changes"       ].desc, &printChanges,
+            opts["execute"       ].cmd, opts["execute"       ].desc, &functionName,
+            opts["file"          ].cmd, opts["file"          ].desc, &inputFile,
+            opts["ignore-case"   ].cmd, opts["ignore-case"   ].desc, &ignoreCase,
+            opts["list"          ].cmd, opts["list"          ].desc, &listFunctions,
+            opts["modify"        ].cmd, opts["modify"        ].desc, &modifyInputFile,
+            opts["parameter"     ].cmd, opts["parameter"     ].desc, &params,
+            opts["version"       ].cmd, opts["version"       ].desc, &printVersionInfo,
+            opts["debug"         ].cmd, opts["debug"         ].desc, &printDebugOutput
         );
+
+        debug
+        {
+            immutable changes = "";
+            immutable vers = "0.0.0";
+        }
+        else
+        {
+            immutable changes = import("CHANGES.txt");
+            immutable vers = changes.matchFirst(regex(`v(\d+\.\d+\.\d+)`))[1];
+        }
 
         if (printVersionInfo)
         {
-            writeln("txtproc version 0.3.0");
+            writeline("txtproc version " ~ vers.text);
+
+            return 0;
+        }
+        else if (printChanges)
+        {
+            writeline(changes);
 
             return 0;
         }

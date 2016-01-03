@@ -12,7 +12,12 @@
         {
             "name": "application",
             "targetType": "executable",
-            "mainSourceFile": "src/txtproc.d",
+            "mainSourceFile": "src/txtproc.d"
         }
-    ]
+    ],
+    "buildTypes": {
+        "release": {
+            "stringImportPaths": [ "." ]
+        }
+    }
 }
