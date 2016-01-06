@@ -234,7 +234,11 @@ private:
 
     static Tuple!(string, string) beginEndMarker(string marker)
     {
-        if (terminalHasColors && marker in ansiColors)
+        if (marker == "\\0")
+        {
+            return tuple("", "");
+        }
+        else if (terminalHasColors && marker in ansiColors)
         {
             return tuple("\033[" ~ ansiColors[marker].text ~ "m", "\033[0m");
         }
