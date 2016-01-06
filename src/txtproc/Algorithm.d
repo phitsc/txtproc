@@ -1,10 +1,10 @@
+module txtproc.algorithm;
+
 import std.ascii : newline;
 import std.array : empty;
 import std.algorithm : count;
 import std.string : format;
 import std.typecons : Nullable;
-
-//import std.stdio;
 
 alias Default = Nullable!string;
 

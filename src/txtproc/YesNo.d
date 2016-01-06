@@ -1,3 +1,5 @@
+module txtproc.yesno;
+
 import std.uni : icmp;
 
 enum YesNo

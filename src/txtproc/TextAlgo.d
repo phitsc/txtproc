@@ -1,3 +1,5 @@
+module txtproc.textalgo;
+
 import std.algorithm : canFind, map, countIf = count;
 import std.ascii : newline;
 import std.conv : text;

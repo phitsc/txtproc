@@ -1,3 +1,5 @@
+module txtproc.web_algorithms;
+
 import std.algorithm : startsWith;
 import std.ascii : newline;
 import std.conv : text;
@@ -6,9 +8,8 @@ import std.regex : regex, replaceAll;
 
 import std.stdio : writeln;
 
-import Algorithm;
-import Algorithms;
-import TextAlgo;
+import txtproc.algorithms;
+import txtproc.textalgo;
 
 private enum string[string] leetAlphabet =
 [

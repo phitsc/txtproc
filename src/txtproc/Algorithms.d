@@ -1,8 +1,10 @@
+module txtproc.algorithms;
+
 import std.algorithm : canFind, makeIndex, max, reverse;
 import std.string : icmp, toLower, toUpper;
 import std.typecons : Tuple, tuple, Unqual;
 
-import Algorithm;
+public import txtproc.algorithm;
 
 class Algorithms
 {

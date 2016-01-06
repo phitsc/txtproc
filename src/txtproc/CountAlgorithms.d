@@ -1,13 +1,15 @@
+module txtproc.count_algorithms;
+
 import std.algorithm : sort;
 import std.ascii : newline;
-import std.conv : to;
+import std.conv : text;
 import std.range : array, empty, stride;
 import std.regex : matchAll, regex;
 import std.string : format;
 import std.uni : isAlpha, toLower;
 
-import Algorithms;
-import TextAlgo;
+import txtproc.algorithms;
+import txtproc.textalgo : count, parseText, TokenType;
 
 class CountAlgorithms : Algorithms
 {
@@ -119,9 +121,9 @@ class CountAlgorithms : Algorithms
 
         add(new Algorithm(
             "CountRegex", "Count", "Count how many times the specified regular expression matches.", [
-                Algorithm.ParameterDescription("The regular expression to count") ],
+                ParameterDescription("The regular expression to count") ],
             (string text, string[] params, bool ignoreCase) {
-                return to!string(text.matchAll(regex(params[0], "m" ~ (ignoreCase ? "i" : ""))).array.length);
+                return text.matchAll(regex(params[0], "m" ~ (ignoreCase ? "i" : ""))).array.length.text;
             }
         ));
     }

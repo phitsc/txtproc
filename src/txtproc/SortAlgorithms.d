@@ -1,15 +1,14 @@
+module txtproc.sort_algorithms;
+
 import std.algorithm: cmp, sort;
 import std.conv : to;
 import std.range : join, walkLength;
 import std.regex : matchFirst, regex;
 import std.string : chomp, icmp;
 
- import std.stdio : writeln;
-
-import Algorithm;
-import Algorithms;
-import TextAlgo;
-import YesNo : YesNo, yesNo;
+import txtproc.algorithms;
+import txtproc.textalgo;
+import txtproc.yesno : YesNo, yesNo;
 
 private auto sortWithinTokenRange(Tokens tokens, bool ignoreCase)
 {

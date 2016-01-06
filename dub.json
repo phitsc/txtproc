@@ -12,7 +12,7 @@
         {
             "name": "application",
             "targetType": "executable",
-            "mainSourceFile": "src/txtproc.d"
+            "mainSourceFile": "src/main.d"
         }
     ],
     "buildTypes": {

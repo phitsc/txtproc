@@ -1,9 +1,12 @@
-
-import txtprocmain;
+module main;
 
 version(unittest)
 {
     import unittestmain;
+}
+else
+{
+    import txtprocmain;
 }
 
 int main(string[] args)

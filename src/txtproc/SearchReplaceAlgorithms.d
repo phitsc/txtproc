@@ -1,12 +1,13 @@
+module txtproc.searchreplace_algorithms;
+
 import std.conv : to;
 import std.range : retro, stride;
 import std.regex : matchAll, regex, replaceAll;
 import std.string;
 import std.typecons : Tuple, tuple;
 
-import Algorithm;
-import Algorithms;
-import TextAlgo;
+import txtproc.algorithms;
+import txtproc.textalgo;
 
 extern(C) int isatty(int);
 

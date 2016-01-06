@@ -1,13 +1,14 @@
+module txtproc.order_algorithms;
+
 import std.algorithm : reverse;
 import std.conv : to;
 import std.random : randomShuffle;
 import std.range : array, retro, stride, walkLength;
 import std.string : join, splitLines;
 
-import Algorithm;
-import Algorithms;
-import TextAlgo;
-import YesNo : YesNo, yesNo;
+import txtproc.algorithms;
+import txtproc.textalgo;
+import txtproc.yesno : YesNo, yesNo;
 
 private auto shuffle(string input, bool keepEnds = false)
 {

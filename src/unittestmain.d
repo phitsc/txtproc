@@ -1,3 +1,5 @@
+module unittestmain;
+
 version(unittest)
 {
 

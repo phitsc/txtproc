@@ -1,3 +1,5 @@
+module txtproc.lines_algorithms;
+
 import std.algorithm : filter, max, reduce;
 import std.array : array, insertInPlace, join;
 import std.ascii : newline;
@@ -8,10 +10,9 @@ import std.string : cmp, chomp, empty, indexOf, lastIndexOf, leftJustify, rightJ
 import std.uni : icmp;
 import std.typecons : Flag;
 
-import Algorithm;
-import Algorithms;
-import TextAlgo;
-import YesNo : YesNo, yesNo;
+import txtproc.algorithms;
+import txtproc.textalgo;
+import txtproc.yesno : YesNo, yesNo;
 
 alias KeepSeparator = Flag!("keepSeparator");
 alias IgnoreCase = Flag!("ignoreCase");

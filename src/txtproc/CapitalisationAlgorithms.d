@@ -1,9 +1,11 @@
+module txtproc.capitalisation_algorithms;
+
 import std.range : stride;
 import std.string;
 import std.uni : isUpper, isLower;
 
-import Algorithms;
-import TextAlgo;
+import txtproc.algorithms;
+import txtproc.textalgo;
 
 private pure auto toSnake(string word)
 {

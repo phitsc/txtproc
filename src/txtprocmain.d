@@ -1,16 +1,18 @@
+module txtprocmain;
+
 import std.file : read;
 import std.getopt;
 import std.typecons : Tuple;
 
-import Algorithm;
-import CapitalisationAlgorithms;
-import ChecksumAlgorithms;
-import CountAlgorithms;
-import LinesAlgorithms;
-import OrderAlgorithms;
-import SearchReplaceAlgorithms;
-import SortAlgorithms;
-import WebAlgorithms;
+import txtproc.algorithms;
+import txtproc.capitalisation_algorithms;
+import txtproc.checksum_algorithms;
+import txtproc.count_algorithms;
+import txtproc.lines_algorithms;
+import txtproc.order_algorithms;
+import txtproc.searchreplace_algorithms;
+import txtproc.sort_algorithms;
+import txtproc.web_algorithms;
 
 extern(C) int isatty(int);
 
