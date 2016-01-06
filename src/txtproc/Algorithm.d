@@ -53,27 +53,27 @@ class Algorithm
         m_process               = process;
     }
 
-    const string name()
+    string name() const
     {
         return m_name;
     }
 
-    immutable string group()
+    string group() const
     {
         return m_group;
     }
 
-    const string description()
+    string description() const
     {
         return m_description;
     }
 
-    const const(ParameterDescriptions) parameterDescriptions()
+    const(ParameterDescriptions) parameterDescriptions() const
     {
         return m_parameterDescriptions;
     }
 
-    const string help()
+    string help() const
     {
         auto text = m_name ~ " - " ~ m_description;
 
@@ -95,7 +95,7 @@ class Algorithm
         return text;
     }
 
-    const string process(string text, string[] params, bool ignoreCase)
+    string process(string text, string[] params, bool ignoreCase) const
     {
         checkParams(params);
 
@@ -110,7 +110,7 @@ class Algorithm
         return m_process(text, params, ignoreCase);
     }
 
-    override bool opEquals(Object o)
+    override bool opEquals(Object o) const
     {
         if(auto a = cast(Algorithm) o)
         {
@@ -127,7 +127,7 @@ class Algorithm
     }
 
 private:
-    const void checkParams(const(string[]) params)
+    void checkParams(const(string[]) params) const
     {
         immutable requiredCount = m_parameterDescriptions.count!(a => a.isMandatory == true);
         if (params.length < requiredCount)
