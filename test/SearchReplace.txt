@@ -116,3 +116,120 @@ LOSS OF USE, DATA |OR| PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE |OR
 OTHER TORTIOUS ACTION, ARISING OUT OF |OR| IN CONNECTION WITH THE USE |OR|
 PERFORMANCE OF THIS SOFTWARE.
 %%%
+-eReplaceRegex
+-p<(\/?)(\d+?)>
+-p<\1lane\2>
+-p\0
+%
+<road>
+  <1>
+    <car color="red">car1</car>
+    <car color="blue">car2</car>
+    ...
+  </1>
+  <2>
+    ...
+  </2>
+  <3>
+    ...
+  </3>
+... till <39>
+</road>
+%
+<road>
+  <lane1>
+    <car color="red">car1</car>
+    <car color="blue">car2</car>
+    ...
+  </lane1>
+  <lane2>
+    ...
+  </lane2>
+  <lane3>
+    ...
+  </lane3>
+... till <lane39>
+</road>
+%%%
+-eFlipUpsideDown
+%
+Hello, world!
+%
+Hǝllo' ʍoɹlp¡
+%%%
+-eRemoveCharacters
+-paeiou
+%
+%1
+%
+Cpyrght (c) 2015, Phlpp Tschnnn
+
+Prmssn t s, cpy, mdfy, nd/r dstrbt ths sftwr fr ny
+prps wth r wtht f s hrby grntd, prvdd tht th bv
+cpyrght ntc nd ths prmssn ntc ppr n ll cps.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+%%%
+-eRemoveCharacters
+-paeiou
+-i
+%
+%1
+%
+Cpyrght (c) 2015, Phlpp Tschnnn
+
+Prmssn t s, cpy, mdfy, nd/r dstrbt ths sftwr fr ny
+prps wth r wtht f s hrby grntd, prvdd tht th bv
+cpyrght ntc nd ths prmssn ntc ppr n ll cps.
+
+TH SFTWR S PRVDD "S S" ND TH THR DSCLMS LL WRRNTS WTH
+RGRD T THS SFTWR NCLDNG LL MPLD WRRNTS F MRCHNTBLTY ND
+FTNSS. N N VNT SHLL TH THR B LBL FR NY SPCL, DRCT,
+NDRCT, R CNSQNTL DMGS R NY DMGS WHTSVR RSLTNG FRM
+LSS F S, DT R PRFTS, WHTHR N N CTN F CNTRCT, NGLGNC R
+THR TRTS CTN, RSNG T F R N CNNCTN WTH TH S R
+PRFRMNC F THS SFTWR.
+%%%
+-eSearchNonAscii
+-p(
+%
+Oben drei leere Zeilen! Die Zürcher Straßenbahn heißt Tram.
+ZWÖLFTE Zeile. und hier noch einer! 15€
+%
+Oben drei leere Zeilen! Die Z(ü)rcher Stra(ß)enbahn hei(ß)t Tram.
+ZW(Ö)LFTE Zeile. und hier noch einer! 15(€)
+%%%
+-eSearchDuplicateWords
+-p->
+%
+Was du du nicht willst das man dir tu, das füg auch keinem anderen zu.
+Ohne Fleiß kein,kein Preis!
+%
+Was du ->du<- nicht willst das man dir tu, das füg auch keinem anderen zu.
+Ohne Fleiß kein,->kein<- Preis!
+%%%
+-eSearchDuplicateWords
+-p->
+%
+Was du Du nicht willst das man dir tu, das füg auch keinem anderen zu.
+Ohne Fleiß KEIN,kein Preis!
+%
+Was du Du nicht willst das man dir tu, das füg auch keinem anderen zu.
+Ohne Fleiß KEIN,kein Preis!
+%%%
+-eSearchDuplicateWords
+-p->
+-i
+%
+Was du Du nicht willst das man dir tu, das füg auch keinem anderen zu.
+Ohne Fleiß KEIN,kein Preis!
+%
+Was du ->Du<- nicht willst das man dir tu, das füg auch keinem anderen zu.
+Ohne Fleiß KEIN,->kein<- Preis!
+%%%
