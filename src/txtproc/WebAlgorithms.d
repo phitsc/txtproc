@@ -3,7 +3,7 @@ module txtproc.web_algorithms;
 import std.algorithm : startsWith;
 import std.ascii : newline;
 import std.conv : text;
-import std.range : stride, walkLength;
+import std.range : walkLength;
 import std.regex : regex, replaceAll;
 
 import std.stdio : writeln;
@@ -50,7 +50,7 @@ class WebAlgorithms : Algorithms
             (string text, string[], bool) {
                 string result;
 
-                foreach (character; text.stride(1))
+                foreach (character; text.chars)
                 {
                     auto c = character.text in leetAlphabet;
 

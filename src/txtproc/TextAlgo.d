@@ -17,6 +17,41 @@ private enum string wordTerminatorChars    = bracketChars ~ "\"" ~ otherPunctuat
 private enum string whitespaceChars        = " \t";
 private enum string lineTerminatorChars    = "\r\n";
 
+auto chars(string text) pure
+{
+    // front/popFront, back/popBack correctly handle code points (logical characters)
+    // for strings
+    struct CharacterRange
+    {
+        private string m_text;
+
+        this(string text)  { m_text = text; }
+        bool empty() const { return m_text.empty(); }
+        auto front() const { return m_text.front; }
+        void popFront()    { m_text.popFront(); }
+        auto back() const  { return m_text.back; }
+        void popBack()     { m_text.popBack(); }
+    }
+
+    return CharacterRange(text);
+}
+
+unittest
+{
+    immutable testString = "Zürcher Straßenbahn";
+    size_t len = 0;
+    string s;
+
+    foreach (character; testString.chars)
+    {
+        s ~= character;
+        ++len;
+    }
+
+    assert(testString.walkLength == len);
+    assert(testString == s);
+}
+
 auto count(string input) pure
 {
     auto c = Tuple!(size_t, "alphaNumerics", size_t, "characters", size_t, "whitespaces", size_t, "words", size_t, "sentences", size_t, "lines")();
@@ -70,7 +105,7 @@ auto parseText(string text) pure
     TokenType newTokenType;
     string token;
 
-    foreach (character; text.stride(1))
+    foreach (character; text.chars)
     {
         if (character == 0xFEFF || character.isNonCharacter || character.isMark)
         {
@@ -262,7 +297,7 @@ string replaceSpecialChars(string text) pure
 
     auto foundBackslash = false;
 
-    foreach(character; text.stride(1))
+    foreach(character; text.chars)
     {
         if (foundBackslash)
         {

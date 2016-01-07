@@ -1,6 +1,5 @@
 module txtproc.capitalisation_algorithms;
 
-import std.range : stride;
 import std.string;
 import std.uni : isUpper, isLower;
 
@@ -12,7 +11,7 @@ private auto toSnake(string word) pure
     string result;
     bool wasLower = false;
 
-    foreach (character; word.stride(1))
+    foreach (character; word.chars)
     {
         if (character.isUpper)
         {
@@ -101,7 +100,7 @@ class CapitalisationAlgorithms : Algorithms
             (string text, string[], bool) {
                 string result;
 
-                foreach (character; text.stride(1))
+                foreach (character; text.chars)
                 {
                     result ~= character.isLower ? character.toUpper : character.toLower;
                 }

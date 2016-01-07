@@ -1,7 +1,6 @@
 module txtproc.searchreplace_algorithms;
 
 import std.conv : to;
-import std.range : retro, stride;
 import std.regex : matchAll, regex, replaceAll;
 import std.string;
 import std.typecons : Tuple, tuple;
@@ -57,7 +56,7 @@ private static string mirror(string beginMarker) pure
 {
     string endMarker;
 
-    foreach (character; beginMarker.retro.stride(1))
+    foreach_reverse (character; beginMarker.chars)
     {
         auto c = (character in mirrorChars);
 
@@ -195,7 +194,7 @@ class SearchReplaceAlgorithms : Algorithms
             (string text, string[] params, bool ignoreCase) {
                 string result;
 
-                foreach (character; text.stride(1))
+                foreach (character; text.chars)
                 {
                     if (params[0].indexOf(character, ignoreCase ? CaseSensitive.no : CaseSensitive.yes) == -1)
                     {

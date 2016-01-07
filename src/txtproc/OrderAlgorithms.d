@@ -3,7 +3,7 @@ module txtproc.order_algorithms;
 import std.algorithm : reverse;
 import std.conv : to;
 import std.random : randomShuffle;
-import std.range : array, retro, stride, walkLength;
+import std.range : array, retro, walkLength;
 import std.string : join, splitLines;
 
 import txtproc.algorithms;
@@ -16,7 +16,7 @@ private auto shuffle(string input, bool keepEnds = false)
     {
         dchar[] temp;
 
-        foreach (character; input.stride(1))
+        foreach (character; input.chars)
         {
             temp ~= character;
         }

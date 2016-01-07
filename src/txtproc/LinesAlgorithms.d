@@ -4,7 +4,7 @@ import std.algorithm : filter, max, reduce;
 import std.array : array, insertInPlace, join;
 import std.ascii : newline;
 import std.conv : text, to;
-import std.range : retro, stride, walkLength;
+import std.range : retro, walkLength;
 import std.regex;
 import std.string : cmp, chomp, empty, indexOf, lastIndexOf, leftJustify, rightJustify, splitLines, CaseSensitive;
 import std.uni : icmp;
@@ -321,7 +321,7 @@ class LinesAlgorithms : Algorithms
                         string result;
                         size_t index = 0;
 
-                        foreach (character; a.stride(1))
+                        foreach (character; a.chars)
                         {
                             if (index >= right)
                             {
