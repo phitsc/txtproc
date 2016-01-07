@@ -165,7 +165,7 @@ auto parseText(string text) pure
     return tokens;
 }
 
-auto toText(T)(T tokens) pure 
+auto toText(T)(T tokens) pure
 {
     return tokens.map!(a => a.value).join;
 }
