@@ -1,6 +1,9 @@
 v0.4.0
 
 * Add --changes option to print change history
+* Search & Replace - Markers and replacement text now support \n (newline), \t (tab)
+    \0 (empty, i.e. no text). As a consequence, \ must be escaped with \\ (e.g. in regex)
+* Change regex group substitution char from \ to $
 
 v0.3.0
 

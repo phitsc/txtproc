@@ -234,17 +234,14 @@ private:
 
     static Tuple!(string, string) beginEndMarker(string marker)
     {
-        if (marker == "\\0")
-        {
-            return tuple("", "");
-        }
-        else if (terminalHasColors && marker in ansiColors)
+        if (terminalHasColors && marker in ansiColors)
         {
             return tuple("\033[" ~ ansiColors[marker].text ~ "m", "\033[0m");
         }
         else
         {
-            return tuple(marker, mirror(marker));
+            const temp = replaceSpecialChars(marker);
+            return tuple(temp, mirror(temp));
         }
     }
 
@@ -253,11 +250,6 @@ private:
         immutable param = params.length > paramIndex ? params[paramIndex] : (terminalHasColors ? defaultMarkerColor : defaultMarkerText);
         immutable markers = beginEndMarker(param);
         return (text) => markers[0] ~ text ~ markers[1];
-    }
-
-    static string replaceSpecialChars(string text)
-    {
-       return text;
     }
 
     static string searchAndReplace(
@@ -323,7 +315,7 @@ private:
 
                 for (size_t captureIndex = 1; captureIndex < match.captures.length; ++captureIndex)
                 {
-                    substReplacementText = substReplacementText.replace("\\" ~ captureIndex.text, match.captures[captureIndex]);
+                    substReplacementText = substReplacementText.replace("$" ~ captureIndex.text, match.captures[captureIndex]);
                 }
 
                 result ~= mark(substReplacementText.text);

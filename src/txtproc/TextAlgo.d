@@ -254,3 +254,57 @@ string reverseUni(string text)
 {
     return text.byGrapheme.array.retro.byCodePoint.text;
 }
+
+
+pure string replaceSpecialChars(string text)
+{
+    string result;
+
+    auto foundBackslash = false;
+
+    foreach(character; text.stride(1))
+    {
+        if (foundBackslash)
+        {
+            switch (character)
+            {
+                case '\\':
+                    result ~= '\\';
+                    break;
+                case '0':
+                    // replace with empty
+                    break;
+                case 'n':
+                    result ~= '\n';
+                    break;
+                case 't':
+                    result ~= '\t';
+                    break;
+                default:
+                    result ~= character;
+            }
+
+            foundBackslash = false;
+        }
+        else if (character == '\\')
+        {
+            foundBackslash = true;
+        }
+        else
+        {
+            result ~= character;
+        }
+    }
+
+   return result;
+}
+
+unittest
+{
+    assert(replaceSpecialChars("Hello, Wörld") == "Hello, Wörld");
+    assert(replaceSpecialChars(`Hello\0, Wörld`) == "Hello, Wörld");
+    assert(replaceSpecialChars(`Hello,\nWörld`) == "Hello,\nWörld");
+    assert(replaceSpecialChars(`Hello,\tWörld`) == "Hello,\tWörld");
+    assert(replaceSpecialChars(`Hello\\Wörld`) == `Hello\Wörld`);
+    assert(replaceSpecialChars(`Hello\Wörld`) == `HelloWörld`);
+}
