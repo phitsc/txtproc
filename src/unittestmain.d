@@ -3,12 +3,11 @@ module unittestmain;
 version(unittest)
 {
 
-import std.algorithm;
-import std.array;
-import std.file;
-import std.stdio;
+import std.algorithm : filter, remove;
+import std.array : empty;
+import std.file : dirEntries, readText, SpanMode;
+import std.stdio : writeln;
 import std.string;
-import std.typecons;
 
 import txtprocmain;
 
