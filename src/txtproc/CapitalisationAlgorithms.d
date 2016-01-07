@@ -7,7 +7,7 @@ import std.uni : isUpper, isLower;
 import txtproc.algorithms;
 import txtproc.textalgo;
 
-private pure auto toSnake(string word)
+private auto toSnake(string word) pure
 {
     string result;
     bool wasLower = false;
@@ -49,7 +49,7 @@ unittest
     assert(toSnake("camelCaseCamel") == "camel_case_camel");
 }
 
-private pure auto toCamel(string word)
+private auto toCamel(string word) pure
 {
     bool isFirst = true;
 

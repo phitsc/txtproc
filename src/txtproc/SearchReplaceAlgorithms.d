@@ -53,7 +53,7 @@ private enum dchar[dchar] mirrorChars =
     '}' : '{',
 ];
 
-private static pure string mirror(string beginMarker)
+private static string mirror(string beginMarker) pure
 {
     string endMarker;
 

@@ -129,7 +129,7 @@ class CountAlgorithms : Algorithms
     }
 
 private:
-    static pure auto formatDictionary(A)(A dict)
+    static auto formatDictionary(A)(A dict) pure
     {
         string result;
 

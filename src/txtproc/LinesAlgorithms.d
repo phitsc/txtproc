@@ -353,7 +353,7 @@ class LinesAlgorithms : Algorithms
                     auto left = max(0, to!int(options[0]));
                     auto right = max(0, to!int(options[1]));
 
-                    pure size_t getIndex(R)(int count, R range)
+                    size_t getIndex(R)(int count, R range) pure
                     {
                         size_t index = 0;
 
@@ -394,7 +394,7 @@ class LinesAlgorithms : Algorithms
                 return text.parseText.lines.eachLineJoinT((line) {
                     immutable end = whichEnd(options[0]);
 
-                    pure size_t getIndex(R)(R range)
+                    size_t getIndex(R)(R range) pure
                     {
                         size_t index = 0;
 
@@ -427,7 +427,7 @@ class LinesAlgorithms : Algorithms
                 return text.parseText.lines.eachLineJoinT((line) {
                     immutable end = whichEnd(options[0]);
 
-                    pure size_t getIndex(R)(R range)
+                    size_t getIndex(R)(R range) pure
                     {
                         size_t index = 0;
 

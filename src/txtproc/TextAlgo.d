@@ -17,7 +17,7 @@ private enum string wordTerminatorChars    = bracketChars ~ "\"" ~ otherPunctuat
 private enum string whitespaceChars        = " \t";
 private enum string lineTerminatorChars    = "\r\n";
 
-pure auto count(string input)
+auto count(string input) pure
 {
     auto c = Tuple!(size_t, "alphaNumerics", size_t, "characters", size_t, "whitespaces", size_t, "words", size_t, "sentences", size_t, "lines")();
     c.lines = 1;
@@ -62,7 +62,7 @@ alias TokenValue = string;
 alias Token = Tuple!(TokenType, "type", TokenValue, "value");
 alias Tokens = Token[];
 
-pure auto parseText(string text)
+auto parseText(string text) pure
 {
     Tokens tokens;
 
@@ -130,7 +130,7 @@ pure auto parseText(string text)
     return tokens;
 }
 
-pure auto toText(T)(T tokens)
+auto toText(T)(T tokens) pure 
 {
     return tokens.map!(a => a.value).join;
 }
@@ -162,7 +162,7 @@ Tokens[] correctLineEndings(T)(T newLines)
     return result;
 }
 
-pure auto trimLeft(Tokens tokens)
+auto trimLeft(Tokens tokens) pure
 {
     Tokens result;
 
@@ -225,7 +225,7 @@ auto eachLineJoinT(const(Tokens[]) lines, Tokens delegate(const(Tokens)) func)
 alias lines = elements!(TokenType.lineTerminator);
 alias sentences = elements!(TokenType.sentenceTerminator);
 
-pure auto elements(alias tokenType)(Tokens tokens)
+auto elements(alias tokenType)(Tokens tokens) pure
 {
     Tokens[] result;
 
@@ -256,7 +256,7 @@ string reverseUni(string text)
 }
 
 
-pure string replaceSpecialChars(string text)
+string replaceSpecialChars(string text) pure
 {
     string result;
 
