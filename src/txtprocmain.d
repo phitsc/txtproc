@@ -1,5 +1,7 @@
 module txtprocmain;
 
+import io;
+
 import std.file : read;
 import std.getopt;
 import std.typecons : Tuple;
@@ -15,11 +17,6 @@ import txtproc.sort_algorithms;
 import txtproc.web_algorithms;
 
 extern(C) int isatty(int);
-
-private void writeline(string text)
-{
-    std.stdio.stdout.rawWrite(text ~ "\n");
-}
 
 private alias Option = Tuple!(string, "cmd", string, "desc");
 
