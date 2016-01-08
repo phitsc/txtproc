@@ -42,7 +42,7 @@ static this()
 
 int txtproc_main(string[] args, string* result = null)
 {
-    bool printDebugOutput;
+    import debugflag;
 
     try
     {
