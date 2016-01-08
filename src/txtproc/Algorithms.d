@@ -31,28 +31,24 @@ class Algorithms
 
     const(Algorithm)[] closest(string nameish) const
     {
-        const(Algorithm)[] result;
-
-        Tuple!(size_t, const Algorithm)[] algorithmsByDistance;
+        Tuple!(double, const Algorithm)[] algorithmsByDistance;
 
         foreach (algorithm; m_algorithms)
         {
-            if (icmp(algorithm.name, nameish) == 0)
-            {
-                result ~= algorithm; // prefer exact match
-            }
-            else
-            {
-                algorithmsByDistance ~= tuple(lcs(algorithm.name.toLower, nameish.toLower).length, algorithm);
-            }
+            algorithmsByDistance ~= tuple(jwd(algorithm.name.toLower, nameish.toLower), algorithm);
         }
 
         auto indices = new size_t[algorithmsByDistance.length];
 
         algorithmsByDistance.makeIndex!((a, b) => a[0] > b[0])(indices);
 
+        const(Algorithm)[] result;
+
         foreach (index; indices)
         {
+            import debugflag;
+            import std.conv : text;
+            if (printDebugOutput) writeline(algorithmsByDistance[index][1].name ~ " : " ~ algorithmsByDistance[index][0].text);
             result ~= algorithmsByDistance[index][1];
         }
 
@@ -77,35 +73,76 @@ private:
     Algorithm[] m_algorithms;
 
 private:
-    // longest common subsequence. from rosetta code.
-    string lcs(in string a, in string b) const pure
+    // Jaro-Winkler distance
+    enum weightThreshold = 0.7;
+    enum prefixThreshold = 4;
+
+    static double jwd(string a, string b) pure
     {
-        import std.conv : text;
+        import std.algorithm : min, max;
+        import std.conv : to;
 
-        auto L = new uint[][](a.length + 1, b.length + 1);
-
-        foreach (immutable i; 0 .. a.length)
-            foreach (immutable j; 0 .. b.length)
-                L[i + 1][j + 1] = (a[i] == b[j]) ? (1 + L[i][j]) : max(L[i + 1][j], L[i][j + 1]);
-
-        Unqual!char[] result;
-
-        for (auto i = a.length, j = b.length; i > 0 && j > 0; )
+        if (a.length == 0)
         {
-            if (a[i - 1] == b[j - 1])
-            {
-                result ~= a[i - 1];
-                i--;
-                j--;
-            }
-            else if (L[i][j - 1] < L[i - 1][j])
-                    i--;
-                else
-                    j--;
+            return b.length == 0 ? 1.0 : 0.0;
         }
 
-        result.reverse();
+        int searchRange = max(0, max(a.length, b.length) / 2 - 1); // signed for use in min/max
 
-        return result.text;
+        auto matchesA = new bool[a.length];
+        auto matchesB = new bool[b.length];
+
+        auto commonCount = 0;
+
+        for (auto i = 0; i < a.length; ++i)
+        {
+            int start = max(0, i - searchRange);
+            int end = min(i + searchRange + 1, b.length);
+
+            for (auto j = start; j < end; ++j)
+            {
+                if (matchesB[j]) continue;
+                if (a[i] != b[j]) continue;
+
+                matchesA[i] = true;
+                matchesB[j] = true;
+                ++commonCount;
+                break;
+            }
+        }
+
+        if (commonCount == 0) return 0.0;
+
+        auto halfTransposedCount = 0;
+        auto k = 0;
+        for (auto i = 0; i < a.length; ++i)
+        {
+            if (!matchesA[i]) continue;
+
+            while (!matchesB[k]) ++k;
+
+            if (a[i] != b[k]) ++halfTransposedCount;
+
+            ++k;
+        }
+
+        const commonCountD = commonCount.to!double;
+        const weight = (commonCountD / a.length
+                         + commonCountD / b.length
+                         + (commonCount - (halfTransposedCount / 2)) / commonCountD) / 3.0;
+
+        if (weight <= weightThreshold) return weight;
+
+        const prefixLength = min(prefixThreshold, min(a.length, b.length));
+        auto pos = 0;
+        while (pos < prefixLength && a[pos] == b[pos]) ++pos;
+        if (pos == 0) return weight;
+        return weight + 0.1 * pos * (1.0 - weight);
+    }
+
+    unittest
+    {
+        assert(jwd("hello, world", "hello, world") == 1.0);
+        assert(jwd("no", "similarity") == 0.0);
     }
 }
