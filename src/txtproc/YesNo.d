@@ -8,7 +8,7 @@ enum YesNo
     no
 }
 
-YesNo yesNo(string yn)
+YesNo yesNo(string yn) pure
 {
     if (!icmp(yn, "y") || !icmp(yn, "yes"))
     {

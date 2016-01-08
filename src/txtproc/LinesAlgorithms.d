@@ -18,7 +18,7 @@ alias KeepSeparator = Flag!("keepSeparator");
 alias IgnoreCase = Flag!("ignoreCase");
 
 // supports ignoring case
-private string[] split(string input, string separator, IgnoreCase ignoreCase, KeepSeparator keepSeparator)
+private string[] split(string input, string separator, IgnoreCase ignoreCase, KeepSeparator keepSeparator) pure
 {
     string[] result;
 
@@ -106,16 +106,16 @@ unittest
 
 private auto formatLineWithNumber(string fmtString, string line, int number, string base)
 {
-    static auto numberRegex = regex("[#]+");
+    enum numberRegex = regex("[#]+");
     auto numberCaptures = fmtString.matchFirst(numberRegex);
     auto fmt = numberCaptures.empty ? fmtString : fmtString.replaceFirst(numberRegex, format("%" ~ numberCaptures.hit.length.text ~ base, number));
 
-    static auto lineRegex = regex("\\$");
+    enum lineRegex = regex("\\$");
     auto lineCaptures = fmt.matchFirst(lineRegex);
     return lineCaptures.empty ? fmt : fmt.replaceFirst(lineRegex, line);
 }
 
-private auto maxLineLength(const(Token[][]) lines)
+private auto maxLineLength(const(Token[][]) lines) pure
 {
     return reduce!((res, t) => max(res, t.toText.chomp.walkLength))(cast(size_t)0, lines);
 }
@@ -127,7 +127,7 @@ private enum End
     both
 }
 
-private End whichEnd(string end)
+private End whichEnd(string end) pure
 {
     if (!icmp(end, "l") || !icmp(end, "left"))
     {
