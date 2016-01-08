@@ -1,9 +1,5 @@
 module txtproc.algorithms;
 
-import std.algorithm : canFind, makeIndex, max, reverse;
-import std.string : icmp, toLower, toUpper;
-import std.typecons : Tuple, tuple, Unqual;
-
 public import txtproc.algorithm;
 
 class Algorithms
@@ -29,48 +25,54 @@ class Algorithms
         return 0;
     }
 
-    const(Algorithm)[] closest(string nameish) const
+    auto closest(string nameish) const
     {
-        Tuple!(double, const Algorithm)[] algorithmsByDistance;
+        import std.algorithm : map, makeIndex;
+        import std.array : array;
+        import std.string : toLower;
+        import std.typecons : tuple;
 
-        foreach (algorithm; m_algorithms)
-        {
-            algorithmsByDistance ~= tuple(jwd(algorithm.name.toLower, nameish.toLower), algorithm);
-        }
+        const algorithmsByDistance = m_algorithms.map!(a => tuple(jwd(a.name.toLower, nameish.toLower), a)).array;
 
         auto indices = new size_t[algorithmsByDistance.length];
 
         algorithmsByDistance.makeIndex!((a, b) => a[0] > b[0])(indices);
 
+        import debugflag;
+        if (printDebugOutput)
+        {
+            import debugflag;
+            import std.conv : text;
+            indices.map!(a => writeline(algorithmsByDistance[a][1].name ~ " : " ~ algorithmsByDistance[a][0].text));
+        }
+
         const(Algorithm)[] result;
 
         foreach (index; indices)
         {
-            import debugflag;
-            import std.conv : text;
-            if (printDebugOutput) writeline(algorithmsByDistance[index][1].name ~ " : " ~ algorithmsByDistance[index][0].text);
             result ~= algorithmsByDistance[index][1];
         }
 
         return result;
     }
 
-    const(Algorithm)[] all() const
+    auto all() const
     {
         return m_algorithms;
     }
 
 protected:
-    void add(Algorithm algorithm)
+    void add(const(Algorithm) algorithm)
     {
-        // Algorithm names must be unique
-        assert(!m_algorithms.canFind(algorithm));
+        import std.algorithm : canFind;
+
+        assert(!m_algorithms.canFind(algorithm), "Algorithm names must be unique");
 
         m_algorithms ~= algorithm;
     }
 
 private:
-    Algorithm[] m_algorithms;
+    const(Algorithm)[] m_algorithms;
 
 private:
     // Jaro-Winkler distance
