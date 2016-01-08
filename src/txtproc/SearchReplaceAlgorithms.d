@@ -3,14 +3,14 @@ module txtproc.searchreplace_algorithms;
 import std.conv : to;
 import std.regex : matchAll, regex, replaceAll;
 import std.string;
-import std.typecons : Tuple, tuple;
+import std.typecons : Nullable, Tuple, tuple;
 
 import txtproc.algorithms;
 import txtproc.textalgo;
 
 extern(C) int isatty(int);
 
-bool terminalHasColors()
+private bool terminalHasColors()
 {
     if (isatty(0))
     {
@@ -94,7 +94,7 @@ class SearchReplaceAlgorithms : Algorithms
                 ParameterDescription("The sub-text to search within the input text"),
                 ParameterDescription("The marker used to indicate a find", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplace(text, replaceSpecialChars(params[0]), null, ignoreCase, marker(params, 1));
+                return searchAndReplace(text, replaceSpecialChars(params[0]), NullabelString(), ignoreCase, marker(params, 1));
             }
         ));
 
@@ -104,7 +104,7 @@ class SearchReplaceAlgorithms : Algorithms
                 ParameterDescription("The replacement text"),
                 ParameterDescription("The marker used to indicate a replacement", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplace(text, replaceSpecialChars(params[0]), replaceSpecialChars(params[1]), ignoreCase, marker(params, 2));
+                return searchAndReplace(text, replaceSpecialChars(params[0]), NullabelString(replaceSpecialChars(params[1])), ignoreCase, marker(params, 2));
             }
         ));
 
@@ -113,7 +113,7 @@ class SearchReplaceAlgorithms : Algorithms
                 ParameterDescription("The regular expression to search within the input text"),
                 ParameterDescription("The marker used to indicate a find", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplaceRegex(text, params[0], null, ignoreCase, marker(params, 1));
+                return searchAndReplaceRegex(text, params[0], NullabelString(), ignoreCase, marker(params, 1));
             }
         ));
 
@@ -123,7 +123,7 @@ class SearchReplaceAlgorithms : Algorithms
                 ParameterDescription("The replacement text"),
                 ParameterDescription("The marker used to indicate a replacement", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplaceRegex(text, params[0], replaceSpecialChars(params[1]), ignoreCase, marker(params, 2));
+                return searchAndReplaceRegex(text, params[0], NullabelString(replaceSpecialChars(params[1])), ignoreCase, marker(params, 2));
             }
         ));
 
@@ -251,10 +251,12 @@ private:
         return (text) => markers[0] ~ text ~ markers[1];
     }
 
+    private alias NullabelString = Nullable!string;
+
     static string searchAndReplace(
         string input,
         string searchTerm,
-        string replacementText,
+        NullabelString replacementText,
         bool ignoreCase,
         Marker mark)
     {
@@ -275,7 +277,7 @@ private:
         {
             result ~= input[from .. finds[index]];
 
-            if (replacementText)
+            if (!replacementText.isNull)
             {
                 result ~= mark(replacementText);
             }
@@ -295,7 +297,7 @@ private:
     static string searchAndReplaceRegex(
         string input,
         string searchTerm,
-        string replacementText,
+        NullabelString replacementText,
         bool ignoreCase,
         Marker mark)
     {
@@ -308,7 +310,7 @@ private:
 
             result ~= input[from .. index];
 
-            if (replacementText)
+            if (!replacementText.isNull)
             {
                 auto substReplacementText = replacementText.dup;
 

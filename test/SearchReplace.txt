@@ -151,6 +151,21 @@ PERFORMANCE OF THIS SOFTWARE.
 ... till <lane39>
 </road>
 %%%
+-eReplaceRegex
+-p -.*
+-p\0
+-p\0
+%
+one - one
+two - two
+three - three
+four - four
+%
+one
+two
+three
+four
+%%%
 -eFlipUpsideDown
 %
 Hello, world!
