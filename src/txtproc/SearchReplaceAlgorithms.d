@@ -113,7 +113,7 @@ class SearchReplaceAlgorithms : Algorithms
                 ParameterDescription("The regular expression to search within the input text"),
                 ParameterDescription("The marker used to indicate a find", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), null, ignoreCase, marker(params, 1));
+                return searchAndReplaceRegex(text, params[0], null, ignoreCase, marker(params, 1));
             }
         ));
 
@@ -123,7 +123,7 @@ class SearchReplaceAlgorithms : Algorithms
                 ParameterDescription("The replacement text"),
                 ParameterDescription("The marker used to indicate a replacement", Default(defaultMarker))],
             (string text, string[] params, bool ignoreCase) {
-                return searchAndReplaceRegex(text, replaceSpecialChars(params[0]), replaceSpecialChars(params[1]), ignoreCase, marker(params, 2));
+                return searchAndReplaceRegex(text, params[0], replaceSpecialChars(params[1]), ignoreCase, marker(params, 2));
             }
         ));
 
