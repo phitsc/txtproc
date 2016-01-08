@@ -163,3 +163,11 @@ hjkl 42 asdfg 1 2 3
 yxcv 99
 has no number
 %%%
+-eSortWord
+%
+one two three four five six seven
+eins zwei drei vier fünf sechs sieben
+%
+drei eins five four fünf one sechs
+seven sieben six three two vier zwei
+%%%
