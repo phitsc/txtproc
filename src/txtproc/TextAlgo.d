@@ -170,7 +170,7 @@ auto toText(T)(T tokens) pure
     return tokens.map!(a => a.value).join;
 }
 
-Tokens[] correctLineEndings(T)(T newLines)
+Tokens[] correctLineEndings(T)(T newLines) pure
 {
     auto endsWithNewline = true;
 
@@ -289,7 +289,6 @@ string reverseUni(string text)
 {
     return text.byGrapheme.array.retro.byCodePoint.text;
 }
-
 
 string replaceSpecialChars(string text) pure
 {
