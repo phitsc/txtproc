@@ -89,7 +89,7 @@ private:
             return b.length == 0 ? 1.0 : 0.0;
         }
 
-        int searchRange = max(0, max(a.length, b.length) / 2 - 1); // signed for use in min/max
+        ptrdiff_t searchRange = max(0, max(a.length, b.length) / 2 - 1); // signed for use in min/max
 
         auto matchesA = new bool[a.length];
         auto matchesB = new bool[b.length];
@@ -98,8 +98,8 @@ private:
 
         for (auto i = 0; i < a.length; ++i)
         {
-            int start = max(0, i - searchRange);
-            int end = min(i + searchRange + 1, b.length);
+            size_t start = max(0, i - searchRange);
+            size_t end = min(i + searchRange + 1, b.length);
 
             for (auto j = start; j < end; ++j)
             {
