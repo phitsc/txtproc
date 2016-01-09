@@ -43,12 +43,12 @@ Input text can be supplied:
 
 * on the command line (like in the examples above)
 * via a file (using the `--file` parameter)
-* from `stdin` when **txtproc** main is used in a [pipeline](https://en.wikipedia.org/wiki/Pipeline_(Unix))
+* from `stdin` when **txtproc** is used in a [pipeline](https://en.wikipedia.org/wiki/Pipeline_(Unix))
 * via the clipboard (built-in on Windows or using a tool like xclip on Linux)
 
 Output text can go:
 
-* to `stdout`, i.e. the console window or another tool in a pipeline (which of course can be **txtproc**)
+* to `stdout`, i.e. the console window or another tool in a pipeline (which again can be **txtproc**)
 * back to the input file (i.e. modifying the input file)
 * a new file (using redirection, i.e. the `>` symbol)
 * back to the clipboard (built-in on Windows or using a tool like xclip on Linux)
@@ -63,10 +63,8 @@ The executable will be built in the `bin` subdirectory.
 
 ## Tests
 
-**txtproc** comes with automated tests which can be built as follows:
+**txtproc** comes with automated tests which can be built and run as follows:
 
     dub test
 
 The executable which is built like this will run all the tests specified in all `.txt` files underneath test.
-
-*not all of the functions have tests yet*
