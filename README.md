@@ -67,4 +67,4 @@ The executable will be built in the `bin` subdirectory.
 
     dub test
 
-The executable which is built like this will run all the tests specified in all `.txt` files underneath test.
+The executable which is built like this will run all the tests specified in all `*.txt` files in the test sub-directory.
