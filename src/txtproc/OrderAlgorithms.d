@@ -2,13 +2,28 @@ module txtproc.order_algorithms;
 
 import std.algorithm : reverse;
 import std.conv : to;
-import std.random : randomShuffle;
+import std.random : Mt19937, randomShuffle;
 import std.range : array, retro, walkLength;
 import std.string : join, splitLines;
 
 import txtproc.algorithms;
 import txtproc.textalgo;
 import txtproc.yesno : YesNo, yesNo;
+
+private Mt19937 rndGen;
+
+static this()
+{
+    version (unittest)
+    {
+        // do not seed for unit tests
+    }
+    else
+    {
+        import std.random : unpredictableSeed;
+        rndGen.seed(unpredictableSeed);
+    }
+}
 
 private auto shuffle(string input, bool keepEnds = false)
 {
@@ -23,11 +38,11 @@ private auto shuffle(string input, bool keepEnds = false)
 
         if (keepEnds)
         {
-            temp[1 .. $-1].randomShuffle;
+            temp[1 .. $-1].randomShuffle(rndGen);
         }
         else
         {
-            temp.randomShuffle;
+            temp.randomShuffle(rndGen);
         }
 
         return to!string(temp);
@@ -50,7 +65,7 @@ private auto shuffleWithinTokenRange(Tokens tokens)
         }
     }
 
-    indices.randomShuffle;
+    indices.randomShuffle(rndGen);
 
     Tokens result;
     size_t index;
@@ -130,7 +145,7 @@ class OrderAlgorithms : Algorithms
             "ShuffleLines", "Order", "Shuffle order of lines within input text.", [],
             (string text, string[], bool) {
                 auto temp = text.parseText.lines.map!(a => a.toText).array;
-                temp.randomShuffle;
+                temp.randomShuffle(rndGen);
                 return temp.join;
             }
         ));
@@ -139,7 +154,7 @@ class OrderAlgorithms : Algorithms
             "ShuffleSentences", "Order", "Shuffle order of sentences within input text.", [],
             (string text, string[], bool) {
                 auto temp = text.parseText.sentences.map!(a => a.toText).array;
-                temp.randomShuffle;
+                temp.randomShuffle(rndGen);
                 return temp.join;
             }
         ));

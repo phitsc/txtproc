@@ -46,3 +46,67 @@ tse'c à ervuœ'l no'uq tîannoc reirvuœ’l.
 %
 .l’œuvrier connaît qu'on l'œuvre à c'est !?!away doctor the keeps day a apple an .nie als spät Besser  !!Preis kein Fleiß ohne .zu anderen keinem auch füg das   ,tu dir man das willst nicht du was
 %%%
+-eShuffle
+%
+%1
+%
+r s st ieeerp  toeßw.e  ta faän uoeh y eoiFiine hgc
+e!ocluu 'sksuedis!dlüayînatspBhaa m àltcaœwr . ichtoscu 'dekl Pu li eœ lnnnsmsrp
+ anu ennedsentv e ’ arvase  qdi,  ae'anpar i ra tzw..n kl
+rdd
+%%%
+-eShuffleWords
+%
+%1
+%
+willst zu nicht day dir away Preis a,   l'œuvre was nie l’œuvrier man das.
+qu'on à Besser füg!!  the das auch anderen.
+apple du keinem ohne an kein als spät.
+doctor Fleiß connaît c'est tu keeps.
+%%%
+-eShuffleLines
+%
+%1
+%
+was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
+ohne Fleiß kein Preis!!  Besser spät als nie.
+an apple a day keeps the doctor away.
+c'est à l'œuvre qu'on connaît l’œuvrier.
+%%%
+-eShuffleSentences
+%
+%1
+%
+
+ohne Fleiß kein Preis!!
+an apple a day keeps the doctor away.  Besser spät als nie.was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
+c'est à l'œuvre qu'on connaît l’œuvrier.
+%%%
+-eShuffleWordsWithinSentence
+%
+%1
+%
+auch du füg zu keinem anderen man willst,   nicht tu das dir das was.
+kein Fleiß ohne Preis!!  als Besser spät nie.
+an doctor apple a the keeps away day.
+l’œuvrier connaît qu'on c'est à l'œuvre.
+%%%
+-eShuffleWithinWords
+%
+%1
+%
+wsa du cnhti wstlli das mna dri tu,   das gfü huac mkeine neaendr zu.
+neoh ßiFel knei esrPi!!  esrBse stpä asl ine.
+an paple a yad kpese hte rocotd ywaa.
+'etcs à eul'rœv nq'uo anîontc ’lvriurœe.
+%%%
+-eShuffleWithinWords
+-pyes
+%
+%1
+%
+was du nciht wlsilt das man dir tu,   das füg auch kneiem anedren zu.
+ohne Fileß kein Peris!!  Bseesr spät als nie.
+an aplpe a day kpees the dtcoor aawy.
+c'est à luvrœ'e quo'n cînanot l’vœiruer.
+%%%
