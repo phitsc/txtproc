@@ -1,1 +1,10 @@
 language: d
+
+install:
+  # Install doveralls from the latest github release
+  - wget -q -O - "http://bit.ly/Doveralls" | bash
+  - chmod +x doveralls
+
+script:
+  - dub test -b unittest-cov
+  - ./doveralls
