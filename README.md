@@ -69,4 +69,6 @@ The executable will be built in the `bin` subdirectory.
 
 The executable which is built like this will run all the tests specified in all `*.txt` files in the test sub-directory.
 
-[![Coverage Status](https://coveralls.io/repos/phitsc/txtproc/badge.svg?branch=master&service=github)](https://coveralls.io/github/phitsc/txtproc?branch=master)
+## Build Status
+
+[![Build Status](https://travis-ci.org/phitsc/txtproc.svg?branch=master)](https://travis-ci.org/phitsc/txtproc) [![Coverage Status](https://coveralls.io/repos/phitsc/txtproc/badge.svg?branch=master&service=github)](https://coveralls.io/github/phitsc/txtproc?branch=master)
