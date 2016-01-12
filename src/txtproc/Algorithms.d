@@ -146,5 +146,6 @@ private:
     {
         assert(jwd("hello, world", "hello, world") == 1.0);
         assert(jwd("no", "similarity") == 0.0);
+        assert(jwd("", "") == 1.0);
     }
 }
