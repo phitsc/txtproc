@@ -2,27 +2,43 @@ module txtproc.order_algorithms;
 
 import std.algorithm : reverse;
 import std.conv : to;
-import std.random : Mt19937, randomShuffle;
+import std.random : randomShuffle;
 import std.range : array, retro, walkLength;
-import std.string : join, splitLines;
+import std.string : join;
 
 import txtproc.algorithms;
 import txtproc.textalgo;
 import txtproc.yesno : YesNo, yesNo;
 
-private Mt19937 rndGen;
-
-static this()
+version (unittest)
 {
-    version (unittest)
+
+struct TestRand
+{
+    enum isUniformRandom = true;
+    enum empty = false;
+
+    size_t front()
     {
-        // do not seed for unit tests
+        return m_current;
     }
-    else
+
+    void popFront()
     {
-        import std.random : unpredictableSeed;
-        rndGen.seed(unpredictableSeed);
+        ++m_current;
     }
+
+    private size_t m_current = 0;
+}
+
+TestRand rndGen;
+
+}
+else
+{
+
+import std.random : rndGen;
+
 }
 
 private auto shuffle(string input, bool keepEnds = false)
@@ -93,6 +109,7 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "ReverseLines", "Order", "Reverse order of lines within input text.", [],
             (string text, string[], bool) {
+                import std.string : join, splitLines;
                 auto lines = text.splitLines;
                 reverse(lines);
                 return lines.join(std.ascii.newline);
@@ -130,7 +147,9 @@ class OrderAlgorithms : Algorithms
         add(new Algorithm(
             "Shuffle", "Order", "Shuffle order of characters within input text.", [],
             (string text, string[], bool) {
-                return text.shuffle;
+                import std.string : replace;
+                const temp = text.replace("\r\n", "\n");
+                return temp.shuffle;
             }
         ));
 

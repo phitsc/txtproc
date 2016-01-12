@@ -48,29 +48,26 @@ tse'c à ervuœ'l no'uq tîannoc reirvuœ’l.
 %%%
 -eShuffle
 %
-%1
+Use a sentence without newlines. Backslash-n backslash-r are replaced by backslash-n only to prevent randomization of the two!
 %
-r s st ieeerp  toeßw.e  ta faän uoeh y eoiFiine hgc
-e!ocluu 'sksuedis!dlüayînatspBhaa m àltcaœwr . ichtoscu 'dekl Pu li eœ lnnnsmsrp
- anu ennedsentv e ’ arvase  qdi,  ae'anpar i ra tzw..n kl
-rdd
+Ueasnec ihu elns akls- akls- r elcdb akls- nyt rvn admzto ftetopB tcahtlbp taoiia wwcnnsweteeh.eoioarys bsshrnceho nnareoaen !
 %%%
 -eShuffleWords
 %
 %1
 %
-willst zu nicht day dir away Preis a,   l'œuvre was nie l’œuvrier man das.
-qu'on à Besser füg!!  the das auch anderen.
-apple du keinem ohne an kein als spät.
-doctor Fleiß connaît c'est tu keeps.
+Besser apple doctor qu'on dir anderen was a,   c'est füg kein du das ohne.
+an man das the!!  auch nicht zu willst.
+Fleiß away als nie spät Preis tu keeps.
+keinem day connaît à l'œuvre l’œuvrier.
 %%%
 -eShuffleLines
 %
 %1
 %
+an apple a day keeps the doctor away.
 was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
 ohne Fleiß kein Preis!!  Besser spät als nie.
-an apple a day keeps the doctor away.
 c'est à l'œuvre qu'on connaît l’œuvrier.
 %%%
 -eShuffleSentences
@@ -79,34 +76,34 @@ c'est à l'œuvre qu'on connaît l’œuvrier.
 %
 
 ohne Fleiß kein Preis!!
-an apple a day keeps the doctor away.  Besser spät als nie.was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
-c'est à l'œuvre qu'on connaît l’œuvrier.
+c'est à l'œuvre qu'on connaît l’œuvrier.  Besser spät als nie.was du nicht willst das man dir tu,   das füg auch keinem anderen zu.
+an apple a day keeps the doctor away.
 %%%
 -eShuffleWordsWithinSentence
 %
 %1
 %
-auch du füg zu keinem anderen man willst,   nicht tu das dir das was.
-kein Fleiß ohne Preis!!  als Besser spät nie.
-an doctor apple a the keeps away day.
-l’œuvrier connaît qu'on c'est à l'œuvre.
+willst das tu anderen füg auch nicht man,   zu du keinem das dir was.
+Fleiß ohne Preis kein!!  spät als nie Besser.
+apple doctor the keeps a day away an.
+qu'on c'est l’œuvrier à l'œuvre connaît.
 %%%
 -eShuffleWithinWords
 %
 %1
 %
-wsa du cnhti wstlli das mna dri tu,   das gfü huac mkeine neaendr zu.
-neoh ßiFel knei esrPi!!  esrBse stpä asl ine.
-an paple a yad kpese hte rocotd ywaa.
-'etcs à eul'rœv nq'uo anîontc ’lvriurœe.
+was du cnhti istwll ads anm idr tu,   dsa füg acuh eekinm enrdnea uz.
+eohn ilFeß knie ePisr!!  eerBss tspä sla eni.
+na apple a dya peske eth rtodco waya.
+'stce à vlr'ueœ oqnu' nacontî uli’reœrv.
 %%%
 -eShuffleWithinWords
 -pyes
 %
 %1
 %
-was du nciht wlsilt das man dir tu,   das füg auch kneiem anedren zu.
-ohne Fileß kein Peris!!  Bseesr spät als nie.
-an aplpe a day kpees the dtcoor aawy.
-c'est à luvrœ'e quo'n cînanot l’vœiruer.
+was du nciht wlsilt das man dir tu,   das füg acuh kineem arneden zu.
+ohne Fileß kien Peris!!  Beessr spät als nie.
+an aplpe a day kepes the doctor away.
+cs'et à lv'œure q'oun cnanoît leuirœ’vr.
 %%%
