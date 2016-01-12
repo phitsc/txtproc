@@ -1,8 +1,8 @@
 # txtproc
 
-[![Build Status](https://travis-ci.org/phitsc/txtproc.svg?branch=master)](https://travis-ci.org/phitsc/txtproc) [![Coverage Status](https://coveralls.io/repos/phitsc/txtproc/badge.svg?branch=master&service=github)](https://coveralls.io/github/phitsc/txtproc?branch=master)
-
 A tool for text processing.
+
+[![Build Status](https://travis-ci.org/phitsc/txtproc.svg?branch=master)](https://travis-ci.org/phitsc/txtproc) [![Coverage Status](https://coveralls.io/repos/phitsc/txtproc/badge.svg?branch=master&service=github)](https://coveralls.io/github/phitsc/txtproc?branch=master)
 
 ## Usage
 
