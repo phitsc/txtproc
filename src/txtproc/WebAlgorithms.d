@@ -36,6 +36,11 @@ class WebAlgorithms : Algorithms
                         result ~= options[0] ~ newline ~ value;
                         sectionLength = value.walkLength;
                     }
+                    else if (token.type == TokenType.lineTerminator)
+                    {
+                        result ~= token.value;
+                        sectionLength = 0;
+                    }
                     else
                     {
                         result ~= value;
