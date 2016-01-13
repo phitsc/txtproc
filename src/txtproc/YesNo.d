@@ -37,4 +37,11 @@ unittest
     assert(yesNo("NO") == YesNo.no);
     assert(yesNo("N") == YesNo.no);
     assert(yesNo("No") == YesNo.no);
+
+    import std.exception;
+
+    assertThrown(yesNo(""));
+    assertThrown(yesNo("ja"));
+    assertThrown(yesNo("garbage"));
+    assertThrown(yesNo("YesNo"));
 }
