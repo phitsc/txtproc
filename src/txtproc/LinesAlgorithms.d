@@ -147,6 +147,34 @@ private End whichEnd(string end) pure
     }
 }
 
+unittest
+{
+    assert(whichEnd("left") == End.left);
+    assert(whichEnd("l") == End.left);
+    assert(whichEnd("Left") == End.left);
+    assert(whichEnd("L") == End.left);
+    assert(whichEnd("Left") == End.left);
+
+    assert(whichEnd("right") == End.right);
+    assert(whichEnd("r") == End.right);
+    assert(whichEnd("right") == End.right);
+    assert(whichEnd("R") == End.right);
+    assert(whichEnd("Right") == End.right);
+
+    assert(whichEnd("both") == End.both);
+    assert(whichEnd("b") == End.both);
+    assert(whichEnd("both") == End.both);
+    assert(whichEnd("B") == End.both);
+    assert(whichEnd("Both") == End.both);
+
+    import std.exception;
+
+    assertThrown(whichEnd(""));
+    assertThrown(whichEnd("links"));
+    assertThrown(whichEnd("garbage"));
+    assertThrown(whichEnd("LeftRight"));
+}
+
 class LinesAlgorithms : Algorithms
 {
     this()
