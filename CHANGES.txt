@@ -7,6 +7,7 @@ v0.4.0
 * Improve matching of function name
 * Remove ToLeet, FromLeet
 * Fix RemoveTags
+* Add line-endings support to checksum functions
 
 v0.3.0
 
