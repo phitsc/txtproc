@@ -143,3 +143,29 @@ private:
     immutable ParameterDescriptions m_parameterDescriptions;
     immutable Process m_process;
 }
+
+unittest
+{
+    import std.exception;
+
+    auto a = new Algorithm("Name", "Group", "Description of Name", [
+            ParameterDescription("Parameter One"),
+            ParameterDescription("Parameter One", Default("Default value")),
+        ],
+        (string text, string[] params, bool ignoreCase) {
+            return text ~ params[0];
+        }
+    );
+
+    assert(a.name == "Name");
+    assert(a.group == "Group");
+    assert(a.description == "Description of Name");
+    assert(a.process("Input text ", [ "Param" ], false) == "Input text Param");
+    assert(a.parameterDescriptions[0].description == "Parameter One");
+
+    assert(a == a);
+    auto b = a;
+    assert(b == a);
+
+    assertThrown(a.process("Input text", [], false));
+}
