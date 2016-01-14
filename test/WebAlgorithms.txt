@@ -19,3 +19,14 @@ To get a list of all the available transformation functions type:
 ./txtproc --list
 
 %%%
+-eTweet
+%
+%1
+%
+Ons mä gëtt erem, op durch d'Musek Gesträich vun. Aus un engem goung gehéiert, voll d'Kamäiner oft jo, en Hunn Monn hie. Vun hu wuel Benn,
+rem an zënne Dohannen. Nei ke gebotzt Hemecht Faarwen, voll d'Wéën no eng, Dach Kënnt blëtzen nun as. Zwé stét sinn Frot do. Lann Fielse
+beschte eng en, derbei Stieren déi no.
+
+Bereet gudden rëschten net as, geet ma'n botze bei as, rëm lait Kléder fu. Iech geet durch mä dee, déi Benn duerch schéinste no, sëtzen
+d'Margréitchen am den. An welle gemaacht wat, Fielse klinzecht blo et, am zwé onser d'Land d'Kamäiner mä.
+%%%

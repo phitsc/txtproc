@@ -13,7 +13,7 @@ int main(string[] args)
 {
     version(unittest)
     {
-        return unittest_main;
+        return unittest_main(args);
     }
     else
     {

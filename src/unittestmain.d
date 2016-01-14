@@ -111,8 +111,13 @@ auto getTests(string fileName)
     return tests;
 }
 
-int unittest_main()
+int unittest_main(string[] opts)
 {
+    import std.getopt;
+    import debugflag;
+
+    getopt(opts, "debug|d", "Print debug output", &printDebugOutput);
+
     int status;
 
     foreach (fileName; dirEntries("test", SpanMode.shallow).filter!(f => f.name.endsWith(".txt")))
@@ -126,7 +131,9 @@ int unittest_main()
             string result;
             if ((txtproc_main(args, &result) == 1) || (result != test.output))
             {
-                writeln(format("%s(%s) : %s\n`%s`\n--  !=  --\n`%s`\n", fileName, test.line, test.params.join(" "), result, test.output));
+                writeln(format("%s(%s) : %s\n`%s`\n--  !=  --\n`%s`\n", fileName, test.line, test.params.join(" "),
+                    printDebugOutput ? result.replace(" ", "•") : result,
+                    printDebugOutput ? test.output.replace(" ", "•") : test.output));
                 status = 1;
             }
         }

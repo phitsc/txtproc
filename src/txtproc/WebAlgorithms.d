@@ -1,16 +1,7 @@
 module txtproc.web_algorithms;
 
-import std.algorithm : startsWith;
-import std.ascii : newline;
-import std.conv : text;
-import std.range : walkLength;
-import std.regex : regex, replaceAll;
-
-import std.stdio : writeln;
-
 import txtproc.algorithms;
 import txtproc.textalgo;
-
 
 class WebAlgorithms : Algorithms
 {
@@ -21,6 +12,10 @@ class WebAlgorithms : Algorithms
                 ParameterDescription("Continuation text for each tweet", Default("")),
             ],
             (string text, string[] options, bool) {
+                import std.ascii : newline;
+                import std.range : walkLength;
+                import std.string : stripRight;
+
                 immutable maxLength = 140 - options[0].walkLength;
 
                 string result;
@@ -33,6 +28,7 @@ class WebAlgorithms : Algorithms
 
                     if (sectionLength + value.walkLength > maxLength)
                     {
+                        result = result.stripRight;
                         result ~= options[0] ~ newline ~ value;
                         sectionLength = value.walkLength;
                     }
@@ -55,6 +51,7 @@ class WebAlgorithms : Algorithms
         add(new Algorithm(
             "RemoveTags", "Web", "Removes all tags from the input text.", [],
             (string text, string[], bool) {
+                import std.regex : regex, replaceAll;
                 return text.replaceAll(regex("<[^>]+>"), "");
             }
         ));
