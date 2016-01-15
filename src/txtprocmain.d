@@ -18,28 +18,6 @@ import txtproc.web_algorithms;
 
 extern(C) int isatty(int);
 
-private alias Option = Tuple!(string, "cmd", string, "desc");
-
-private immutable Option[string] opts;
-
-static this()
-{
-    opts =
-    [
-        "changes"       : Option("changes",          "Print change history"),
-        "execute"       : Option("execute|e",        "Function to process the supplied text with"),
-        "file"          : Option("file|f",           "Input file containing text to process"),
-        "ignore-case"   : Option("ignore-case|i",    "Ignore case"),
-        "list"          : Option("list|l",           "List available text processing functions"),
-        "modify"        : Option("modify|m",         "Modify the input file in-place"),
-        "parameter"     : Option("parameter|p",      "Parameter to pass to processing function. Supply multiple times if necessary."),
-        "from-clipboard": Option("from-clipboard|v", "Read text to process from clipboard"),
-        "to-clipboard"  : Option("to-clipboard|x",   "Write processed text to clipboard"),
-        "version"       : Option("version",          "Print version information"),
-        "debug"         : Option("debug|d",          "Print debug output"),
-    ];
-}
-
 int txtproc_main(string[] args, string* result = null)
 {
     import debugflag;
@@ -57,31 +35,30 @@ int txtproc_main(string[] args, string* result = null)
         bool printVersionInfo;
         bool printChanges;
 
-        version(Windows) auto options = getopt(args,
-            opts["changes"       ].cmd, opts["changes"       ].desc, &printChanges,
-            opts["execute"       ].cmd, opts["execute"       ].desc, &functionName,
-            opts["file"          ].cmd, opts["file"          ].desc, &inputFile,
-            opts["ignore-case"   ].cmd, opts["ignore-case"   ].desc, &ignoreCase,
-            opts["list"          ].cmd, opts["list"          ].desc, &listFunctions,
-            opts["modify"        ].cmd, opts["modify"        ].desc, &modifyInputFile,
-            opts["parameter"     ].cmd, opts["parameter"     ].desc, &params,
-            opts["from-clipboard"].cmd, opts["from-clipboard"].desc, &fromClipboard,
-            opts["to-clipboard"  ].cmd, opts["to-clipboard"  ].desc, &toClipboard,
-            opts["version"       ].cmd, opts["version"       ].desc, &printVersionInfo,
-            opts["debug"         ].cmd, opts["debug"         ].desc, &printDebugOutput
-        );
+        version(Windows)
+        {
+            immutable winOnlyOpts = `
+            "from-clipboard|v", "Read text to process from clipboard",                                           &fromClipboard,
+            "to-clipboard|x",   "Write processed text to clipboard",                                             &toClipboard,      `;
+        }
+        else
+        {
+            immutable winOnlyOpts = "";
+        }
 
-        version(linux) auto options = getopt(args,
-            opts["changes"       ].cmd, opts["changes"       ].desc, &printChanges,
-            opts["execute"       ].cmd, opts["execute"       ].desc, &functionName,
-            opts["file"          ].cmd, opts["file"          ].desc, &inputFile,
-            opts["ignore-case"   ].cmd, opts["ignore-case"   ].desc, &ignoreCase,
-            opts["list"          ].cmd, opts["list"          ].desc, &listFunctions,
-            opts["modify"        ].cmd, opts["modify"        ].desc, &modifyInputFile,
-            opts["parameter"     ].cmd, opts["parameter"     ].desc, &params,
-            opts["version"       ].cmd, opts["version"       ].desc, &printVersionInfo,
-            opts["debug"         ].cmd, opts["debug"         ].desc, &printDebugOutput
-        );
+        immutable getOpts = `getopt(args,
+            "changes",          "Print change history",                                                          &printChanges,
+            "execute|e",        "Function to process the supplied text with",                                    &functionName,
+            "file|f",           "Input file containing text to process",                                         &inputFile,
+            "ignore-case|i",    "Ignore case",                                                                   &ignoreCase,
+            "list|l",           "List available text processing functions",                                      &listFunctions,
+            "modify|m",         "Modify the input file in-place",                                                &modifyInputFile,
+            "parameter|p",      "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
+            ` ~ winOnlyOpts ~ `
+            "version",          "Print version information",                                                     &printVersionInfo,
+            "debug|d",          "Print debug output",                                                            &printDebugOutput  )`;
+
+        auto options = mixin(getOpts);
 
         debug
         {
