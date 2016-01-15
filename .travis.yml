@@ -10,5 +10,5 @@ script:
   - dub build -b release
 
 after_success:
-  - "tar caf txtproc-$TRAVIS_JOB_NUMBER-x86_64.tar.gz txtproc/"
+  - "tar caf txtproc-${TRAVIS_COMMIT}-x86_64.tar.gz txtproc/"
 
