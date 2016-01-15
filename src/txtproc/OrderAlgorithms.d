@@ -189,8 +189,8 @@ class OrderAlgorithms : Algorithms
             "ShuffleWithinWords", "Order", "Shuffle order of characters within words of input text.", [
                 ParameterDescription("Typoglycemia - y[es], n[o]", Default("no")),
             ],
-            (string text, string[] options, bool) {
-                return text.parseText.map!(a => a.type == TokenType.text ? a.value.shuffle(yesNo(options[0]) == YesNo.yes) : a.value).join;
+            (string text, string[] params, bool) {
+                return text.parseText.map!(a => a.type == TokenType.text ? a.value.shuffle(yesNo(params[0]) == YesNo.yes) : a.value).join;
             }
         ));
 

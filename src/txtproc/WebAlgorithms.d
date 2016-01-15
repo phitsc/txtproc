@@ -11,12 +11,12 @@ class WebAlgorithms : Algorithms
             "Tweet", "Web", "Break up input text into tweets.", [
                 ParameterDescription("Continuation text for each tweet", Default("")),
             ],
-            (string text, string[] options, bool) {
+            (string text, string[] params, bool) {
                 import std.ascii : newline;
                 import std.range : walkLength;
                 import std.string : stripRight;
 
-                immutable maxLength = 140 - options[0].walkLength;
+                immutable maxLength = 140 - params[0].walkLength;
 
                 string result;
 
@@ -29,7 +29,7 @@ class WebAlgorithms : Algorithms
                     if (sectionLength + value.walkLength > maxLength)
                     {
                         result = result.stripRight;
-                        result ~= options[0] ~ newline ~ value;
+                        result ~= params[0] ~ newline ~ value;
                         sectionLength = value.walkLength;
                     }
                     else if (token.type == TokenType.lineTerminator)

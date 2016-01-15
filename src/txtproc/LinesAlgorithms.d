@@ -218,7 +218,7 @@ class LinesAlgorithms : Algorithms
             "RemoveDuplicateLines", "Lines", "Removes duplicate lines from input text.", [
                 ParameterDescription("A format string to add the number of duplications + 1 to each line (use # for duplicate count, $ for line contents)", Default("$")),
             ],
-            (string text, string[] options, bool) {
+            (string text, string[] params, bool) {
                 int[string] uniqueLines;
 
                 return text.parseText.lines.filter!((a) {
@@ -234,7 +234,7 @@ class LinesAlgorithms : Algorithms
                         uniqueLines[line] += 1;
                         return false;
                     }
-                }).array.eachLineJoin(a => formatLineWithNumber(options[0], a, uniqueLines[a], "d"));
+                }).array.eachLineJoin(a => formatLineWithNumber(params[0], a, uniqueLines[a], "d"));
             }
         ));
 
@@ -242,8 +242,8 @@ class LinesAlgorithms : Algorithms
             "RemoveLinesContaining", "Lines", "Removes lines containing a specified sub-text from input text.", [
                 ParameterDescription("The sub-text to be found on lines to remove"),
             ],
-            (string text, string[] options, bool ignoreCase) {
-                return text.parseText.lines.filter!(a => a.toText.indexOf(options[0], ignoreCase ? CaseSensitive.no : CaseSensitive.yes) == -1).map!(a => a.toText).join;
+            (string text, string[] params, bool ignoreCase) {
+                return text.parseText.lines.filter!(a => a.toText.indexOf(params[0], ignoreCase ? CaseSensitive.no : CaseSensitive.yes) == -1).map!(a => a.toText).join;
             }
         ));
 
@@ -251,8 +251,8 @@ class LinesAlgorithms : Algorithms
             "RemoveLinesContainingRegex", "Lines", "Removes lines containing a specified regular expression from input text.", [
                 ParameterDescription("The regular expression to be found on lines to remove"),
             ],
-            (string text, string[] options, bool ignoreCase) {
-                return text.parseText.lines.filter!(a => !a.toText.matchFirst(regex(options[0], ignoreCase ? "i" : ""))).map!(a => a.toText).join;
+            (string text, string[] params, bool ignoreCase) {
+                return text.parseText.lines.filter!(a => !a.toText.matchFirst(regex(params[0], ignoreCase ? "i" : ""))).map!(a => a.toText).join;
             }
         ));
 
@@ -260,8 +260,8 @@ class LinesAlgorithms : Algorithms
             "SplitIntoLines", "Lines", "Split input text into lines using the specified separator string.", [
                 ParameterDescription("The string by which to separate the input text into lines"),
             ],
-            (string text, string[] options, bool ignoreCase) {
-                return text.split(options[0], ignoreCase ? IgnoreCase.yes : IgnoreCase.no, KeepSeparator.no).join(newline);
+            (string text, string[] params, bool ignoreCase) {
+                return text.split(params[0], ignoreCase ? IgnoreCase.yes : IgnoreCase.no, KeepSeparator.no).join(newline);
             }
         ));
 
@@ -269,8 +269,8 @@ class LinesAlgorithms : Algorithms
             "JoinLines", "Lines", "Join lines of input text into one single line.", [
                 ParameterDescription("Text to put between each joined line", Default("")),
             ],
-            (string text, string[] options, bool ignoreCase) {
-                return text.splitLines.join(options[0]);
+            (string text, string[] params, bool ignoreCase) {
+                return text.splitLines.join(params[0]);
             }
         ));
 
@@ -279,16 +279,16 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("Text to append to each line"),
                 ParameterDescription("Fill character to pad up to length of longest line", Default("")),
             ],
-            (string text, string[] options, bool ignoreCase) {
+            (string text, string[] params, bool ignoreCase) {
                 const lines = text.parseText.lines;
 
-                if (options[1].empty)
+                if (params[1].empty)
                 {
-                    return lines.eachLineJoin(a => a ~ options[0]);
+                    return lines.eachLineJoin(a => a ~ params[0]);
                 }
                 else
                 {
-                    return lines.eachLineJoin(a => a.leftJustify(lines.maxLineLength, options[1][0]) ~ options[0]);
+                    return lines.eachLineJoin(a => a.leftJustify(lines.maxLineLength, params[1][0]) ~ params[0]);
                 }
             }
         ));
@@ -298,16 +298,16 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("Text to prepend to each line"),
                 ParameterDescription("Fill character to pad up to length of longest line", Default("")),
             ],
-            (string text, string[] options, bool ignoreCase) {
+            (string text, string[] params, bool ignoreCase) {
                 const lines = text.parseText.lines;
 
-                if (options[1].empty)
+                if (params[1].empty)
                 {
-                    return text.parseText.lines.eachLineJoin(a => options[0] ~ a);
+                    return text.parseText.lines.eachLineJoin(a => params[0] ~ a);
                 }
                 else
                 {
-                    return lines.eachLineJoin(a => options[0] ~ a.rightJustify(lines.maxLineLength, options[1][0]));
+                    return lines.eachLineJoin(a => params[0] ~ a.rightJustify(lines.maxLineLength, params[1][0]));
                 }
             }
         ));
@@ -319,17 +319,17 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("How much to increment on each line", Default("1")),
                 ParameterDescription("Base to use for line numbers (can be any of b(inary), o(ctal), d(ecimal) or he(x|X)", Default("d")),
             ],
-            (string text, string[] options, bool ignoreCase) {
-                if (!"bodxX".canFind(options[3]))
+            (string text, string[] params, bool ignoreCase) {
+                if (!"bodxX".canFind(params[3]))
                 {
-                    throw new Exception(options[3] ~ " is not a valid base.");
+                    throw new Exception(params[3] ~ " is not a valid base.");
                 }
 
-                immutable increment = to!int(options[2]);
+                immutable increment = to!int(params[2]);
 
-                auto lineNumber = to!int(options[1]);
+                auto lineNumber = to!int(params[1]);
                 return text.parseText.lines.eachLineJoin((a) {
-                        const result = formatLineWithNumber(options[0], a, lineNumber, options[3]);
+                        const result = formatLineWithNumber(params[0], a, lineNumber, params[3]);
                         lineNumber += increment;
                         return result;
                     });
@@ -341,10 +341,10 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("Number of characters to remove at the beginning of each line"),
                 ParameterDescription("Number of characters to remove at the end of each line", Default("0")),
             ],
-            (string text, string[] options, bool ignoreCase) {
+            (string text, string[] params, bool ignoreCase) {
                 return text.parseText.lines.eachLineJoin((a) {
-                        immutable left = max(0, to!int(options[0]));
-                        immutable right = a.walkLength - max(0, to!int(options[1]));
+                        immutable left = max(0, to!int(params[0]));
+                        immutable right = a.walkLength - max(0, to!int(params[1]));
 
                         string result;
                         size_t index = 0;
@@ -376,10 +376,10 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("Number of words to remove at the beginning of each line"),
                 ParameterDescription("Number of words to remove at the end of each line", Default("0")),
             ],
-            (string text, string[] options, bool ignoreCase) {
+            (string text, string[] params, bool ignoreCase) {
                 return text.parseText.lines.eachLineJoinT((line) {
-                    auto left = max(0, to!int(options[0]));
-                    auto right = max(0, to!int(options[1]));
+                    auto left = max(0, to!int(params[0]));
+                    auto right = max(0, to!int(params[1]));
 
                     size_t getIndex(R)(int count, R range) pure
                     {
@@ -418,9 +418,9 @@ class LinesAlgorithms : Algorithms
             "Strip", "Lines", "Removes whitespace from the beginning and/or end of each line.", [
                 ParameterDescription("On which end to remove whitespace - l[eft], r[ight] or b[oth]", Default("both")),
             ],
-            (string text, string[] options, bool ignoreCase) {
+            (string text, string[] params, bool ignoreCase) {
                 return text.parseText.lines.eachLineJoinT((line) {
-                    immutable end = whichEnd(options[0]);
+                    immutable end = whichEnd(params[0]);
 
                     size_t getIndex(R)(R range) pure
                     {
@@ -451,9 +451,9 @@ class LinesAlgorithms : Algorithms
             "StripNonWordCharacters", "Lines", "Removes non-word characters from the beginning and/or end of each line.", [
                 ParameterDescription("On which end to remove non-word characters - l[eft], r[ight] or b[oth]", Default("both")),
             ],
-            (string text, string[] options, bool ignoreCase) {
+            (string text, string[] params, bool ignoreCase) {
                 return text.parseText.lines.eachLineJoinT((line) {
-                    immutable end = whichEnd(options[0]);
+                    immutable end = whichEnd(params[0]);
 
                     size_t getIndex(R)(R range) pure
                     {
@@ -486,20 +486,20 @@ class LinesAlgorithms : Algorithms
                 ParameterDescription("On which end to remove - l[eft], r[ight] or b[oth]", Default("left")),
                 ParameterDescription("Remove the sub-text as well? - y[es] or n[o]", Default("no")),
             ],
-            (string text, string[] options, bool ignoreCase) {
+            (string text, string[] params, bool ignoreCase) {
                 return text.parseText.lines.eachLineJoin((a) {
-                        immutable end = whichEnd(options[1]);
-                        immutable yn = yesNo(options[2]);
+                        immutable end = whichEnd(params[1]);
+                        immutable yn = yesNo(params[2]);
 
                         size_t from = 0;
 
                         if (end == End.left || end == End.both)
                         {
-                            immutable index = a.indexOf(options[0], ignoreCase ? CaseSensitive.no : CaseSensitive.yes);
+                            immutable index = a.indexOf(params[0], ignoreCase ? CaseSensitive.no : CaseSensitive.yes);
 
                             if (index != -1)
                             {
-                                from = (yn == YesNo.no) ? index : index + options[0].length;
+                                from = (yn == YesNo.no) ? index : index + params[0].length;
                             }
                         }
 
@@ -507,11 +507,11 @@ class LinesAlgorithms : Algorithms
 
                         if (end == End.right || end == End.both)
                         {
-                            immutable index = a.lastIndexOf(options[0], ignoreCase ? CaseSensitive.no : CaseSensitive.yes);
+                            immutable index = a.lastIndexOf(params[0], ignoreCase ? CaseSensitive.no : CaseSensitive.yes);
 
                             if (index != -1)
                             {
-                                to = (yn == YesNo.no) ? index + options[0].length : index;
+                                to = (yn == YesNo.no) ? index + params[0].length : index;
                             }
                         }
 
