@@ -7,3 +7,8 @@ install:
 script:
   - dub test -b unittest-cov
   - ./doveralls
+  - dub build -b releases
+
+after_success:
+  - tar caf txtproc-$TRAVIS_TAG-x86_64.tar.gz
+

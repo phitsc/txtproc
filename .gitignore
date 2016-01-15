@@ -1,4 +1,4 @@
-bin/
+txtproc/
 .dub
 dub.selections.json
 *.tmp
