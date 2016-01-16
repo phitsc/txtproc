@@ -19,5 +19,6 @@
         "release": {
             "stringImportPaths": [ "." ]
         }
-    }
+    },
+    "sourceFiles-windows-x86_64-dmd": ["User32.lib"],
 }
