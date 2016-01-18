@@ -17,7 +17,35 @@ int main(string[] args)
     }
     else
     {
-        return txtproc_main(args);
+        import std.array : empty;
+        import std.stdio : stderr, stdout;
+
+        try
+        {
+            const result = txtproc_main(args);
+
+            if (!result.empty)
+            {
+                stdout.rawWrite(result ~ "\n");
+            }
+
+            return 0;
+        }
+        catch (Exception e)
+        {
+            import debugflag;
+            import std.conv : text;
+
+            stderr.rawWrite("Error: " ~ e.msg ~ "\n");
+
+            if (printDebugOutput)
+            {
+                stderr.rawWrite(e.file.text ~ "(" ~ e.line.text ~ ")\n");
+                stderr.rawWrite(e.info.text ~ "\n");
+            }
+
+            return 1;
+        }
     }
 }
 

@@ -43,7 +43,8 @@ class Algorithms
         {
             import debugflag;
             import std.conv : text;
-            indices.map!(a => writeline(algorithmsByDistance[a][1].name ~ " : " ~ algorithmsByDistance[a][0].text));
+            import std.stdio : stdout;
+            indices.map!(a => stdout.rawWrite(algorithmsByDistance[a][1].name ~ " : " ~ algorithmsByDistance[a][0].text ~ "\n"));
         }
 
         const(Algorithm)[] result;

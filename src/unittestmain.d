@@ -16,6 +16,8 @@ enum separatorChar = "%";
 
 auto getTests(string fileName)
 {
+    import std.typecons : Tuple;
+
     alias Test = Tuple!(string[], "params", string, "input", string, "output", size_t, "line");
 
     string[string] referenceTexts;
@@ -126,10 +128,11 @@ int unittest_main(string[] opts)
 
         foreach (test; tests)
         {
-            string[] args = [ "Txtproc" ] ~ [ test.input ] ~ test.params.dup;
+            string[] args = [ "txtproc" ] ~ [ test.input ] ~ test.params.dup;
 
-            string result;
-            if ((txtproc_main(args, &result) == 1) || (result != test.output))
+            const result = txtproc_main(args);
+
+            if (result != test.output)
             {
                 writeln(format("%s(%s) : %s\n`%s`\n--  !=  --\n`%s`\n", fileName, test.line, test.params.join(" "),
                     printDebugOutput ? result.replace(" ", "•") : result,

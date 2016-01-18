@@ -1,10 +1,6 @@
 module txtprocmain;
 
-import io;
-
-import std.file : read;
 import std.getopt;
-import std.typecons : Tuple;
 
 import txtproc.algorithms;
 import txtproc.capitalisation_algorithms;
@@ -18,136 +14,110 @@ import txtproc.web_algorithms;
 
 extern(C) int isatty(int);
 
-int txtproc_main(string[] args, string* result = null)
+string txtproc_main(string[] args)
 {
     import debugflag;
 
-    try
+    string functionName;
+    string inputFile;
+    bool ignoreCase;
+    bool listFunctions;
+    bool modifyInputFile;
+    string[] params;
+    bool fromClipboard;
+    bool toClipboard;
+    bool printVersionInfo;
+    bool printChanges;
+
+    version(Windows)
     {
-        string functionName;
-        string inputFile;
-        bool ignoreCase;
-        bool listFunctions;
-        bool modifyInputFile;
-        string[] params;
-        bool fromClipboard;
-        bool toClipboard;
-        bool printVersionInfo;
-        bool printChanges;
-
-        version(Windows)
-        {
-            immutable winOnlyOpts = `
-            "from-clipboard|v", "Read text to process from clipboard",                                           &fromClipboard,
-            "to-clipboard|x",   "Write processed text to clipboard",                                             &toClipboard,      `;
-        }
-        else
-        {
-            immutable winOnlyOpts = "";
-        }
-
-        immutable getOpts = `getopt(args,
-            "changes",          "Print change history",                                                          &printChanges,
-            "execute|e",        "Function to process the supplied text with",                                    &functionName,
-            "file|f",           "Input file containing text to process",                                         &inputFile,
-            "ignore-case|i",    "Ignore case",                                                                   &ignoreCase,
-            "list|l",           "List available text processing functions",                                      &listFunctions,
-            "modify|m",         "Modify the input file in-place",                                                &modifyInputFile,
-            "parameter|p",      "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
-            ` ~ winOnlyOpts ~ `
-            "version",          "Print version information",                                                     &printVersionInfo,
-            "debug|d",          "Print debug output",                                                            &printDebugOutput  )`;
-
-        auto options = mixin(getOpts);
-
-        debug
-        {
-            immutable changes = "";
-            immutable vers = "0.0.0";
-        }
-        else
-        {
-            immutable changes = import("CHANGES.txt");
-            immutable vers = changes.matchFirst(regex(`v(\d+\.\d+\.\d+)`))[1];
-        }
-
-        if (printVersionInfo)
-        {
-            writeline("txtproc version " ~ vers.text);
-
-            return 0;
-        }
-        else if (printChanges)
-        {
-            writeline(changes);
-
-            return 0;
-        }
-        else if (options.helpWanted && functionName.empty)
-        {
-            defaultGetoptPrinter("Usage: txtproc [options] [input text]", options.options);
-
-            return 0;
-        }
-
-        auto algorithms = new Algorithms;
-        algorithms.add(new CapitalisationAlgorithms);
-        algorithms.add(new ChecksumAlgorithms);
-        algorithms.add(new CountAlgorithms);
-        algorithms.add(new LinesAlgorithms);
-        algorithms.add(new OrderAlgorithms);
-        algorithms.add(new SearchReplaceAlgorithms);
-        algorithms.add(new SortAlgorithms);
-        algorithms.add(new WebAlgorithms);
-
-        if (options.helpWanted)
-        {
-            printHelpOnFunction(algorithms, functionName);
-
-            return 0;
-        }
-        else if (listFunctions)
-        {
-            printFunctionList(algorithms, functionName);
-
-            return 0;
-        }
-
-        const func = !functionName.empty ? algorithms.closest(functionName)[0] : new Algorithm("", "", "", [], (string text, string[], bool) => text);
-        const outputText = func.process(getInputText(inputFile, fromClipboard, args), params, ignoreCase);
-
-        if (result)
-        {
-            *result = outputText;
-        }
-        else if (modifyInputFile)
-        {
-            std.stdio.File(inputFile, "w").rawWrite(outputText);
-        }
-        else if (toClipboard)
-        {
-            writeToClipboard(outputText);
-        }
-        else
-        {
-            writeline(outputText);
-        }
-
-        return 0;
+        immutable winOnlyOpts = `
+        "from-clipboard|v", "Read text to process from clipboard",                                           &fromClipboard,
+        "to-clipboard|x",   "Write processed text to clipboard",                                             &toClipboard,      `;
     }
-    catch (Exception e)
+    else
     {
-        import std.stdio : stderr;
+        immutable winOnlyOpts = "";
+    }
 
-        stderr.rawWrite("Error: " ~ e.msg ~ "\n");
+    immutable getOpts = `getopt(args,
+        "changes",          "Print change history",                                                          &printChanges,
+        "execute|e",        "Function to process the supplied text with",                                    &functionName,
+        "file|f",           "Input file containing text to process",                                         &inputFile,
+        "ignore-case|i",    "Ignore case",                                                                   &ignoreCase,
+        "list|l",           "List available text processing functions",                                      &listFunctions,
+        "modify|m",         "Modify the input file in-place",                                                &modifyInputFile,
+        "parameter|p",      "Parameter to pass to processing function. Supply multiple times if necessary.", &params,
+        ` ~ winOnlyOpts ~ `
+        "version",          "Print version information",                                                     &printVersionInfo,
+        "debug|d",          "Print debug output",                                                            &printDebugOutput  )`;
 
-        if (printDebugOutput)
-        {
-            stderr.rawWrite(e.file.text ~ "(" ~ e.line.text ~ ")\n");
-            stderr.rawWrite(e.info.text ~ "\n");
-        }
+    auto options = mixin(getOpts);
 
-        return 1;
+    debug
+    {
+        immutable changes = "";
+        immutable vers = "0.0.0";
+    }
+    else
+    {
+        immutable changes = import("CHANGES.txt");
+        immutable vers = changes.matchFirst(regex(`v(\d+\.\d+\.\d+)`))[1];
+    }
+
+    if (printVersionInfo)
+    {
+        return "txtproc version " ~ vers.text;
+    }
+    else if (printChanges)
+    {
+        return changes;
+    }
+    else if (options.helpWanted && functionName.empty)
+    {
+        import std.array : appender;
+        auto output = appender!string();
+
+        output.defaultGetoptFormatter("Usage: txtproc [options] [input text]", options.options);
+
+        return output.data;
+    }
+
+    auto algorithms = new Algorithms;
+    algorithms.add(new CapitalisationAlgorithms);
+    algorithms.add(new ChecksumAlgorithms);
+    algorithms.add(new CountAlgorithms);
+    algorithms.add(new LinesAlgorithms);
+    algorithms.add(new OrderAlgorithms);
+    algorithms.add(new SearchReplaceAlgorithms);
+    algorithms.add(new SortAlgorithms);
+    algorithms.add(new WebAlgorithms);
+
+    if (options.helpWanted)
+    {
+        return helpOnFunction(algorithms, functionName);
+    }
+    else if (listFunctions)
+    {
+        return functionList(algorithms, functionName);
+    }
+
+    const func = !functionName.empty ? algorithms.closest(functionName)[0] : new Algorithm("", "", "", [], (string text, string[], bool) => text);
+    const outputText = func.process(getInputText(inputFile, fromClipboard, args), params, ignoreCase);
+
+    if (modifyInputFile)
+    {
+        std.stdio.File(inputFile, "w").rawWrite(outputText);
+        return "";
+    }
+    else if (toClipboard)
+    {
+        writeToClipboard(outputText);
+        return "";
+    }
+    else
+    {
+        return outputText;
     }
 }
 
@@ -275,6 +245,7 @@ private string toUtf(S)(void[] rawText)
 private string readFromFile(string path)
 {
     import std.encoding;
+    import std.file : read;
 
     auto rawFileContents = read(path);
 
@@ -312,7 +283,7 @@ private string getInputText(string inputFile, bool fromClipboard, string[] args)
     }
 }
 
-private void printFunctionList(const Algorithms algorithms, string filter)
+private string functionList(const Algorithms algorithms, string filter)
 {
     string result;
 
@@ -335,15 +306,16 @@ private void printFunctionList(const Algorithms algorithms, string filter)
         result ~= leftJustify(algorithm.name, maxAlgorithmWidth, ' ') ~ " - " ~ algorithm.description;
     }
 
-    writeline(result);
+    return result;
 }
 
-private void printHelpOnFunction(const Algorithms algorithms, string filter)
+private string helpOnFunction(const Algorithms algorithms, string filter)
 {
-    string result;
-
-    auto algorithm = algorithms.closest(filter)[0];
-
-    writeline(algorithm.help);
+    return algorithms.closest(filter)[0].help;
 }
 
+
+unittest
+{
+    assert(txtproc_main(["txtproc", "--version"]).matchFirst(regex(`txtproc version \d+\.\d+\.\d+`)));
+}
