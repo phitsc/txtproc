@@ -27,7 +27,7 @@ class Algorithms
 
     auto closest(string nameish) const
     {
-        import std.algorithm : map, makeIndex;
+        import std.algorithm : each, map, makeIndex;
         import std.array : array;
         import std.string : toLower;
         import std.typecons : tuple;
@@ -44,7 +44,7 @@ class Algorithms
             import debugflag;
             import std.conv : text;
             import std.stdio : stdout;
-            indices.map!(a => stdout.rawWrite(algorithmsByDistance[a][1].name ~ " : " ~ algorithmsByDistance[a][0].text ~ "\n"));
+            indices.each!(a => stdout.rawWrite(algorithmsByDistance[a][1].name ~ " : " ~ algorithmsByDistance[a][0].text ~ "\n"));
         }
 
         const(Algorithm)[] result;
