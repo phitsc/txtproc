@@ -1,6 +1,6 @@
 # txtproc
 
-A tool for text processing.
+A command line tool for text processing.
 
 [![Build Status](https://travis-ci.org/phitsc/txtproc.svg?branch=master)](https://travis-ci.org/phitsc/txtproc) [![Coverage Status](https://coveralls.io/repos/phitsc/txtproc/badge.svg?branch=master&service=github)](https://coveralls.io/github/phitsc/txtproc?branch=master)
 
@@ -61,7 +61,7 @@ Output text can go:
 
     dub build
 
-The executable will be built in the `bin` subdirectory.
+The executable will be built in the `txtproc` subdirectory.
 
 ## Tests
 
