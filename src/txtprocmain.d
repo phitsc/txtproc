@@ -328,5 +328,6 @@ private string helpOnFunction(const Algorithms algorithms, string filter)
 
 unittest
 {
+    import std.regex : matchFirst, regex;
     assert(txtproc_main(["txtproc", "--version"]).matchFirst(regex(`txtproc version \d+\.\d+\.\d+`)));
 }
