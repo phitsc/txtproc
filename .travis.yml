@@ -1,5 +1,7 @@
 language: d
-  - dmd-2.079.1
+
+d:
+  -dmd-2.079.1
 
 install:
   - wget -O doveralls "https://github.com/ColdenCullen/doveralls/releases/download/v1.3.2/doveralls_linux_travis"
