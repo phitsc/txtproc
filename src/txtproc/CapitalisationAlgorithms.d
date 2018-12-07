@@ -1,5 +1,6 @@
 module txtproc.capitalisation_algorithms;
 
+import std.algorithm : canFind, map;
 import std.string;
 import std.uni : isUpper, isLower;
 

@@ -1,6 +1,6 @@
 module txtproc.searchreplace_algorithms;
 
-import std.conv : to;
+import std.conv : text, to;
 import std.regex : matchAll, regex, replaceAll;
 import std.string;
 import std.typecons : Nullable, Tuple, tuple;
@@ -174,7 +174,7 @@ class SearchReplaceAlgorithms : Algorithms
                 ParameterDescription("Distance between tab stops", Default("4")),
             ],
             (string text, string[] params, bool ignoreCase) {
-                return text.detab(to!size_t(params[0]));
+                return text.detab(to!size_t(params[0])).to!string;
             }
         ));
 

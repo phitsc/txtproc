@@ -1,3 +1,6 @@
+v0.4.1
+* Fix deprecated private module imports
+
 v0.4.0
 
 * Add --changes option to print change history

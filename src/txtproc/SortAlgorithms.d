@@ -1,6 +1,6 @@
 module txtproc.sort_algorithms;
 
-import std.algorithm: cmp, sort;
+import std.algorithm: cmp, map, sort;
 import std.conv : to;
 import std.range : join, walkLength;
 import std.regex : matchFirst, regex;

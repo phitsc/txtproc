@@ -1,6 +1,6 @@
 module txtproc.order_algorithms;
 
-import std.algorithm : reverse;
+import std.algorithm : map, reverse;
 import std.conv : to;
 import std.random : randomShuffle;
 import std.range : array, retro, walkLength;
@@ -110,9 +110,10 @@ class OrderAlgorithms : Algorithms
             "ReverseLines", "Order", "Reverse order of lines within input text.", [],
             (string text, string[], bool) {
                 import std.string : join, splitLines;
+                import std.ascii : newline;
                 auto lines = text.splitLines;
                 reverse(lines);
-                return lines.join(std.ascii.newline);
+                return lines.join(newline);
             }
         ));
 

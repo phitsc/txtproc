@@ -1,9 +1,10 @@
 module txtproc.lines_algorithms;
 
-import std.algorithm : filter, max, reduce;
+import std.algorithm : canFind, filter, map, max, reduce;
 import std.array : array, insertInPlace, join;
 import std.ascii : newline;
 import std.conv : text, to;
+import std.format : format;
 import std.range : retro, walkLength;
 import std.regex;
 import std.string : cmp, chomp, empty, indexOf, lastIndexOf, leftJustify, rightJustify, splitLines, CaseSensitive;

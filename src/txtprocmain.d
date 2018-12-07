@@ -1,5 +1,7 @@
 module txtprocmain;
 
+import std.array : empty;
+import std.conv : text;
 import std.getopt;
 
 import txtproc.algorithms;
@@ -61,6 +63,7 @@ string txtproc_main(string[] args)
     }
     else
     {
+        import std.regex : matchFirst, regex;
         immutable changes = import("CHANGES.txt");
         immutable vers = changes.matchFirst(regex(`v(\d+\.\d+\.\d+)`))[1];
     }
@@ -107,7 +110,8 @@ string txtproc_main(string[] args)
 
     if (modifyInputFile)
     {
-        std.stdio.File(inputFile, "w").rawWrite(outputText);
+        import std.stdio : File;
+        File(inputFile, "w").rawWrite(outputText);
         return "";
     }
     else if (toClipboard)
@@ -265,9 +269,13 @@ private string readFromFile(string path)
 
 private string getInputText(string inputFile, bool fromClipboard, string[] args)
 {
+    import std.array : array, join;
+
     if (!isatty(0))
     {
-        return std.stdio.stdin.byLineCopy.array.join(newline);
+        import std.ascii : newline;
+        import std.stdio : stdin;
+        return stdin.byLineCopy.array.join(newline);
     }
     else if (fromClipboard)
     {
@@ -291,6 +299,7 @@ private string functionList(const Algorithms algorithms, string filter)
 
     foreach (algorithm; algorithms)
     {
+        import std.algorithm : max;
         maxAlgorithmWidth = max(maxAlgorithmWidth, algorithm.name.length);
     }
 
@@ -300,9 +309,11 @@ private string functionList(const Algorithms algorithms, string filter)
     {
         if (!result.empty)
         {
-            result ~= std.ascii.newline;
+            import std.ascii : newline;
+            result ~= newline;
         }
 
+        import std.string : leftJustify;
         result ~= leftJustify(algorithm.name, maxAlgorithmWidth, ' ') ~ " - " ~ algorithm.description;
     }
 

@@ -1,5 +1,7 @@
 module txtproc.checksum_algorithms;
 
+import std.ascii : newline;
+import std.conv : text;
 import std.digest.crc : CRC32, crcHexString;
 import std.digest.md : MD5;
 import std.digest.ripemd : RIPEMD160;
